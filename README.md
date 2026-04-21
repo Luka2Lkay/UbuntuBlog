@@ -139,4 +139,15 @@ npm start
 
 ---
 
+## :ok_hand: Contribution
 
+Small team workflow:
+
+- Create branches from `develop`
+- Never push directly to `main`
+- Open pull requests into `develop`
+- Merge `develop` -> `main` for releases
+
+## :page_facing_up: License
+
+MIT
