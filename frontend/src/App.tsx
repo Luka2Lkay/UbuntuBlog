@@ -1,10 +1,10 @@
 import './App.css'
-import CreateBlog from './components/create_blog/CreateBlog'
+import Signup from './pages/Signup'
 
 function App() {
   return (
     <>
-      <CreateBlog />
+      <Signup />
     </>
   )
 }
