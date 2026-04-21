@@ -98,8 +98,11 @@ UbuntuBlog is designed for developers who:
 ## :open_file_folder: Project Structure
 
 ubuntublog/
-|-- frontend/       
-|-- backend/        
+
+|-- frontend/ 
+
+|-- backend/   
+
 |-- README.md
 
 ---
@@ -108,23 +111,31 @@ ubuntublog/
 
 1. Clone the repo
 
-```git clone https://github.com/your-username/ubuntublog.git
-cd ubuntublog```
+```
+git clone git@github.com:Luka2Lkay/UbuntuBlog.git
+cd ubuntublog
+
+```
 
 2. Install dependencies
 
-```cd backend && npm install
-cd client && npm install```
+```
+cd backend && npm install
+cd client && npm install
+```
 
 3. Run the app
 
-```# Start backend
+```
+# Start backend
 cd backend
 npm run dev
 
 # Start frontend
 cd frontend
-npm start```
+npm start
+
+```
 
 ---
 
