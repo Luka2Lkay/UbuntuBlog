@@ -1,73 +1,153 @@
-# React + TypeScript + Vite
+# :memo: UbuntuBlog
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Write once, share everywhere.
 
-Currently, two official plugins are available:
+UbuntuBlog is a multi-tenant headless blog platform built with React and Express. It allows developers to create, manage, and distribute blog content across multiple client websites from a single API.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## :rocket: Overview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+As a developer working with multiple local businesses, keeping websites updated with fresh content is a challenge—clients often lack the time or expertise to write blog posts.
 
-## Expanding the ESLint configuration
+UbuntuBlog solves this by giving you a centralized system to:
+- :pencil2: Write blog content yourself
+- :earth_africa: Distribute it across multiple websites
+- :zap: Improve SEO and engagement for your clients
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## :bulb: Key Concept
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+UbuntuBlog follows a headless CMS approach
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Admin Dashboard (React)
+
+:arrow_down:
+
+Express API
+
+:arrow_down:
+
+Client Websites (fetch & display content)
+
+
+Each client website fetches only its own content using the API.
+
+---
+
+## :star: Features
+
+- :books: Blog post creation and management
+- :earth_africa: multiple client websites
+- :paperclip: API-based content delivery
+- :hammer: Easy integration into any frontend
+- :file_folder Categories and tags
+- :date: Draft and publish system (planned)
+- :mag_right: SEO-friendly structure
+
+## :wrench: Tech Stack
+
+### Frontend
+- React
+- Axios
+
+### Backend
+- Node.js
+- Express
+
+### Database (choose one)
+- MongoDB (Mongoose)
+
+---
+
+## :electric_plug: API Usage
+
+### Get posts for a specific site
+
+
+`GET /api/posts?site=your-site-id`
+
+
+### Get a single post
+
+
+`GET /api/posts/:site/:slug`
+
+
+---
+
+## :high_brightness: Use Case
+
+UbuntuBlog is designed for developers who:
+
+- Build websites for multiple clients
+- Want to offer ongoing content services
+- Need a scalable way to manage blog content
+
+---
+
+## :balloon: Future Improvements
+
+- :sunrise: Image uploads (Cloudinary / S3)
+- :page_facing_up: Analytics (views, engagement)
+- :sparkler: Content templating (reuse posts across sites)
+
+---
+
+## :open_file_folder: Project Structure
+
+ubuntublog/
+
+|-- frontend/ 
+
+|-- backend/   
+
+|-- README.md
+
+---
+
+## :nut_and_bolt: Getting Started
+
+1. Clone the repo
+
+```
+git clone git@github.com:Luka2Lkay/UbuntuBlog.git
+cd ubuntublog
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Install dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+cd backend && npm install
+cd client && npm install
+```
+
+3. Run the app
+
+```
+# Start backend
+cd backend
+npm run dev
+
+# Start frontend
+cd frontend
+npm start
+
+```
+
+---
+
+## :ok_hand: Contribution
+
+Small team workflow:
+
+- Create branches from `develop`
+- Never push directly to `main`
+- Open pull requests into `develop`
+- Merge `develop` -> `main` for releases
+
+## :page_facing_up: License
+
+MIT
