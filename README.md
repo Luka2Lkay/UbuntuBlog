@@ -92,3 +92,40 @@ UbuntuBlog is designed for developers who:
 - :sunrise: Image uploads (Cloudinary / S3)
 - :page_facing_up: Analytics (views, engagement)
 - :sparkler: Content templating (reuse posts across sites)
+
+---
+
+## :open_file_folder: Project Structure
+
+ubuntublog/
+|-- frontend/       
+|-- backend/        
+|-- README.md
+
+---
+
+## :nut_and_bolt: Getting Started
+
+1. Clone the repo
+
+```git clone https://github.com/your-username/ubuntublog.git
+cd ubuntublog```
+
+2. Install dependencies
+
+```cd backend && npm install
+cd client && npm install```
+
+3. Run the app
+
+```# Start backend
+cd backend
+npm run dev
+
+# Start frontend
+cd frontend
+npm start```
+
+---
+
+
