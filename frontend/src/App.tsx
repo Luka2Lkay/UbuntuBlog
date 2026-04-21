@@ -1,9 +1,10 @@
 import './App.css'
+import CreateBlog from './components/create_blog/CreateBlog'
 
 function App() {
   return (
     <>
-<h1>hey</h1>
+      <CreateBlog />
     </>
   )
 }
