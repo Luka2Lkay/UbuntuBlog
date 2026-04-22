@@ -1,26 +1,12 @@
 import { SignIn } from "@clerk/react"
 
-// import { useEffect } from "react"
-// import { useNavigate } from "react-router-dom"
-// import { useAuth } from "@clerk/react"
+const redirectUrl = import.meta.env.VITE_CLERK_SIGN_IN_FORCE_REDIRECT_URL || "/dashboard"
 
 function SigninPage() {
 
-    //   const navigate = useNavigate();
-
-    // const { signOut, isSignedIn, isLoaded } = useAuth();
-
-    // useEffect(() => {
-
-    //     if (isLoaded && isSignedIn) {
-    //         signOut();
-    //     }
-    //     navigate("/sign-in");
-    // }, [])
-
   return (
     <div className="flex justify-center">
-      <SignIn path="/sign-in" routing="path" forceRedirectUrl="/dashboard" />
+      <SignIn path="/sign-in" routing="path" forceRedirectUrl={redirectUrl} />
     </div>
   )
 }

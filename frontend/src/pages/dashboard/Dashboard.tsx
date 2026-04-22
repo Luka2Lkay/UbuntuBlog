@@ -7,10 +7,8 @@ function Dashboard() {
 
     const { isLoaded, isSignedIn, userId, sessionId, getToken, signOut } = useAuth();
 
-
-
     useEffect(() => {
-        
+
         const verifyToken = async () => {
             const token = await getToken();
 
