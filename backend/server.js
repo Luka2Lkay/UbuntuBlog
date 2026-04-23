@@ -1,0 +1,41 @@
+require("dotenv").config();
+const { clerkClient, clerkMiddleware, getAuth } = require("@clerk/express");
+const express = require("express");
+const cors = require("cors");
+const app = express();
+const port = 3000;
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
+
+app.use(express.json());
+app.use(clerkMiddleware());
+
+app.get("/api/user", async (req, res) => {
+  const { isAuthenticated, userId } = getAuth(req);
+
+  if (!isAuthenticated || !userId) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  try {
+    const user = await clerkClient.users.getUser(userId);
+    res.json({ user });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch user", error: error.message });
+  }
+});
+
+app.get("/", (req, res) => {
+  res.send("Hello, World!");
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on port http://localhost:${port}`);
+});
