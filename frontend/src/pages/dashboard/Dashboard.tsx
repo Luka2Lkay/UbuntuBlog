@@ -7,8 +7,6 @@ function Dashboard() {
 
     const { isLoaded, isSignedIn, userId, sessionId, getToken, signOut } = useAuth();
 
-
-
     const fetchWithAuth = async (url: string) => {
 
         try {
@@ -28,8 +26,6 @@ function Dashboard() {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json"
                 },
-                credentials: "include",
-                mode: "cors"
             });
 
             if (!response.ok) {
