@@ -15,7 +15,11 @@ app.use(
 );
 
 app.use(express.json());
-app.use(clerkMiddleware());
+app.use(
+  clerkMiddleware({
+    publishableKey: process.env.CLERK_SECRET_KEY,
+  }),
+);
 
 app.get("/api/user", async (req, res) => {
   const { isAuthenticated, userId } = getAuth(req);
@@ -28,12 +32,14 @@ app.get("/api/user", async (req, res) => {
     const user = await clerkClient.users.getUser(userId);
     res.json({ user });
   } catch (error) {
-    res.status(500).json({ message: "Failed to fetch user", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Failed to fetch user", error: error.message });
   }
 });
 
 app.get("/", (req, res) => {
-  res.send("Hello, World!");
+  res.status(200).json({ message: "Molo!" });
 });
 
 app.listen(port, () => {

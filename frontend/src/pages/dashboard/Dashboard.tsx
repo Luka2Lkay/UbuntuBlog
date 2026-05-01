@@ -23,22 +23,28 @@ function Dashboard() {
                 throw new Error("No token found");
             }
 
-            const user = await fetch(url, {
+            const response = await fetch(url, {
                 headers: {
-                    "Authorization": `Bearer ${token}`
-                }
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                credentials: "include",
+                mode: "cors"
             });
 
-            if (!user.ok) {
-                throw new Error("Failed to fetch user data");
+            if (!response.ok) {
+                const text = await response.text();
+                throw new Error(`Error ${response.status}: ${text}`);
+
             }
 
-            const data = await user.json();
+            const data = await response.json();
 
+            console.log("Fetched user data:", data);
             return data;
         } catch (error) {
             console.error("Error fetching user data:", error);
-            // throw new Error("Failed to fetch user data");
+            throw new Error("Failed to fetch user data");
         }
     }
 
@@ -51,26 +57,21 @@ function Dashboard() {
             return;
         }
 
-        let isMounted = true;
-
         const loadUserData = async () => {
 
             try {
 
                 const data = await fetchWithAuth("http://localhost:3000/api/user");
 
-                if (!isMounted) return;
-
-                console.log("User data..:", data);
                 return data;
             } catch (error) {
                 console.error("Error loading user data:", error);
-                navigate("/sign-in");
             }
         }
 
         loadUserData();
-    }, [isLoaded, isSignedIn, getToken, navigate]);
+
+    }, [isLoaded, isSignedIn, navigate]);
 
     const logout = () => {
         signOut();
@@ -83,7 +84,12 @@ function Dashboard() {
                 isLoaded && isSignedIn ? (
                     <div>
                         <h1> Hello, {userId}! Your current active session is {sessionId}.</h1>
-                        <button onClick={logout}>Sign Out</button>
+
+                        <div className="flex flex-col gap-4 mt-4">
+                            <button className="text-green-500" onClick={() => fetchWithAuth("http://localhost:3000/api/user")}>Fetch User Data</button>
+                            <button onClick={logout}>Sign Out</button>
+                        </div>
+
                     </div>
                 ) : (!isLoaded && !isSignedIn) ? (
                     <div>
