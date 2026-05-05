@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useContext } from "react";
 
 type ReactNode = React.ReactNode;
 type SiteContextType = {
@@ -19,4 +19,14 @@ export function SiteProvider({ children }: SiteProviderProps) {
             {children}
         </SiteContext.Provider>
     )
+}
+
+export function useSiteContext() {
+    const context = useContext(SiteContext);
+
+    if (!context) {
+        throw new Error("useSiteContext must be used within a SiteProvider");
+    }
+
+    return context;
 }

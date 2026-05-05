@@ -1,10 +1,9 @@
-
-import { useContext } from "react";
-import { SiteContext } from "../../context/SiteContext"
+import { useSiteContext } from "../../context/SiteContext"
 import { Link, useLocation } from "react-router-dom"
 
 function Header() {
-    const { site } = useContext(SiteContext);
+
+    const {site} = useSiteContext();
     const location = useLocation();
 
     const getTitle = () => {
