@@ -14,7 +14,7 @@ function Dashboard() {
             if (!isLoaded || !isSignedIn) {
                 throw new Error("Auth not ready");
             }
-            // Ensure you have a template named "backend" in your Clerk dashboard for this to work
+
             const token = await getToken({ template: "backend" });
 
             if (!token) {
@@ -36,7 +36,6 @@ function Dashboard() {
 
             const data = await response.json();
 
-            console.log("Fetched user data:", data);
             return data;
         } catch (error) {
             console.error("Error fetching user data:", error);
