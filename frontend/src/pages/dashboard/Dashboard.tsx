@@ -2,8 +2,9 @@ import { useAuth } from "@clerk/react"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { fetchWithAuth } from "../../services/api"
+import Header from "../../components/header/Header"
 
-const base_url = import.meta.env.BASE_URL || "http://localhost:3000";
+const base_url = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -42,13 +43,14 @@ function Dashboard() {
 
     return (
         <>
+            <Header />
             {
                 isLoaded && isSignedIn ? (
                     <div>
                         <h1> Hello, {userId}! Your current active session is {sessionId}.</h1>
 
                         <div className="flex flex-col gap-4 mt-4">
-                            <button className="text-green-500" onClick={() => fetchWithAuth("http://localhost:3000/api/user", getToken)}>Fetch User Data</button>
+                            <button className="text-green-500" onClick={() => fetchWithAuth(`${base_url}/api/user`, getToken)}>Fetch User Data</button>
                             <button onClick={logout}>Sign Out</button>
                         </div>
 
