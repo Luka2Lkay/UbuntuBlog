@@ -1,6 +1,9 @@
 import { useAuth } from "@clerk/react"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import axios from "axios";
+
+const base_url = import.meta.env.BASE_URL || "http://localhost:3000";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -21,21 +24,16 @@ function Dashboard() {
                 throw new Error("No token found");
             }
 
-            const response = await fetch(url, {
+            const response = await axios.get(url, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json"
                 },
             });
 
-            if (!response.ok) {
-                const text = await response.text();
-                throw new Error(`Error ${response.status}: ${text}`);
+            const data = response.data;
 
-            }
-
-            const data = await response.json();
-
+            console.log("Fetched user data:", data);
             return data;
         } catch (error) {
             console.error("Error fetching user data:", error);
@@ -55,9 +53,7 @@ function Dashboard() {
         const loadUserData = async () => {
 
             try {
-
-                const data = await fetchWithAuth("http://localhost:3000/api/user");
-
+                const data = await fetchWithAuth(`${base_url}/api/user`);
                 return data;
             } catch (error) {
                 console.error("Error loading user data:", error);
