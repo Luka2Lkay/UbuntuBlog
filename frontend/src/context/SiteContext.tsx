@@ -14,8 +14,6 @@ export const SiteContext = createContext<SiteContextType | undefined>(undefined)
 export function SiteProvider({ children }: SiteProviderProps) {
     const [site, setSite] = useState("Home of Commerce");
 
-
-
     return (
         <SiteContext.Provider value={{ site, setSite }}>
             {children}

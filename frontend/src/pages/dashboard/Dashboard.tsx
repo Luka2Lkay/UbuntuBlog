@@ -1,5 +1,5 @@
 import { useAuth } from "@clerk/react"
-import { useEffect } from "react"
+import { useEffect,} from "react"
 import { useNavigate } from "react-router-dom"
 import { fetchWithAuth } from "../../services/api"
 import Header from "../../components/header/Header"
@@ -9,9 +9,8 @@ const base_url = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
 function Dashboard() {
     const navigate = useNavigate();
 
+
     const { isLoaded, isSignedIn, userId, sessionId, getToken, signOut } = useAuth();
-
-
 
     useEffect(() => {
 
