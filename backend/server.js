@@ -39,7 +39,7 @@ app.get("/api/user", async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.status(200).json({ message: "Molo!" });
+  res.status(200).json({ message: "UbuntuBlog's Server is running!" });
 });
 
 app.listen(port, () => {
