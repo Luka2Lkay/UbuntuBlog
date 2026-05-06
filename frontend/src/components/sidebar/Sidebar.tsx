@@ -1,6 +1,7 @@
 import { useSiteContext } from "../../context/SiteContext"
 import { useState } from "react"
 import { NavLink } from "react-router-dom";
+//import { LayoutDashboard } from "lucide-react";
 
 type Site = string;
 
@@ -33,7 +34,7 @@ function Sidebar() {
                 </NavLink>
 
                 <NavLink to="/create-post" className={({ isActive }) => `block px-3 py-2 rounded-md text-sm ${isActive ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}>
-                    Create Post
+                    New Post
                 </NavLink>
             </nav>
 
