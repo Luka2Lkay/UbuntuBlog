@@ -37,21 +37,23 @@ function Dashboard() {
     }, [isLoaded, isSignedIn, navigate]);
 
     return (
-        <div className="h-screen flex bg-gray-100">
+        // <div className="h-screen flex bg-gray-100">
 
-            <Sidebar />
+        //     <Sidebar />
 
-            <div className="flex flex-1 flex-col">
-                <header className="bg-white border-b shadow-sm">
-                    <Header />
-                </header>
+        //     <div className="flex flex-1 flex-col">
+        //         <header className="bg-white border-b shadow-sm">
+        //             <Header />
+        //         </header>
 
-                <main className="flex-1 p-6">
-                    <Outlet />
-                </main>
-            </div>
+        //         <main className="flex-1 p-6">
+        //             <Outlet />
+        //         </main>
+        //     </div>
 
-        </div>
+        // </div>
+
+        <div>Hello world</div>
     )
 }
 
