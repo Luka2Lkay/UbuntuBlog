@@ -1,7 +1,7 @@
 import { useSiteContext } from "../../context/SiteContext"
 import { useState } from "react"
 import { NavLink } from "react-router-dom";
-//import { LayoutDashboard } from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
 
 type Site = string;
 
@@ -25,15 +25,16 @@ function Sidebar() {
             </div>
 
             <nav className="flex-1 flex-col gap-1 px-2 py-4">
-                <NavLink to="/dashboard" className={({ isActive }) => `block px-3 py-2 rounded-md text-sm ${isActive ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}>
+                <NavLink to="/dashboard" className={({ isActive }) => navClass(isActive)}>
+                    <LayoutDashboard size={18} />
                     Dashboard
                 </NavLink>
 
-                <NavLink to="/posts" className={({ isActive }) => `block px-3 py-2 rounded-md text-sm ${isActive ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}>
+                <NavLink to="/posts" className={({ isActive }) => navClass(isActive)}>
                     Posts
                 </NavLink>
 
-                <NavLink to="/create-post" className={({ isActive }) => `block px-3 py-2 rounded-md text-sm ${isActive ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}>
+                <NavLink to="/create-post" className={({ isActive }) => navClass(isActive)}>
                     New Post
                 </NavLink>
             </nav>
@@ -61,6 +62,10 @@ function Sidebar() {
             </div>
         </aside>
     )
+}
+
+function navClass(isActive: boolean) {
+    return `flex items-center gap-3 px-3 py-2 rounded-md text-sm transition ${isActive ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`
 }
 
 export default Sidebar
