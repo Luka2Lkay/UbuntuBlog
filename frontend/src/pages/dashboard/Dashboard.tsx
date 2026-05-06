@@ -1,4 +1,4 @@
-import { useAuth, useUser } from "@clerk/react"
+import { useAuth} from "@clerk/react"
 import { useEffect, } from "react"
 import { useNavigate, Outlet } from "react-router-dom"
 import { fetchWithAuth } from "../../services/api"
@@ -34,8 +34,6 @@ function Dashboard() {
         loadUserData();
 
     }, [isLoaded, isSignedIn, navigate]);
-
-
 
     return (
         <div className="h-screen flex bg-gray-100">
