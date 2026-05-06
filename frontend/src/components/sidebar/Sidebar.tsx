@@ -1,7 +1,7 @@
 import { useSiteContext } from "../../context/SiteContext"
 import { useState } from "react"
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, FileText, PlusSquare } from "lucide-react";
+import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft } from "lucide-react";
 
 type Site = string;
 
@@ -20,7 +20,7 @@ function Sidebar() {
                 {!collapsed && (<h1 className="text-lg font-semibold">UbuntuBlog</h1>)}
 
                 <button className="text-sm text-gray-400 hover:text-white" onClick={() => setCollapsed(!collapsed)}>
-                    {collapsed ? "Expand" : "Collapse"}
+                    {collapsed ? <MoveRight /> : <MoveLeft />}
                 </button>
             </div>
 
