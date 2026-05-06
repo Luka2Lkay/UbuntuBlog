@@ -27,17 +27,18 @@ function Sidebar() {
             <nav className="flex-1 flex-col gap-1 px-2 py-4">
                 <NavLink to="/dashboard" className={({ isActive }) => navClass(isActive)}>
                     <LayoutDashboard size={18} />
-                    Dashboard
+                    <span className={`${collapsed ? 'hidden' : ''}`}>Dashboard</span>
                 </NavLink>
 
                 <NavLink to="/posts" className={({ isActive }) => navClass(isActive)}>
                     <FileText size={18} />
-                    Posts
+                    <span className={`${collapsed ? 'hidden' : ''}`}>Posts</span>
+
                 </NavLink>
 
                 <NavLink to="/create-post" className={({ isActive }) => navClass(isActive)}>
                     <PlusSquare size={18} />
-                    New Post
+                    <span className={`${collapsed ? 'hidden' : ''}`}>New Post</span>
                 </NavLink>
             </nav>
 
