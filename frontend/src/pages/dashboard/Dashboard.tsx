@@ -2,15 +2,13 @@ import { useAuth } from "@clerk/react"
 import { useEffect, } from "react"
 import { useNavigate, Outlet } from "react-router-dom"
 import { fetchWithAuth } from "../../services/api"
-import Header from "../../components/header/Header"
-import Sidebar from "../../components/sidebar/Sidebar"
+import { useSiteContext } from "../../context/SiteContext"
 
 const base_url = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
 
 function Dashboard() {
     const navigate = useNavigate();
-
-
+    const { site } = useSiteContext();
     const { isLoaded, isSignedIn, getToken } = useAuth();
 
     useEffect(() => {
@@ -37,23 +35,16 @@ function Dashboard() {
     }, [isLoaded, isSignedIn, navigate]);
 
     return (
-        // <div className="h-screen flex bg-gray-100">
+        <div className="space-y-6">
+            <div>
+                <h1 className="text-2xl font-semibold text-gray-800">Dashboard</h1>
+                <p className="text-sm text-gray-500">Managing content for <span className="font-medium">{site}</span></p>
+            </div>
 
-        //     <Sidebar />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-        //     <div className="flex flex-1 flex-col">
-        //         <header className="bg-white border-b shadow-sm">
-        //             <Header />
-        //         </header>
-
-        //         <main className="flex-1 p-6">
-        //             <Outlet />
-        //         </main>
-        //     </div>
-
-        // </div>
-
-        <div>Hello world</div>
+            </div>
+        </div>
     )
 }
 
