@@ -1,7 +1,7 @@
 import { useSiteContext } from "../../context/SiteContext"
 import { useState } from "react"
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard } from "lucide-react";
+import { LayoutDashboard, FileText, PlusSquare } from "lucide-react";
 
 type Site = string;
 
@@ -31,10 +31,12 @@ function Sidebar() {
                 </NavLink>
 
                 <NavLink to="/posts" className={({ isActive }) => navClass(isActive)}>
+                    <FileText size={18} />
                     Posts
                 </NavLink>
 
                 <NavLink to="/create-post" className={({ isActive }) => navClass(isActive)}>
+                    <PlusSquare size={18} />
                     New Post
                 </NavLink>
             </nav>
