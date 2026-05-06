@@ -2,7 +2,7 @@ import { useSiteContext } from "../../context/SiteContext"
 import { Link, useLocation } from "react-router-dom"
 import { useAuth } from "@clerk/react"
 import { useNavigate } from "react-router-dom"
-import {LogOut} from "lucide-react"
+import { LogOut } from "lucide-react"
 
 function Header() {
 
@@ -46,7 +46,7 @@ function Header() {
                 </Link>
 
                 <button className="text-gray-600 hover:text-red-500 transition cursor-pointer" onClick={logout}>
-                    <LogOut/>
+                    <LogOut />
                 </button>
             </div>
         </div>
