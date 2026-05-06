@@ -17,14 +17,14 @@ app.use(
 app.use(express.json());
 app.use(
   clerkMiddleware({
-    publishableKey: process.env.CLERK_SECRET_KEY,
+    secretKey: process.env.CLERK_SECRET_KEY,
   }),
 );
 
 app.get("/api/user", async (req, res) => {
-  const { isAuthenticated, userId } = getAuth(req);
+  const { userId } = getAuth(req);
 
-  if (!isAuthenticated || !userId) {
+  if (!userId) {
     return res.status(401).json({ message: "Unauthorized" });
   }
 
@@ -39,7 +39,7 @@ app.get("/api/user", async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.status(200).json({ message: "Molo!" });
+  res.status(200).json({ message: "UbuntuBlog's Server is running!" });
 });
 
 app.listen(port, () => {
