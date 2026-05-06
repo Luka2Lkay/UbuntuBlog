@@ -1,6 +1,6 @@
-import { useAuth } from "@clerk/react"
-import { useEffect,} from "react"
-import { useNavigate } from "react-router-dom"
+import { useAuth, useUser } from "@clerk/react"
+import { useEffect, } from "react"
+import { useNavigate, Outlet } from "react-router-dom"
 import { fetchWithAuth } from "../../services/api"
 import Header from "../../components/header/Header"
 
@@ -10,7 +10,7 @@ function Dashboard() {
     const navigate = useNavigate();
 
 
-    const { isLoaded, isSignedIn, userId, sessionId, getToken, signOut } = useAuth();
+    const { isLoaded, isSignedIn, getToken } = useAuth();
 
     useEffect(() => {
 
@@ -35,32 +35,25 @@ function Dashboard() {
 
     }, [isLoaded, isSignedIn, navigate]);
 
-    const logout = () => {
-        signOut();
-        navigate("/sign-in");
-    }
+
 
     return (
-        <>
-            <Header />
-            {
-                isLoaded && isSignedIn ? (
-                    <div>
-                        <h1> Hello, {userId}! Your current active session is {sessionId}.</h1>
+        <div className="h-screen flex bg-gray-100">
+            <aside className="w-64 bg-gray-900 text-white hidden md:block">
 
-                        <div className="flex flex-col gap-4 mt-4">
-                            <button className="text-green-500" onClick={() => fetchWithAuth(`${base_url}/api/user`, getToken)}>Fetch User Data</button>
-                            <button onClick={logout}>Sign Out</button>
-                        </div>
+            </aside>
 
-                    </div>
-                ) : (!isLoaded && !isSignedIn) ? (
-                    <div>
-                        <h1>Loading...</h1>
-                    </div>
-                ) : (<h1>You must be signed in to view this page.</h1>)
-            }
-        </>
+            <div className="flex flex-1 flex-col">
+                <header className="bg-white border-b shadow-sm">
+                    <Header />
+                </header>
+
+                <main className="flex-1 p-6">
+                    <Outlet />
+                </main>
+            </div>
+
+        </div>
     )
 }
 

@@ -1,10 +1,14 @@
 import { useSiteContext } from "../../context/SiteContext"
 import { Link, useLocation } from "react-router-dom"
+import { useAuth } from "@clerk/react"
+import { useNavigate } from "react-router-dom"
 
 function Header() {
 
-    const {site} = useSiteContext();
+    const { site } = useSiteContext();
     const location = useLocation();
+    const navigate = useNavigate();
+    const { signOut } = useAuth();
 
     const getTitle = () => {
 
@@ -16,6 +20,11 @@ function Header() {
             default:
                 return "Dashboard";
         }
+    }
+
+    const logout = () => {
+        signOut();
+        navigate("/sign-in");
     }
 
     return (
@@ -35,8 +44,10 @@ function Header() {
                     + Create Post
                 </Link>
 
+                <button className="text-gray-600 hover:text-red-500 transition cursor-pointer" onClick={logout}>
+                    Logout
+                </button>
             </div>
-
         </div>
     )
 }
