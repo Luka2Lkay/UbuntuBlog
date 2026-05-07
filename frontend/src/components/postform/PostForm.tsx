@@ -76,6 +76,20 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
         ))
     }
 
+    const handleSeoChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+
+        setFormData((prev) => (
+            {
+                ...prev,
+                seo: {
+                    ...prev.seo,
+                    [name]: value
+                }
+            }
+        ))
+    }
+
     return (
         <div>PostForm</div>
     )
