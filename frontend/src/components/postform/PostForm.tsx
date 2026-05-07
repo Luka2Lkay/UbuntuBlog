@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import slugify from "slugify";
 import { useSiteContext } from "../../context/SiteContext";
 import Tiptap from "../tiptap/Tiptap";
@@ -16,7 +16,7 @@ type PostFormData = {
         metaTitle: string;
         metaDescription: string;
         keywords: string[]
-    }
+    },
 }
 
 type Props = {
@@ -25,7 +25,28 @@ type Props = {
     loading: boolean;
 }
 
-function PostForm() {
+function PostForm({ initialData, onSubmit, loading = false }: Props) {
+    const { site } = useSiteContext();
+
+    const [tagInput, setTagInput] = useState("");
+    const [keywordInput, setKeywordInput] = useState("");
+
+    const [formData, setFormData] = useState<PostFormData>({
+        title: initialData?.title || "",
+        slug: initialData?.slug || "",
+        exerpt: initialData?.exerpt || "",
+        content: initialData?.content || "",
+        featuredImage: initialData?.featuredImage || "",
+        category: initialData?.category || "",
+        tags: initialData?.tags || [""],
+        published: initialData?.published || false,
+        seo: {
+            metaTitle: initialData?.seo?.metaTitle || "",
+            metaDescription: initialData?.seo?.metaDescription || "",
+            keywords: initialData?.seo?.keywords || [""]
+        },
+    })
+
     return (
         <div>PostForm</div>
     )
