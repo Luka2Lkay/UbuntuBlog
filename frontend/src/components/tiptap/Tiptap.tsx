@@ -56,7 +56,7 @@ function Tiptap({ content, onChange }: Props) {
 
 
     return (
-        <div>Tiptap</div>
+        <div className="border border-gray-300 rounded-xl overflow-hidden bg-white">Tiptap</div>
     )
 }
 
