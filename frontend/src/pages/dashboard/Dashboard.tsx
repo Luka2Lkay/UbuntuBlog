@@ -6,7 +6,7 @@ import { useSiteContext } from "../../context/SiteContext"
 import StatisticsCard from "../../components/statistics_card/StatisticsCard"
 import { Link } from "react-router-dom"
 
-const base_url = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
+const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -25,7 +25,7 @@ function Dashboard() {
         const loadUserData = async () => {
 
             try {
-                const data = await fetchWithAuth(`${base_url}/api/user`, getToken);
+                const data = await fetchWithAuth(`${BASE_URL}/api/user`, getToken);
                 return data;
             } catch (error) {
                 console.error("Error loading user data:", error);
@@ -64,7 +64,7 @@ function Dashboard() {
                     <h2 className="text-sm font-medium text-gray-700">Recent Posts</h2>
                 </div>
 
-                
+
             </div>
         </div>
     )

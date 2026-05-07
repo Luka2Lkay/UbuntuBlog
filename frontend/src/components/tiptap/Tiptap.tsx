@@ -10,6 +10,8 @@ type Props = {
     onChange: (value: string) => void;
 }
 
+const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
+
 function Tiptap({ content, onChange }: Props) {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -25,6 +27,34 @@ function Tiptap({ content, onChange }: Props) {
             onChange(editor.getHTML())
         }
     })
+
+    if (!editor) return null
+
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        const file = e.target.files?.[0];
+
+        if (!file) throw new Error("No file selected!");
+
+        try {
+
+            const formData = new FormData();
+            formData.append("image", file);
+
+            const response = await axios.post(`${BASE_URL}/api/upload`, formData);
+
+            const imageUrl = response.data.url;
+
+            editor?.chain().focus().setImage({ src: imageUrl }).run();
+
+        } catch (error) {
+            console.error("Image upload failed", error);
+        }
+    }
+
+
+
+
     return (
         <div>Tiptap</div>
     )
