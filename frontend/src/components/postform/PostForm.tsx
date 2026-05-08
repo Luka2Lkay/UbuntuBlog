@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import slugify from "slugify";
 import { useSiteContext } from "../../context/SiteContext";
+import axios from "axios"
 import Tiptap from "../tiptap/Tiptap";
 
 type PostFormData = {
@@ -24,6 +25,8 @@ type Props = {
     onSubmit: (data: PostFormData) => void;
     loading: boolean;
 }
+
+const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000"
 
 function PostForm({ initialData, onSubmit, loading = false }: Props) {
     const { site } = useSiteContext();
@@ -88,6 +91,31 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
                 }
             }
         ))
+    }
+
+    const handleFeaturedImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        const file = e.target.files?.[0];
+
+        if (!file) return;
+
+        try {
+            const formData = new FormData();
+
+            formData.append("image", file);
+
+            const response = await axios.post(`${BASE_URL}`, formData);
+
+            const imageUrl = response.data.url;
+
+            setFormData(prev => ({
+                ...prev,
+                featuredImage: imageUrl
+            }))
+
+        } catch (error) {
+            console.error("Failed to upload featured image", error)
+        }
     }
 
     return (
