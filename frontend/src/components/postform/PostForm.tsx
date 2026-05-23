@@ -118,6 +118,16 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
         }
     }
 
+    const addTag = () => {
+
+        if (!tagInput.trim()) return;
+
+        setFormData(prev => ({
+            ...prev,
+            tags: [...prev.tags, tagInput.trim()]
+        }))
+    }
+
     return (
         <div>PostForm</div>
     )
