@@ -21,7 +21,7 @@ type PostFormData = {
 }
 
 type Props = {
-    initialData: Partial<PostFormData>;
+    initialData?: Partial<PostFormData>;
     onSubmit: (data: PostFormData) => void;
     loading: boolean;
 }
@@ -150,7 +150,14 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
     }
 
     return (
-        <div>PostForm</div>
+        <form onSubmit={handleSubmit} className="space-y-6">
+
+            <div className="bg-white border rounded-xl p-6 space-y-5">
+                <div>
+                    <h2 className="text-xl font-semibold">Blog Post</h2>
+                </div>
+            </div>
+        </form>
     )
 }
 
