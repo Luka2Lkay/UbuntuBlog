@@ -143,6 +143,11 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
         setKeywordInput("");
     }
 
+    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        onSubmit(formData);
+    }
 
     return (
         <div>PostForm</div>
