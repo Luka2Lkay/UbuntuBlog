@@ -128,6 +128,22 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
         }))
     }
 
+    const addKeyword = () => {
+
+        if (!keywordInput.trim()) return;
+
+        setFormData(prev => ({
+            ...prev,
+            seo: {
+                ...prev.seo,
+                keywords: [...prev.seo.keywords, keywordInput.toLowerCase().trim()]
+            }
+        }))
+
+        setKeywordInput("");
+    }
+
+
     return (
         <div>PostForm</div>
     )
