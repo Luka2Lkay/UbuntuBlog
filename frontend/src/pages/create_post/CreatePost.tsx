@@ -45,7 +45,7 @@ function CreatePost() {
         }
     }
     return (
-        <div className="max-w-5xl mx-auto">
+        <div className="min-h-screen max-w-5xl mx-auto">
             <PostForm onSubmit={handleCreatePost} loading={loading} />
         </div>
     )

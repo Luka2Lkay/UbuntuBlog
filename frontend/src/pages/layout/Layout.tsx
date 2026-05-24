@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom"
 
 function Layout() {
     return (
-        <div className="h-screen flex bg-gray-100">
+        <div className="min-h-screen flex bg-gray-100">
 
             <Sidebar />
 
