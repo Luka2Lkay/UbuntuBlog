@@ -208,6 +208,12 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
                 </div>
 
                 <div>
+                    <label className="block text-left text-sm font-medium mb-2">Featured Image</label>
+                    <input type="file" accept="image/*" onChange={handleFeaturedImageUpload} className="w-full cursor-pointer" />
+                    {formData.featuredImage && (<img src={formData.featuredImage} alt="Featured" className="mt-4 max-h-60 object-cover rounded-lg" />)}
+                </div>
+
+                <div>
 
                 </div>
             </div>
