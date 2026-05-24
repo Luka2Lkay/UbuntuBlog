@@ -7,7 +7,7 @@ type PostPayload = {
     site: string;
     title: string;
     slug: string;
-    exerpt: string;
+    excerpt: string;
     content: string;
     featuredImage: string;
     category: string;

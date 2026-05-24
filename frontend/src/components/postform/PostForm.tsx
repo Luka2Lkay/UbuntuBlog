@@ -7,7 +7,7 @@ import Tiptap from "../tiptap/Tiptap";
 type PostFormData = {
     title: string;
     slug: string;
-    exerpt: string;
+    excerpt: string;
     content: string;
     featuredImage: string;
     category: string;
@@ -37,7 +37,7 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
     const [formData, setFormData] = useState<PostFormData>({
         title: initialData?.title || "",
         slug: initialData?.slug || "",
-        exerpt: initialData?.exerpt || "",
+        excerpt: initialData?.excerpt || "",
         content: initialData?.content || "",
         featuredImage: initialData?.featuredImage || "",
         category: initialData?.category || "",
@@ -155,6 +155,27 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
             <div className="bg-white border rounded-xl p-6 space-y-5">
                 <div>
                     <h2 className="text-xl font-semibold">Blog Post</h2>
+                    <p className="text-sm text-gray-500">Publishing for {" "} <span className="font-medium">{site}</span></p>
+                </div>
+
+                <div>
+                    <label className="block text-left text-sm font-medium mb-2">Title</label>
+                    <input type="text" name="title" value={formData.title} onChange={handleChange} placeholder="Enter title..." className="w-full border rounded-lg px-4 py-3" required />
+                </div>
+
+                <div>
+                    <label className="block text-left text-sm font-medium mb-2">Slug</label>
+                    <input type="text" name="slug" value={formData.slug} onChange={handleChange} className="w-full border rounded-lg px-4 py-3 bg-gray-50" />
+                </div>
+
+                <div>
+                    <label className="block text-left text-sm font-medium mb-2">Excerpt</label>
+                    <textarea name="exerpt" value={formData.excerpt} onChange={handleChange} placeholder="Short blog summary..." className="w-full border rounded-lg px-4 py-3" rows={4} maxLength={300} required/>
+                </div>
+
+                <div>
+                    <label className="block text-left text-sm font-medium mb-2">Category</label>
+                    <input type="text" name="category" value={formData.category} onChange={handleChange} placeholder="e.g., Technology" className="w-full border rounded-lg px-4 py-3" />
                 </div>
             </div>
         </form>
