@@ -153,6 +153,19 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
         setKeywordInput("");
     }
 
+    const removeKeyword = (name: string) => {
+
+        setFormData(prev => (
+            {
+                ...prev,
+                seo: {
+                    ...prev.seo,
+                    keywords: prev.seo.keywords.filter(keyword => keyword !== name)
+                }
+            }
+        ))
+    }
+
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -197,8 +210,8 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
 
                     <div className="mt-3 flex flex-wrap gap-2">
                         {formData.tags.length > 0 && (formData.tags.slice(1).map((tag, index) => (
-                            <button key={index} className="bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm" onClick={() => removeTag(tag)}>
-                                {tag} <span className="ml-1 text-gray-500 cursor-pointer" onClick={(e) => {
+                            <button key={index} className="bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm mt-1" onClick={() => removeTag(tag)}>
+                                {tag.toLowerCase()} <span className="ml-1 text-gray-500 cursor-pointer" onClick={(e) => {
                                     e.stopPropagation();
                                     removeTag(tag);
                                 }}>&times;</span>
@@ -218,9 +231,51 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
                     <Tiptap content={formData.content} onChange={(content) => setFormData(prev => ({ ...prev, content }))} />
                 </div>
 
-                <div>
+                <div className="bg-white border rounded-xl p-6 space-y-5">
+                    <h2 className="text-lg font-semibold">SEO Settings</h2>
 
+                    <div>
+                        <label className="block text-left text-sm font-medium mb-2">Meta Title</label>
+                        <input type="text" name="metaTitle" value={formData.seo.metaTitle} onChange={handleSeoChange} placeholder="SEO meta title..." className="w-full border rounded-lg px-4 py-3" />
+                    </div>
+
+                    <div>
+                        <label className="block text-left text-sm font-medium mb-2">Meta Description</label>
+                        <textarea name="metaDescription" value={formData.seo.metaDescription} onChange={handleSeoChange} placeholder="SEO meta description..." className="w-full border rounded-lg px-4 py-3" rows={3} maxLength={160} />
+                    </div>
+
+                    <div>
+                        <label className="block text-left text-sm font-medium mb-2">SEO Keywords</label>
+                        <div className="flex gap-2">
+                            <input type="text" value={keywordInput} onChange={(e) => setKeywordInput(e.target.value)} placeholder="Enter keyword and press Add" className="flex-1 border rounded-lg px-4 py-3" />
+                            <button type="button" onClick={addKeyword} className="px-4 bg-gray-900 text-white rounded-lg cursor-pointer">Add Keyword</button>
+                        </div>
+
+                        {
+                            formData.seo.keywords.length > 0 && (formData.seo.keywords.slice(1).map((keyword, index) => (
+                                <button type="button" key={index} className="bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm mt-1" onClick={() => removeKeyword(keyword)}>
+                                    {keyword.toLowerCase()} <span className="ml-1 text-gray-500 cursor-pointer hover:text-red-500" onClick={(e) => {
+                                        e.stopPropagation();
+                                        removeKeyword(keyword);
+                                    }}>&times;</span>
+                                </button>
+                            )))
+                        }
+                    </div>
                 </div>
+            </div>
+
+            <div className="bg-white border rounded-xl p-6">
+                <div className="flex items-center gap-3">
+                    <input type="checkbox" name="published" checked={formData.published} onChange={handleChange} />
+                    <label className="text-sm">Publish immediately</label>
+                </div>
+
+                <button type="submit" disabled={loading} className="mt-4 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-black disabled:bg-gray-400 transition">
+                    {
+                        loading ? "Saving..." : formData.published ? "Publish Post" : "Save Draft"
+                    }
+                </button>
             </div>
         </form>
     )

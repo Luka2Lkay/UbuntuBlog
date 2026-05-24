@@ -13,6 +13,7 @@
     "@clerk/react": "^6.4.2",
     "@tailwindcss/vite": "^4.2.4",
     "@tiptap/extension-image": "^3.22.5",
+    "@tiptap/extension-list": "^3.23.6",
     "@tiptap/extension-placeholder": "^3.22.5",
     "@tiptap/extension-text-align": "^3.23.6",
     "@tiptap/react": "^3.22.5",
