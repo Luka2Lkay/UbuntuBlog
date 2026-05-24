@@ -214,6 +214,11 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
                 </div>
 
                 <div>
+                    <label className="block text-left text-sm font-medium mb-2">Content</label>
+                    <Tiptap content={formData.content} onChange={(content) => setFormData(prev => ({ ...prev, content }))} />
+                </div>
+
+                <div>
 
                 </div>
             </div>
