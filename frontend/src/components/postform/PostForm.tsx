@@ -126,6 +126,16 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
             ...prev,
             tags: [...prev.tags, tagInput.trim()]
         }))
+
+        setTagInput("");
+    }
+
+    const removeTag = (name: string) => {
+
+        setFormData(prev => ({
+            ...prev,
+            tags: prev.tags.filter(tag => tag !== name)
+        }))
     }
 
     const addKeyword = () => {
@@ -170,12 +180,35 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
 
                 <div>
                     <label className="block text-left text-sm font-medium mb-2">Excerpt</label>
-                    <textarea name="exerpt" value={formData.excerpt} onChange={handleChange} placeholder="Short blog summary..." className="w-full border rounded-lg px-4 py-3" rows={4} maxLength={300} required/>
+                    <textarea name="excerpt" value={formData.excerpt} onChange={handleChange} placeholder="Short blog summary..." className="w-full border rounded-lg px-4 py-3" rows={4} maxLength={300} required />
                 </div>
 
                 <div>
                     <label className="block text-left text-sm font-medium mb-2">Category</label>
                     <input type="text" name="category" value={formData.category} onChange={handleChange} placeholder="e.g., Technology" className="w-full border rounded-lg px-4 py-3" />
+                </div>
+
+                <div>
+                    <label className="block text-left text-sm font-medium mb-2">Tags</label>
+                    <div className="flex gap-2">
+                        <input type="text" value={tagInput} onChange={(e) => setTagInput(e.target.value)} placeholder="Enter tag and press Add" className="flex-1 border rounded-lg px-4 py-3" />
+                        <button type="button" onClick={addTag} className="px-4 bg-gray-900 text-white rounded-lg cursor-pointer">Add Tag</button>
+                    </div>
+
+                    <div className="mt-3 flex flex-wrap gap-2">
+                        {formData.tags.length > 0 && (formData.tags.slice(1).map((tag, index) => (
+                            <button key={index} className="bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm" onClick={() => removeTag(tag)}>
+                                {tag} <span className="ml-1 text-gray-500 cursor-pointer" onClick={(e) => {
+                                    e.stopPropagation();
+                                    removeTag(tag);
+                                }}>&times;</span>
+                            </button>
+                        )))}
+                    </div>
+                </div>
+
+                <div>
+
                 </div>
             </div>
         </form>
