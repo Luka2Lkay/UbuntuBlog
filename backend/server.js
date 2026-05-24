@@ -1,9 +1,12 @@
+require("node:dns/promises").setServers(["1.1.1.1", "8.8.8.8"]);
 require("dotenv").config();
 const { clerkClient, clerkMiddleware, getAuth } = require("@clerk/express");
+const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 const app = express();
 const port = 3000;
+const { db } = require("./src/config/db_config");
 
 app.use(
   cors({
@@ -20,6 +23,21 @@ app.use(
     secretKey: process.env.CLERK_SECRET_KEY,
   }),
 );
+
+mongoose
+  .connect(db.connectionString)
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.error("Failed to connect to MongoDB", err);
+  });
+
+process.on("SIGINT", async () => {
+  await mongoose.disconnect();
+  console.log("MongoDB connection closed due to app termination");
+  process.exit(0);
+});
 
 app.get("/api/user", async (req, res) => {
   const { userId } = getAuth(req);
