@@ -15,8 +15,8 @@ jobs:
           echo "Source branch: ${{ github.head_ref }}"
 
           if [[ "${{ github.head_ref }}" != "develop" ]]; then
-            echo "❌ Only 'develop' branch can be merged into 'main'"
+            echo ":x: Only 'develop' branch can be merged into 'main'"
             exit 1
           fi
 
-          echo "✅ Valid PR from develop"
+          echo ":white_check_mark: Valid PR from develop"
