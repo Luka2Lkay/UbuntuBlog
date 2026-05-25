@@ -193,18 +193,18 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
 
                 <div>
                     <label className="block text-left text-sm font-medium mb-2">Excerpt</label>
-                    <textarea name="excerpt" value={formData.excerpt} onChange={handleChange} placeholder="Short blog summary..." className="w-full border rounded-lg px-4 py-3" rows={4} maxLength={300} required />
+                    <textarea name="excerpt" value={formData.excerpt} onChange={handleChange} placeholder="Short blog summary..." className="w-full border rounded-lg px-4 py-3" rows={4} maxLength={500} required />
                 </div>
 
                 <div>
                     <label className="block text-left text-sm font-medium mb-2">Category</label>
-                    <input type="text" name="category" value={formData.category} onChange={handleChange} placeholder="e.g., Technology" className="w-full border rounded-lg px-4 py-3" />
+                    <input type="text" name="category" value={formData.category} onChange={handleChange} placeholder="e.g., Plumbing" className="w-full border rounded-lg px-4 py-3" />
                 </div>
 
                 <div>
                     <label className="block text-left text-sm font-medium mb-2">Tags</label>
                     <div className="flex gap-2">
-                        <input type="text" value={tagInput} onChange={(e) => setTagInput(e.target.value)} placeholder="Enter tag and press Add" className="flex-1 border rounded-lg px-4 py-3" />
+                        <input type="text" value={tagInput} onChange={(e) => setTagInput(e.target.value)} placeholder="e.g., leaking pipes" className="flex-1 border rounded-lg px-4 py-3" />
                         <button type="button" onClick={addTag} className="px-4 bg-gray-900 text-white rounded-lg cursor-pointer">Add Tag</button>
                     </div>
 
@@ -247,7 +247,7 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
                     <div>
                         <label className="block text-left text-sm font-medium mb-2">SEO Keywords</label>
                         <div className="flex gap-2">
-                            <input type="text" value={keywordInput} onChange={(e) => setKeywordInput(e.target.value)} placeholder="Enter keyword and press Add" className="flex-1 border rounded-lg px-4 py-3" />
+                            <input type="text" value={keywordInput} onChange={(e) => setKeywordInput(e.target.value)} placeholder="e.g., home improvement" className="flex-1 border rounded-lg px-4 py-3" />
                             <button type="button" onClick={addKeyword} className="px-4 bg-gray-900 text-white rounded-lg cursor-pointer">Add Keyword</button>
                         </div>
 
