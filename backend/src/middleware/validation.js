@@ -1,3 +1,73 @@
-const {param, body} = require("express-validator");
+const { param, body } = require("express-validator");
 
-// const validatePostCreation = [
+const validatePostCreation = [
+  body("title")
+    .isString()
+    .isLength({ min: 3, max: 300 })
+    .withMessage("Title must be between 3 and 300 characters"),
+  body("slug")
+    .isString()
+    .isLength({ min: 3, max: 300 })
+    .withMessage("Slug must be between 3 and 300 characters"),
+  body("content").isString().withMessage("Content is required"),
+  body("excerpt")
+    .optional()
+    .isString()
+    .isLength({ max: 500 })
+    .withMessage("Excerpt must be at most 500 characters"),
+  body("category")
+    .optional()
+    .isString()
+    .isLength({ max: 100 })
+    .withMessage("Category must be at most 100 characters"),
+  body("tags")
+    .optional()
+    .isArray()
+    .withMessage("Tags must be an array of strings"),
+  body("tags.*").isString().withMessage("Each tag must be a string"),
+  body("seo").optional().isObject().withMessage("SEO must be an object"),
+  body("seo.metaTitle")
+    .optional()
+    .isString()
+    .withMessage("SEO meta title must be a string"),
+  body("seo.metaDescription")
+    .optional()
+    .isString()
+    .withMessage("SEO meta description must be a string"),
+  body("seo.keywords")
+    .optional()
+    .isArray()
+    .withMessage("SEO keywords must be an array of strings"),
+  body("seo.keywords.*")
+    .isString()
+    .withMessage("Each SEO keyword must be a string"),
+  body("published")
+    .optional()
+    .isBoolean()
+    .withMessage("Published must be a boolean"),
+  body("site")
+    .isMongoId()
+    .withMessage("Site ID must be a valid MongoDB ObjectId"),
+  body("author").isObject().withMessage("Author must be an object"),
+  body("author.clerkId")
+    .isString()
+    .withMessage("Author clerkId must be a string"),
+  body("author.name").isString().withMessage("Author name must be a string"),
+  body("author.imageUrl")
+    .optional()
+    .isString()
+    .withMessage("Author imageUrl must be a string"),
+  body("author.email")
+    .optional()
+    .isString()
+    .withMessage("Author email must be a string"),
+  body("publishedAt")
+    .optional()
+    .isISO8601()
+    .toDate()
+    .withMessage("PublishedAt must be a valid date"),
+  body("featuredImage")
+    .optional()
+    .isString()
+    .withMessage("Featured image must be a string"),
+];
