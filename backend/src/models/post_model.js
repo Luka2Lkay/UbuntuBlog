@@ -42,6 +42,11 @@ const postSchema = new mongoose.Schema({
 
 postSchema.plugin(uniqueValidator);
 
+postSchema.index({ slug: 1, site: 1 }, { unique: true });
+postSchema.index({ title: "text", excerpt: "text", content: "text", tags: "text" });
+postSchema.index({ published: 1, publishedAt: -1 });
+postSchema.index({ "author.clerkId": 1 });
+
 postSchema.pre("save", function (next) {
   if (this.published && !this.publishedAt) {
     this.publishedAt = new Date();
