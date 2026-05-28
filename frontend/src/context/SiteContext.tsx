@@ -35,12 +35,12 @@ export function SiteProvider({ children }: SiteProviderProps) {
 
         try {
             const response = await fetchWithAuth(`${BASE_URL}/api/sites`, getToken);
-            console.log(response)
+
             setSites(response);
 
             if (response.length > 0) {
               
-                const defaultSite = response[0].name;
+                const defaultSite = response[0];
                 setSite(defaultSite);
             }
         } catch (error) {

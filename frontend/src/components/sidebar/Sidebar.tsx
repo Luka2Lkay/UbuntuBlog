@@ -3,13 +3,13 @@ import { useState } from "react"
 import { NavLink } from "react-router-dom";
 import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft } from "lucide-react";
 
-type Site = {
-    _id: string;
-    name: string;
-    slug: string;
-    domain: string;
-    niche: string;
-}
+// type Site = {
+//     _id: string;
+//     name: string;
+//     slug: string;
+//     domain: string;
+//     niche: string;
+// }
 
 // const sites: Site[] = [
 //     "Home of Commerce",
