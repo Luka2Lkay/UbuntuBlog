@@ -3,15 +3,24 @@ import { useState } from "react"
 import { NavLink } from "react-router-dom";
 import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft } from "lucide-react";
 
-type Site = string;
+type Site = {
+    _id: string;
+    name: string;
+    slug: string;
+    domain: string;
+    niche: string;
+}
 
-const sites: Site[] = [
-    "Home of Commerce",
-    "KasiVolt"
-];
+// const sites: Site[] = [
+//     "Home of Commerce",
+//     "KasiVolt"
+// ];
+
+
+
 
 function Sidebar() {
-    const { site, setSite } = useSiteContext();
+    const { site, sites, setSite } = useSiteContext();
     const [collapsed, setCollapsed] = useState(false);
 
     return (
@@ -50,10 +59,10 @@ function Sidebar() {
                 <div className="flex flex-col gap-1">
                     {
                         sites.map(clientSite => (
-                            <button key={clientSite} onClick={() => setSite(clientSite)}
-                                className={`text-left px-3 py-2 rounded-md text-sm transition ${site === clientSite ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
+                            <button key={clientSite?.name} onClick={() => setSite(clientSite)}
+                                className={`text-left px-3 py-2 rounded-md text-sm transition ${site?.name === clientSite?.name ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
                             >
-                                {collapsed ? clientSite.charAt(0).toUpperCase() : clientSite}
+                                {collapsed ? clientSite?.name.charAt(0).toUpperCase() : clientSite?.name}
                             </button>
                         ))
                     }
