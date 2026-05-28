@@ -27,16 +27,16 @@ const createSite = async (req, res) => {
 const getSites = async (req, res) => {
   const { userId } = getAuth(req);
 
-    if (!userId) {
-      return res.status(401).json({ message: "Unauthorized" });
-    }
+  if (!userId) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
 
-    try {
-      const sites = await Site.find({ userId });
-      res.json(sites);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
+  try {
+    const sites = await Site.find();
+    res.status(200).json(sites);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 module.exports = { createSite, getSites };
