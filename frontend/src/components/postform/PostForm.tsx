@@ -178,7 +178,7 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
             <div className="bg-white border rounded-xl p-6 space-y-5">
                 <div>
                     <h2 className="text-xl font-semibold">Blog Post</h2>
-                    <p className="text-sm text-gray-500">Publishing for {" "} <span className="font-medium">{site}</span></p>
+                    <p className="text-sm text-gray-500">Publishing for {" "} <span className="font-medium">{site?.name}</span></p>
                 </div>
 
                 <div>
