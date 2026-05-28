@@ -3,22 +3,6 @@ import { useState } from "react"
 import { NavLink } from "react-router-dom";
 import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft } from "lucide-react";
 
-// type Site = {
-//     _id: string;
-//     name: string;
-//     slug: string;
-//     domain: string;
-//     niche: string;
-// }
-
-// const sites: Site[] = [
-//     "Home of Commerce",
-//     "KasiVolt"
-// ];
-
-
-
-
 function Sidebar() {
     const { site, sites, setSite } = useSiteContext();
     const [collapsed, setCollapsed] = useState(false);
