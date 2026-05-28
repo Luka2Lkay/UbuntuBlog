@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const uniqueValidator = require("mongoose-unique-validator");
+const uniqueValidator = require("mongoose-unique-validator").default;
 
 const siteSchema = new mongoose.Schema(
   {
@@ -28,7 +28,7 @@ const siteSchema = new mongoose.Schema(
       unique: true,
     },
     niche: { type: String, trim: true, maxLength: 100, default: "" },
-    clerkId: { type: String, required: true, index: true },
+    userId: { type: String, required: true, index: true },
   },
   { timestamps: true },
 );

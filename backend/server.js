@@ -8,6 +8,8 @@ const app = express();
 const port = 3000;
 const { db } = require("./src/config/db_config");
 
+const { siteRoutes } = require("./src/routes/site_routes");
+
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -18,6 +20,7 @@ app.use(
 );
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(
   clerkMiddleware({
     secretKey: process.env.CLERK_SECRET_KEY,
@@ -59,6 +62,8 @@ app.get("/api/user", async (req, res) => {
 app.get("/", (req, res) => {
   res.status(200).json({ message: "UbuntuBlog's Server is running!" });
 });
+
+siteRoutes(app);
 
 app.listen(port, () => {
   console.log(`Server is running on port http://localhost:${port}`);

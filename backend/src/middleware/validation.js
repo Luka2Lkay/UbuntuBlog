@@ -1,4 +1,4 @@
-const { param, body } = require("express-validator");
+const { body } = require("express-validator");
 
 const validatePostCreation = [
   body("title")
@@ -86,3 +86,5 @@ const validateSiteCreation = [
     .isLength({ min: 3, max: 100 })
     .withMessage("Domain must be between 3 and 100 characters"),
 ];
+
+module.exports = { validatePostCreation, validateSiteCreation };
