@@ -71,3 +71,18 @@ const validatePostCreation = [
     .isString()
     .withMessage("Featured image must be a string"),
 ];
+
+const validateSiteCreation = [
+  body("name")
+    .isString()
+    .isLength({ min: 3, max: 100 })
+    .withMessage("Name must be between 3 and 100 characters"),
+  body("slug")
+    .isString()
+    .isLength({ min: 3, max: 100 })
+    .withMessage("Slug must be between 3 and 100 characters"),
+  body("domain")
+    .isString()
+    .isLength({ min: 3, max: 100 })
+    .withMessage("Domain must be between 3 and 100 characters"),
+];
