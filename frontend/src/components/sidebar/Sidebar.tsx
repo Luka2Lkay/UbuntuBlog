@@ -1,11 +1,12 @@
 import { useSiteContext } from "../../context/SiteContext"
 import { useState } from "react"
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft, Plus } from "lucide-react";
+import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft, Plus, MoreVertical } from "lucide-react";
 
 function Sidebar() {
     const { site, sites, setSite } = useSiteContext();
     const [collapsed, setCollapsed] = useState(false);
+    const [clientMenuOpen, setClientMenuOpen] = useState<boolean>(false);
 
     return (
         <aside className={`min-h-screen bg-gray-900 text-white flex flex-col transition-all duration-300 hidden md:block ${collapsed ? 'w-20' : 'w-64'}`}>
@@ -52,7 +53,13 @@ function Sidebar() {
                             <button key={clientSite?._id} onClick={() => setSite(clientSite)}
                                 className={`text-left px-3 py-2 rounded-md text-sm transition ${site?._id === clientSite?._id ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
                             >
+                                <div className="flex items-center justify-between">
                                 {collapsed ? clientSite?.name.charAt(0).toUpperCase() : clientSite?.name}
+                                <MoreVertical size={16} className="text-gray-400 hover:text-white cursor-pointer" onClick={(e) => {
+                                    e.stopPropagation();
+                                    alert("Client settings not implemented yet");
+                                }} />
+                                </div>
                             </button>
                         ))
                     }
