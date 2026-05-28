@@ -1,7 +1,7 @@
 import { useSiteContext } from "../../context/SiteContext"
 import { useState } from "react"
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft } from "lucide-react";
+import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft, Plus } from "lucide-react";
 
 function Sidebar() {
     const { site, sites, setSite } = useSiteContext();
@@ -20,31 +20,37 @@ function Sidebar() {
             <nav className="flex-1 flex-col gap-1 px-2 py-4">
                 <NavLink to="/dashboard" className={({ isActive }) => navClass(isActive)}>
                     <LayoutDashboard size={18} />
-                    <span className={`${collapsed ? 'hidden' : ''}`}>Dashboard</span>
+                    {!collapsed && (<span>Dashboard</span>)}
                 </NavLink>
 
                 <NavLink to="/posts" className={({ isActive }) => navClass(isActive)}>
                     <FileText size={18} />
-                    <span className={`${collapsed ? 'hidden' : ''}`}>Posts</span>
+                    {!collapsed && (<span>Posts</span>)}
 
                 </NavLink>
 
                 <NavLink to="/create-post" className={({ isActive }) => navClass(isActive)}>
                     <PlusSquare size={18} />
-                    <span className={`${collapsed ? 'hidden' : ''}`}>New Post</span>
+                    {!collapsed && (<span>New Post</span>)}
                 </NavLink>
             </nav>
 
             <div className="px-3 py-4 border-t border-gray-800 flex-1 overflow-y-auto">
-                {!collapsed && (
-                    <h2 className="text-xs uppercase text-gray-500 mb-2">Clients</h2>
-                )}
+                <div className="flex items-center justify-between mb-3">
+                    {!collapsed && (
+                        <h2 className="text-xs uppercase text-gray-500 mb-2">Clients</h2>
+                    )}
+
+                    <button className="text-gray-400 hover:text-white mb-2 cursor-pointer" onClick={() => alert("Client creation not implemented yet")}>
+                        <Plus size={18} />
+                    </button>
+                </div>
 
                 <div className="flex flex-col gap-1">
                     {
                         sites.map(clientSite => (
-                            <button key={clientSite?.name} onClick={() => setSite(clientSite)}
-                                className={`text-left px-3 py-2 rounded-md text-sm transition ${site?.name === clientSite?.name ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
+                            <button key={clientSite?._id} onClick={() => setSite(clientSite)}
+                                className={`text-left px-3 py-2 rounded-md text-sm transition ${site?._id === clientSite?._id ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
                             >
                                 {collapsed ? clientSite?.name.charAt(0).toUpperCase() : clientSite?.name}
                             </button>
