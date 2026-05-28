@@ -7,6 +7,8 @@ export const fetchWithAuth = async (
   try {
     const token = await getToken({ template: "backend" });
 
+    console.log(`token: ${token}`);
+
     if (!token) {
       throw new Error("No token found");
     }
@@ -22,7 +24,33 @@ export const fetchWithAuth = async (
 
     return data;
   } catch (error) {
-    console.error("Error fetching user data:", error);
-    throw new Error("Failed to fetch user data");
+    console.error("Error fetching data:", error);
+    throw new Error("Failed to fetch data");
+  }
+};
+
+export const postWithAuth = async (
+  url: string,
+  data: {},
+  getToken: ({ template }: { template: string }) => Promise<string | null>,
+) => {
+  const token = await getToken({ template: "backend" });
+
+  if (!token) {
+    throw new Error("No token found");
+  }
+
+  try {
+    const response = axios.post(url, data, {
+      headers: {
+        Authorization: `Beare ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.error("Error posting data", error);
+    throw new Error("Failed to post data");
   }
 };

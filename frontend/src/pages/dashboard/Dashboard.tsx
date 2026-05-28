@@ -26,7 +26,7 @@ function Dashboard() {
 
             try {
                 const data = await fetchWithAuth(`${BASE_URL}/api/user`, getToken);
-                return data;
+                return data.user;
             } catch (error) {
                 console.error("Error loading user data:", error);
             }
