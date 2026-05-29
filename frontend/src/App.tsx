@@ -6,6 +6,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Home from "./pages/home/Home";
 import Posts from './pages/posts/Posts';
 import CreatePost from './pages/create_post/CreatePost';
+import CreateSite from './pages/create_site/CreateSite'
 import Layout from './pages/layout/Layout';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/posts" element={<Posts />} />
           <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/create-site" element={<CreateSite />} />
         </Route>
       </Routes>
     </BrowserRouter>

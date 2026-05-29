@@ -1,12 +1,13 @@
 import { useSiteContext } from "../../context/SiteContext"
 import { useState } from "react"
-import { NavLink } from "react-router-dom";
-import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft, Plus, MoreVertical } from "lucide-react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft, Plus, MoreVertical, Pencil, Trash } from "lucide-react";
 
 function Sidebar() {
     const { site, sites, setSite } = useSiteContext();
     const [collapsed, setCollapsed] = useState(false);
-    const [clientMenuOpen, setClientMenuOpen] = useState<boolean>(false);
+    const [clientMenuOpen, setClientMenuOpen] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     return (
         <aside className={`min-h-screen bg-gray-900 text-white flex flex-col transition-all duration-300 hidden md:block ${collapsed ? 'w-20' : 'w-64'}`}>
@@ -42,7 +43,7 @@ function Sidebar() {
                         <h2 className="text-xs uppercase text-gray-500 mb-2">Clients</h2>
                     )}
 
-                    <button className="text-gray-400 hover:text-white mb-2 cursor-pointer" onClick={() => alert("Client creation not implemented yet")}>
+                    <button className="text-gray-400 hover:text-white mb-2 cursor-pointer" onClick={() => navigate("/create-site")}>
                         <Plus size={18} />
                     </button>
                 </div>
@@ -50,17 +51,32 @@ function Sidebar() {
                 <div className="flex flex-col gap-1">
                     {
                         sites.map(clientSite => (
-                            <button key={clientSite?._id} onClick={() => setSite(clientSite)}
-                                className={`text-left px-3 py-2 rounded-md text-sm transition ${site?._id === clientSite?._id ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
-                            >
-                                <div className="flex items-center justify-between">
-                                {collapsed ? clientSite?.name.charAt(0).toUpperCase() : clientSite?.name}
-                                <MoreVertical size={16} className="text-gray-400 hover:text-white cursor-pointer" onClick={(e) => {
-                                    e.stopPropagation();
-                                    alert("Client settings not implemented yet");
-                                }} />
-                                </div>
-                            </button>
+                            <>
+                                <button key={clientSite?._id} onClick={() => setSite(clientSite)}
+                                    className={`text-left px-3 py-2 rounded-md text-sm transition ${site?._id === clientSite?._id ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
+                                >
+                                    <div className="flex items-center justify-between">
+                                        {collapsed ? clientSite?.name.charAt(0).toUpperCase() : clientSite?.name}
+                                        <MoreVertical size={16} className="text-gray-400 hover:text-white cursor-pointer" onClick={(e) => {
+                                            e.stopPropagation();
+                                            setClientMenuOpen(clientMenuOpen === clientSite?._id ? null : clientSite?._id);
+                                        }} />
+                                    </div>
+                                </button>
+
+                                {clientMenuOpen === clientSite?._id && (
+                                    <div className="absolute right-120 top-5 z-50 gap-10 w-40 rounded-lg bg-gray-900 border border-gray-800 overflow-hidden shadow-xl">
+                                        <button className="w-full gap-2 flex items-center px-4 py-3 text-sm hover:bg-gray-800" onClick={() => alert(clientSite?._id)}>
+                                            <Pencil size={16} />
+                                            Edit Client
+                                        </button>
+                                        <button className="w-full flex items-center gap-2 px-4 py-3 text-sm text-red-400 hover:bg-gray-800" onClick={() => alert("Remove client not implemented yet")}>
+                                            <Trash size={16} />
+                                            Remove Client
+                                        </button>
+                                    </div>
+                                )}
+                            </>
                         ))
                     }
                 </div>

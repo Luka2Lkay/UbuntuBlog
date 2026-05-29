@@ -11,6 +11,7 @@ type Site = {
     domain: string;
     niche: string;
 }
+
 type SiteContextType = {
     site: Site | null;
     sites: Site[];
