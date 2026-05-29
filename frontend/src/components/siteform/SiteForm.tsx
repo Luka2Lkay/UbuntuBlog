@@ -38,6 +38,16 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
 
     }, [formData.name])
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        const {name, value} = e.target;
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value
+        }))
+    }
+
     return (
         <div>SiteForm</div>
     )
