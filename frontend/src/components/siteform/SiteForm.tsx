@@ -55,7 +55,37 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
     }
 
     return (
-        <div>SiteForm</div>
+        <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="border bg-white rounded-xl space-y-5 p-6">
+                <div>
+                    <h2 className="text-xl font-semibold">Client Site</h2>
+                </div>
+
+                <div>
+                    <label className="block text-left text-sm font-medium mb-2">Name</label>
+                    <input type="text" name="name" value={formData.name} onChange={handleChange} className="w-full border rounded-lg px-4 py-3" placeholder="name of the site" />
+                </div>
+
+                <div>
+                    <label className="block text-left text-sm font-medium mb-2">Slug</label>
+                    <input type="text" name="slug" value={formData.slug} onChange={handleChange} className="w-full border rounded-lg px-4 py-3 bg-gray-300" />
+                </div>
+
+                <div>
+                    <label className="block text-left text-sm font-medium mb-2">Domain</label>
+                    <input type="text" name="domain" value={formData.domain} onChange={handleChange} className="w-full border rounded-lg px-4 py-3" placeholder="www.sitename.co.za" />
+                </div>
+
+                <div>
+                    <label className="block text-left text-sm font-medium mb-2">Niche</label>
+                    <input type="text" name="niche" value={formData.niche} onChange={handleChange} className="w-full border rounded-lg px-4 py-3" placeholder="Technology" />
+                </div>
+
+                <div>
+                    <button disabled={loading} type="submit" className="mt-4 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-black disabled:bg-gray-400 transition cursor-pointer">Add</button>
+                </div>
+            </div>
+        </form>
     )
 }
 

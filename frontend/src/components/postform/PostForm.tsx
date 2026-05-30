@@ -188,7 +188,7 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
 
                 <div>
                     <label className="block text-left text-sm font-medium mb-2">Slug</label>
-                    <input type="text" name="slug" value={formData.slug} onChange={handleChange} className="w-full border rounded-lg px-4 py-3 bg-gray-50" />
+                    <input type="text" name="slug" value={formData.slug} onChange={handleChange} className="w-full border rounded-lg px-4 py-3 bg-gray-300" />
                 </div>
 
                 <div>
@@ -271,7 +271,7 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
                     <label className="text-sm">Publish immediately</label>
                 </div>
 
-                <button type="submit" disabled={loading} className="mt-4 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-black disabled:bg-gray-400 transition">
+                <button type="submit" disabled={loading} className="mt-4 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-black disabled:bg-gray-400 transition cursor-pointer">
                     {
                         loading ? "Saving..." : formData.published ? "Publish Post" : "Save Draft"
                     }
