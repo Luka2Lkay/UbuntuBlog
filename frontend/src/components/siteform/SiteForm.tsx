@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import React, { useMemo, useState } from "react"
 import slugify from "slugify"
 import { useSiteContext } from "../../context/SiteContext"
 import axios from "axios"
@@ -11,7 +11,7 @@ type SiteFormData = {
 }
 
 type Props = {
-    initialData: Partial<SiteFormData>;
+    initialData?: Partial<SiteFormData>;
     onSubmit: (data: SiteFormData) => void;
     loading: boolean;
 }
@@ -40,12 +40,18 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-        const {name, value} = e.target;
+        const { name, value } = e.target;
 
         setFormData((prev) => ({
             ...prev,
             [name]: value
         }))
+    }
+
+    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        onSubmit(formData);
     }
 
     return (
