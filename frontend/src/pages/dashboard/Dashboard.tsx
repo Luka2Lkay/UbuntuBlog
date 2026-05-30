@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { fetchWithAuth } from "../../services/api"
 import { useSiteContext } from "../../context/SiteContext"
 import StatisticsCard from "../../components/statistics_card/StatisticsCard"
+import SiteCard from "../../components/site_card/SiteCard"
 import { Link } from "react-router-dom"
 
 const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
@@ -26,7 +27,7 @@ function Dashboard() {
 
             try {
                 const data = await fetchWithAuth(`${BASE_URL}/api/user`, getToken);
-          
+
                 return data.user;
             } catch (error) {
                 console.error("Error loading user data:", error);
@@ -42,6 +43,10 @@ function Dashboard() {
             <div>
                 <h1 className="text-2xl font-semibold text-gray-800">Dashboard</h1>
                 <p className="text-sm text-gray-500">Managing content for <span className="font-medium">{site?.name}</span></p>
+            </div>
+
+            <div>
+                <SiteCard name="Home of Commerce" domain="https://www.homeofcommerce.co.za" niche="Education"/>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
