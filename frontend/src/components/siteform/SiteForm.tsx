@@ -63,7 +63,7 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
 
                 <div>
                     <label className="block text-left text-sm font-medium mb-2">Name</label>
-                    <input type="text" name="name" value={formData.name} onChange={handleChange} className="w-full border rounded-lg px-4 py-3" placeholder="name of the site" />
+                    <input type="text" name="name" value={formData.name} onChange={handleChange} className="w-full border rounded-lg px-4 py-3" placeholder="name of the site" required/>
                 </div>
 
                 <div>
@@ -73,7 +73,7 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
 
                 <div>
                     <label className="block text-left text-sm font-medium mb-2">Domain</label>
-                    <input type="text" name="domain" value={formData.domain} onChange={handleChange} className="w-full border rounded-lg px-4 py-3" placeholder="www.sitename.co.za" />
+                    <input type="text" name="domain" value={formData.domain} onChange={handleChange} className="w-full border rounded-lg px-4 py-3" placeholder="www.sitename.co.za" required/>
                 </div>
 
                 <div>
