@@ -6,12 +6,9 @@ interface Props {
 
 export const fetchWithAuth = async (
   url: string,
-  getToken: ({ template }: Props) => Promise<string | null>,
+  token: string | null
 ) => {
   try {
-    const token = await getToken({ template: "backend" });
-
-    console.log(`token: ${token}`);
 
     if (!token) {
       throw new Error("No token found");

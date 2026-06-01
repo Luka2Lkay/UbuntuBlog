@@ -14,6 +14,8 @@ function Dashboard() {
     const { site } = useSiteContext();
     const { isLoaded, isSignedIn, getToken } = useAuth();
 
+
+
     useEffect(() => {
 
         if (!isLoaded) return;
@@ -26,7 +28,10 @@ function Dashboard() {
         const loadUserData = async () => {
 
             try {
-                const data = await fetchWithAuth(`${BASE_URL}/api/user`, getToken);
+                const token = await getToken({ template: "backend" });
+                const data = await fetchWithAuth(`${BASE_URL}/api/user`, token);
+
+                console.log(token);
 
                 return data.user;
             } catch (error) {
@@ -46,7 +51,7 @@ function Dashboard() {
             </div>
 
             <div>
-                <SiteCard name="Home of Commerce" domain="https://www.homeofcommerce.co.za" niche="Education"/>
+                <SiteCard name="Home of Commerce" domain="https://www.homeofcommerce.co.za" niche="Education" />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

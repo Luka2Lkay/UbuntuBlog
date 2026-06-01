@@ -1,19 +1,28 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import {fetchWithAuth} from "../../services/api";
-import { useAuth } from "@clerk/react";
+import { fetchWithAuth } from "../../services/api";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
 
-export const fetchSitesThunk = createAsyncThunk("site/fetchSites", async (_, { rejectWithValue }) => {
+interface Site {
+  _id: string;
+  name: string;
+  slug: string;
+  domain: string;
+  niche: string;
+}
 
-    const { getToken } = useAuth();
+interface Props {
+  template: string;
+}
 
-    try {
-        const response = await fetchWithAuth(`${BASE_URL}/api/sites`, getToken);
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching sites:", error);
-        return rejectWithValue("Failed to fetch sites");
-    }
+export const fetchSitesThunk = createAsyncThunk<
+  Site[], string | null, { rejectValue: string }
+>("site/fetchSites", async (token, { rejectWithValue }) => {
+  try {
+    const response = await fetchWithAuth(`${BASE_URL}/api/sites`, token);
+    return response;
+  } catch (error) {
+    console.error("Error fetching sites:", error);
+    return rejectWithValue("Failed to fetch sites");
+  }
 });
-
