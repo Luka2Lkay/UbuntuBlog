@@ -1,8 +1,12 @@
 import axios from "axios";
 
+interface Props {
+  template: string;
+}
+
 export const fetchWithAuth = async (
   url: string,
-  getToken: ({ template }: { template: string }) => Promise<string | null>,
+  getToken: ({ template }: Props) => Promise<string | null>,
 ) => {
   try {
     const token = await getToken({ template: "backend" });
@@ -32,7 +36,7 @@ export const fetchWithAuth = async (
 export const postWithAuth = async (
   url: string,
   data: {},
-  getToken: ({ template }: { template: string }) => Promise<string | null>,
+  getToken: ({ template }: Props) => Promise<string | null>,
 ) => {
   const token = await getToken({ template: "backend" });
 
