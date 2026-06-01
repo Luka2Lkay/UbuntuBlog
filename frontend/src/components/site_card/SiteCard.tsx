@@ -1,5 +1,5 @@
 
-type Props = {
+interface Props {
     name: string;
     domain: string;
     niche?: string

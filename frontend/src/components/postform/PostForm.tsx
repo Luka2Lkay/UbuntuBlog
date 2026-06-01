@@ -4,7 +4,7 @@ import { useSiteContext } from "../../context/SiteContext";
 import axios from "axios"
 import Tiptap from "../tiptap/Tiptap";
 
-type PostFormData = {
+interface PostFormData {
     title: string;
     slug: string;
     excerpt: string;
@@ -20,7 +20,7 @@ type PostFormData = {
     },
 }
 
-type Props = {
+interface Props {
     initialData?: Partial<PostFormData>;
     onSubmit: (data: PostFormData) => void;
     loading: boolean;

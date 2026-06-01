@@ -3,7 +3,7 @@ import { useSiteContext } from "../../context/SiteContext"
 import PostForm from "../../components/postform/PostForm"
 import { useState } from "react"
 
-type Site = {
+interface Site {
     _id: string;
     name: string;
     slug: string;
@@ -11,7 +11,7 @@ type Site = {
     niche: string;
 }
 
-type PostPayload = {
+interface PostPayload {
     site: Site | null;
     title: string;
     slug: string;
