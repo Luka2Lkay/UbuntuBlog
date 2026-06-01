@@ -1,6 +1,5 @@
 
-
-type Props = {
+interface Props {
     title: string,
     value: number
 }

@@ -4,7 +4,7 @@ import { fetchWithAuth } from "../services/api";
 import { useAuth } from "@clerk/react"
 
 type ReactNode = React.ReactNode;
-type Site = {
+interface Site {
     _id: string;
     name: string;
     slug: string;
@@ -12,13 +12,13 @@ type Site = {
     niche: string;
 }
 
-type SiteContextType = {
+interface SiteContextType {
     site: Site | null;
     sites: Site[];
     setSite: React.Dispatch<React.SetStateAction<Site | null>>;
     loadSites: () => Promise<void>;
 }
-type SiteProviderProps = {
+interface SiteProviderProps {
     children: ReactNode;
 }
 
@@ -40,7 +40,7 @@ export function SiteProvider({ children }: SiteProviderProps) {
             setSites(response);
 
             if (response.length > 0) {
-              
+
                 const defaultSite = response[0];
                 setSite(defaultSite);
             }
