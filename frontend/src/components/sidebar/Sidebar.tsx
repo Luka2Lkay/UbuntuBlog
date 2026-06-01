@@ -2,12 +2,18 @@ import { useSiteContext } from "../../context/SiteContext"
 import { useState } from "react"
 import { NavLink, useNavigate } from "react-router-dom";
 import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft, Plus, MoreVertical, Pencil, Trash } from "lucide-react";
+import { selectSites } from "../../redux/reducers/site_slice";;
+import {useSelector, useDispatch} from "react-redux";
 
 function Sidebar() {
-    const { site, sites, setSite } = useSiteContext();
+    // const { site, sites, setSite } = useSiteContext();
+    const { site, setSite } = useSiteContext();
     const [collapsed, setCollapsed] = useState(false);
     const [clientMenuOpen, setClientMenuOpen] = useState<string | null>(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const sites = useSelector(selectSites);
 
     return (
         <aside className={`min-h-screen bg-gray-900 text-white flex flex-col transition-all duration-300 hidden md:block ${collapsed ? 'w-20' : 'w-64'}`}>
