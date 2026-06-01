@@ -35,12 +35,12 @@ export function SiteProvider({ children }: SiteProviderProps) {
     const loadSites = async () => {
 
         try {
-            const response = await fetchWithAuth(`${BASE_URL}/api/sites`, getToken);
+            const token = await getToken({ template: "backend" });
+            const response = await fetchWithAuth(`${BASE_URL}/api/sites`, token);
 
             setSites(response);
 
             if (response.length > 0) {
-
                 const defaultSite = response[0];
                 setSite(defaultSite);
             }
@@ -50,7 +50,6 @@ export function SiteProvider({ children }: SiteProviderProps) {
     };
 
     useEffect(() => {
-
         loadSites();
     }, []);
 

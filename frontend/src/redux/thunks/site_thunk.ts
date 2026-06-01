@@ -11,10 +11,6 @@ interface Site {
   niche: string;
 }
 
-interface Props {
-  template: string;
-}
-
 export const fetchSitesThunk = createAsyncThunk<
   Site[], string | null, { rejectValue: string }
 >("site/fetchSites", async (token, { rejectWithValue }) => {

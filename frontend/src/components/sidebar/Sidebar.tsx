@@ -3,26 +3,34 @@ import { useState, useEffect } from "react"
 import { NavLink, useNavigate } from "react-router-dom";
 import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft, Plus, MoreVertical, Pencil, Trash } from "lucide-react";
 import { selectSites } from "../../redux/reducers/site_slice";;
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { fetchSitesThunk } from "../../redux/thunks/site_thunk";
-import type { AppDispatch } from "../../redux/store";
+import { useAuth } from "@clerk/react";
+import { useAppDispatch } from "../../hooks/redux_hooks";
 
 function Sidebar() {
-    // const { site, sites, setSite } = useSiteContext();
     const { site, setSite } = useSiteContext();
     const [collapsed, setCollapsed] = useState(false);
     const [clientMenuOpen, setClientMenuOpen] = useState<string | null>(null);
     const navigate = useNavigate();
 
-    // const dispatch = useDispatch<AppDispatch>();
+    const { getToken } = useAuth();
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const sites = useSelector(selectSites);
 
     useEffect(() => {
-        console.log("hello world")
-        dispatch(fetchSitesThunk());
+
+        const fetchSites = async () => {
+            try {
+                const token = await getToken({ template: "backend" });
+                await dispatch(fetchSitesThunk(token));
+            } catch (error) {
+                console.error("Error fetching sites:", error);
+            }
+        };
+        fetchSites();
 
     }, [dispatch])
 
