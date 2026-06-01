@@ -6,7 +6,6 @@ import { useSiteContext } from "../../context/SiteContext"
 import StatisticsCard from "../../components/statistics_card/StatisticsCard"
 import SiteCard from "../../components/site_card/SiteCard"
 import { Link } from "react-router-dom"
-import {Globe} from "lucide-react"
 
 const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
 
