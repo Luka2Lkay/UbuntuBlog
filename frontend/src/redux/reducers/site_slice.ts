@@ -56,5 +56,7 @@ const siteSlice = createSlice({
   }
 });
 
+export const selectSites = (state: { site: SiteState }) => state.site.sites ?? [];
+
 export const { setCurrentSite, addSite } = siteSlice.actions;
 export default siteSlice.reducer;
