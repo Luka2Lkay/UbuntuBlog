@@ -30,7 +30,7 @@ interface PostPayload {
 
 function CreatePost() {
     const navigate = useNavigate();
-    const { site } = useSiteContext();
+    const { selectedSite } = useSiteContext();
     const [loading, setLoading] = useState(false);
 
     const handleCreatePost = async (data: Omit<PostPayload, "site">) => {
@@ -39,7 +39,7 @@ function CreatePost() {
 
             const payload: PostPayload = {
                 ...data,
-                site,
+                site: selectedSite
             }
 
             // Make API call to create post using axios

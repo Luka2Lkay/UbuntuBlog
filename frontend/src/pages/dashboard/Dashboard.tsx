@@ -11,13 +11,11 @@ const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
 
 function Dashboard() {
     const navigate = useNavigate();
-    const { site } = useSiteContext();
+    const { selectedSite } = useSiteContext();
     const { isLoaded, isSignedIn, getToken } = useAuth();
 
-
-
     useEffect(() => {
-
+        console.log("show site", selectedSite);
         if (!isLoaded) return;
 
         if (!isSignedIn) {
@@ -47,7 +45,7 @@ function Dashboard() {
         <div className="space-y-6">
             <div>
                 <h1 className="text-2xl font-semibold text-gray-800">Dashboard</h1>
-                <p className="text-sm text-gray-500">Managing content for <span className="font-medium">{site?.name}</span></p>
+                <p className="text-sm text-gray-500">Managing content for <span className="font-medium">{selectedSite?.name}</span></p>
             </div>
 
             <div>
@@ -74,8 +72,6 @@ function Dashboard() {
                 <div className="px-4 py-3 border-b border-gray-200">
                     <h2 className="text-sm font-medium text-gray-700">Recent Posts</h2>
                 </div>
-
-
             </div>
         </div>
     )

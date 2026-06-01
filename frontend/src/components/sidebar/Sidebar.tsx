@@ -1,23 +1,21 @@
-import { useSiteContext } from "../../context/SiteContext"
-import { useState, useEffect } from "react"
+import { useSiteContext } from "../../context/SiteContext";
+import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft, Plus, MoreVertical, Pencil, Trash } from "lucide-react";
-import { selectSites } from "../../redux/reducers/site_slice";;
+import { selectSites } from "../../redux/reducers/site_slice";
 import { useSelector } from "react-redux";
 import { fetchSitesThunk } from "../../redux/thunks/site_thunk";
 import { useAuth } from "@clerk/react";
 import { useAppDispatch } from "../../hooks/redux_hooks";
 
 function Sidebar() {
-    const { site, setSite } = useSiteContext();
+    const { selectedSite, setSelectedSite } = useSiteContext();
     const [collapsed, setCollapsed] = useState(false);
     const [clientMenuOpen, setClientMenuOpen] = useState<string | null>(null);
     const navigate = useNavigate();
 
     const { getToken } = useAuth();
-
     const dispatch = useAppDispatch();
-
     const sites = useSelector(selectSites);
 
     useEffect(() => {
@@ -77,8 +75,8 @@ function Sidebar() {
                     {
                         sites.map(clientSite => (
                             <>
-                                <button key={clientSite?._id} onClick={() => setSite(clientSite)}
-                                    className={`text-left px-3 py-2 rounded-md text-sm transition ${site?._id === clientSite?._id ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
+                                <button key={clientSite?._id} onClick={() => setSelectedSite(clientSite)}
+                                    className={`text-left px-3 py-2 rounded-md text-sm transition ${selectedSite?._id === clientSite?._id ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
                                 >
                                     <div className="flex items-center justify-between">
                                         {collapsed ? clientSite?.name.charAt(0).toUpperCase() : clientSite?.name}

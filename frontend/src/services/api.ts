@@ -1,15 +1,7 @@
 import axios from "axios";
 
-interface Props {
-  template: string;
-}
-
-export const fetchWithAuth = async (
-  url: string,
-  token: string | null
-) => {
+export const fetchWithAuth = async (url: string, token: string | null) => {
   try {
-
     if (!token) {
       throw new Error("No token found");
     }
@@ -33,10 +25,8 @@ export const fetchWithAuth = async (
 export const postWithAuth = async (
   url: string,
   data: {},
-  getToken: ({ template }: Props) => Promise<string | null>,
+  token: string | null,
 ) => {
-  const token = await getToken({ template: "backend" });
-
   if (!token) {
     throw new Error("No token found");
   }
@@ -44,7 +34,7 @@ export const postWithAuth = async (
   try {
     const response = axios.post(url, data, {
       headers: {
-        Authorization: `Beare ${token}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
