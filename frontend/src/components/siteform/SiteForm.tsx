@@ -1,7 +1,5 @@
 import React, { useMemo, useState } from "react"
 import slugify from "slugify"
-import { useSiteContext } from "../../context/SiteContext"
-import axios from "axios"
 
 type SiteFormData = {
     name: string;
