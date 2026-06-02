@@ -76,7 +76,7 @@ function Sidebar() {
                         sites.map(clientSite => (
                             <div key={clientSite?._id}>
                                 <button onClick={() => setSelectedSite(clientSite)}
-                                    className={`text-left px-3 py-2 rounded-md text-sm transition ${selectedSite?._id === clientSite?._id ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
+                                    className={`text-left px-3 py-2 rounded-md w-full text-sm transition ${selectedSite?._id === clientSite?._id ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
                                 >
                                     <div className="flex items-center justify-between">
                                         {collapsed ? clientSite?.name.charAt(0).toUpperCase() : clientSite?.name}
