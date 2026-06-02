@@ -1,5 +1,5 @@
 const express = require("express");
-const { createSite, getSites } = require("../controllers/site_controller");
+const { createSite, getSites, deleteSite } = require("../controllers/site_controller");
 const { validateSiteCreation } = require("../middleware/validation");
 
 const siteRoutes = (app) => {
@@ -7,6 +7,7 @@ const siteRoutes = (app) => {
 
   router.post("/sites", validateSiteCreation, createSite);
   router.get("/sites", getSites)
+  router.delete("/sites/:siteId", deleteSite);
 
   app.use("/api", router);
 };
