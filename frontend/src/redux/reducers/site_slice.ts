@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchSitesThunk } from "../thunks/site_thunk";
+import { fetchSitesThunk, postSitesThunk } from "../thunks/site_thunk";
 
 interface Site {
   _id: string;
@@ -43,20 +43,38 @@ const siteSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchSitesThunk.fulfilled, (state, action) => {
-      state.sites = action.payload;
-      state.loading = false;
-    }).addCase(fetchSitesThunk.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    }).addCase(fetchSitesThunk.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload as string;
-    });
-  }
+    builder
+      .addCase(fetchSitesThunk.fulfilled, (state, action) => {
+        state.sites = action.payload;
+        state.loading = false;
+      })
+      .addCase(fetchSitesThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchSitesThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(postSitesThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.sites.unshift(action.payload);
+      })
+      .addCase(postSitesThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(postSitesThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      });
+  },
 });
 
-export const selectSites = (state: { site: SiteState }) => state.site.sites ?? [];
+export const selectSites = (state: { site: SiteState }) =>
+  state.site.sites ?? [];
+export const selectError = (state: { site: SiteState }) => state.site.error;
+export const selectLoading = (state: { site: SiteState }) => state.site.loading;
 
 export const { setCurrentSite, addSite } = siteSlice.actions;
 export default siteSlice.reducer;

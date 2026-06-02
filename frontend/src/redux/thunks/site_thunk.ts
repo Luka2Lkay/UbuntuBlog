@@ -26,7 +26,7 @@ export const fetchSitesThunk = createAsyncThunk<
   }
 });
 
-export const postSitesAuthThunk = createAsyncThunk<
+export const postSitesThunk = createAsyncThunk<
   Site,
   { siteData: Omit<Site, "_id">; token: string },
   { rejectValue: string }
