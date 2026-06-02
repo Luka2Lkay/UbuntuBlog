@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchWithAuth } from "../../services/api";
+import { fetchWithAuth, postWithAuth } from "../../services/api";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
 
@@ -9,10 +9,13 @@ interface Site {
   slug: string;
   domain: string;
   niche: string;
+  userId: string;
 }
 
 export const fetchSitesThunk = createAsyncThunk<
-  Site[], string | null, { rejectValue: string }
+  Site[],
+  string | null,
+  { rejectValue: string }
 >("site/fetchSites", async (token, { rejectWithValue }) => {
   try {
     const response = await fetchWithAuth(`${BASE_URL}/api/sites`, token);
@@ -20,5 +23,23 @@ export const fetchSitesThunk = createAsyncThunk<
   } catch (error) {
     console.error("Error fetching sites:", error);
     return rejectWithValue("Failed to fetch sites");
+  }
+});
+
+export const postSitesAuth = createAsyncThunk<
+  Site,
+  { siteData: Omit<Site, "_id">; token: string },
+  { rejectValue: string }
+>("site/postSite", async ({ siteData, token }, { rejectWithValue }) => {
+  try {
+    const response = await postWithAuth(
+      `${BASE_URL}/api/sites`,
+      siteData,
+      token,
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error posting site data", error);
+    return rejectWithValue("Failed to post site data");
   }
 });
