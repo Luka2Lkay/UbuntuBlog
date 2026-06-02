@@ -15,7 +15,7 @@ function Dashboard() {
     const { isLoaded, isSignedIn, getToken } = useAuth();
 
     useEffect(() => {
-        console.log("show site", selectedSite);
+
         if (!isLoaded) return;
 
         if (!isSignedIn) {
