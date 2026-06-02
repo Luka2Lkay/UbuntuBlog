@@ -9,7 +9,7 @@ interface Site {
   slug: string;
   domain: string;
   niche: string;
-  userId: string;
+  userId: string | null | undefined;
 }
 
 export const fetchSitesThunk = createAsyncThunk<
@@ -28,7 +28,7 @@ export const fetchSitesThunk = createAsyncThunk<
 
 export const postSitesThunk = createAsyncThunk<
   Site,
-  { siteData: Omit<Site, "_id">; token: string },
+  { siteData: Omit<Site, "_id">; token: string | null },
   { rejectValue: string }
 >("site/postSite", async ({ siteData, token }, { rejectWithValue }) => {
   try {

@@ -2,6 +2,8 @@ import SiteForm from "../../components/siteform/SiteForm"
 import { useState } from "react"
 import { useAuth } from "@clerk/react";
 import { useNavigate } from "react-router-dom";
+import { postSitesThunk } from "../../redux/thunks/site_thunk";
+import { useAppDispatch } from "../../hooks/redux_hooks";
 
 type SitePayload = {
     name: string;
@@ -14,20 +16,22 @@ type SitePayload = {
 function CreateSite() {
 
     const [loading, setLoading] = useState(false);
-    const { userId } = useAuth();
+    const { userId, getToken } = useAuth();
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
-    const handleCreateSite = (data: Omit<SitePayload, "userId">) => {
+    const handleCreateSite = async (data: Omit<SitePayload, "userId">) => {
 
         try {
             setLoading(true);
 
+            const token = await getToken({ template: "backend" });
             const payload: SitePayload = {
                 ...data,
                 userId
             }
 
-            // Post data using axios
+            dispatch(postSitesThunk({ siteData: payload, token }));
 
             navigate("/dashboard")
 
