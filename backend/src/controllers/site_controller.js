@@ -39,4 +39,21 @@ const getSites = async (req, res) => {
   }
 };
 
-module.exports = { createSite, getSites };
+const deleteSite = async (req, res) => {
+  const { userId } = getAuth(req);
+  const { siteId } = req.params;
+
+  if (!userId) {
+    res.status(401).json({ message: "Unauthorized" });
+  }
+
+  try {
+    await Site.findByIdAndDelete(siteId);
+
+    res.status(200).json({ message: "Site deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { createSite, getSites, deleteSite };
