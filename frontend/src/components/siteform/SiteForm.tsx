@@ -1,5 +1,7 @@
 import React, { useMemo, useState } from "react"
 import slugify from "slugify"
+import { selectError, setError } from "../../redux/reducers/site_slice"
+import { useAppSelector, useAppDispatch } from "../../hooks/redux_hooks"
 
 type SiteFormData = {
     name: string;
@@ -15,6 +17,10 @@ type Props = {
 }
 
 function SiteForm({ initialData, onSubmit, loading = false }: Props) {
+
+    const dispatch = useAppDispatch();
+    const error = useAppSelector(selectError);
+
 
     const [formData, setFormData] = useState<SiteFormData>({ name: initialData?.name || "", slug: initialData?.slug || "", niche: initialData?.niche || "", domain: initialData?.domain || "" })
 
@@ -40,6 +46,19 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
 
         const { name, value } = e.target;
 
+        console.log(name, value);
+
+        if (name === "domain") {
+            if (value && !/^w{3}?\.+/i.test(value)) {
+                dispatch(setError("Domain must start with www."))
+                console.log("no www!")
+            } else {
+                dispatch(setError(null));
+            }
+
+
+        }
+
         setFormData((prev) => ({
             ...prev,
             [name]: value
@@ -61,7 +80,7 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
 
                 <div>
                     <label className="block text-left text-sm font-medium mb-2">Name</label>
-                    <input type="text" name="name" value={formData.name} onChange={handleChange} className="w-full border rounded-lg px-4 py-3" placeholder="name of the site" required/>
+                    <input type="text" name="name" value={formData.name} onChange={handleChange} className="w-full border rounded-lg px-4 py-3" placeholder="name of the site" required />
                 </div>
 
                 <div>
@@ -71,7 +90,8 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
 
                 <div>
                     <label className="block text-left text-sm font-medium mb-2">Domain</label>
-                    <input type="text" name="domain" value={formData.domain} onChange={handleChange} className="w-full border rounded-lg px-4 py-3" placeholder="www.sitename.co.za" required/>
+                    <input type="text" name="domain" value={formData.domain} onChange={handleChange} className="w-full border rounded-lg px-4 py-3" placeholder="www.sitename.co.za" required />
+                    {error && <p className="text-red-500 text-sm">{error}</p>}
                 </div>
 
                 <div>
@@ -80,7 +100,7 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
                 </div>
 
                 <div>
-                    <button disabled={loading} type="submit" className="mt-4 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-black disabled:bg-gray-400 transition cursor-pointer">Add</button>
+                    <button disabled={loading || !!error} type="submit" className="mt-4 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-black disabled:bg-gray-400 transition cursor-pointer">Add</button>
                 </div>
             </div>
         </form>

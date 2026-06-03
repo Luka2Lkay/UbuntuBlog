@@ -41,6 +41,9 @@ const siteSlice = createSlice({
         state.sites[index] = newSite;
       }
     },
+    setError(state, action) {
+      state.error = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -76,5 +79,5 @@ export const selectSites = (state: { site: SiteState }) =>
 export const selectError = (state: { site: SiteState }) => state.site.error;
 export const selectLoading = (state: { site: SiteState }) => state.site.loading;
 
-export const { setCurrentSite, addSite } = siteSlice.actions;
+export const { setCurrentSite, addSite, setError } = siteSlice.actions;
 export default siteSlice.reducer;
