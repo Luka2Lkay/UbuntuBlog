@@ -49,7 +49,7 @@ function Dashboard() {
             </div>
 
             <div>
-                <SiteCard name="Home of Commerce" domain="https://www.homeofcommerce.co.za" niche="Education" />
+                <SiteCard name={selectedSite?.name} domain={selectedSite?.domain} niche={selectedSite?.niche} />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

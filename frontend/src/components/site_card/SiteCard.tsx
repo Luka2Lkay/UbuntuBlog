@@ -2,9 +2,9 @@ import { Globe } from "lucide-react"
 import { SmilePlus } from "lucide-react"
 
 interface Props {
-    name: string;
-    domain: string;
-    niche?: string
+    name: string | undefined;
+    domain: string | undefined;
+    niche?: string | undefined;
 }
 
 function SiteCard({ name, domain, niche }: Props) {
