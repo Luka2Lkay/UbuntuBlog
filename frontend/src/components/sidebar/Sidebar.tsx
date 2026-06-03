@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { fetchSitesThunk } from "../../redux/thunks/site_thunk";
 import { useAuth } from "@clerk/react";
 import { useAppDispatch } from "../../hooks/redux_hooks";
-import { deleteSiteThunk } from "../../redux/thunks/site_thunk";
+import {deleteSiteThunk} from "../../redux/thunks/site_thunk";
 
 function Sidebar() {
     const { selectedSite, setSelectedSite } = useSiteContext();
@@ -33,7 +33,7 @@ function Sidebar() {
 
     }, [dispatch])
 
-    const handleDeleteSite = async (siteId: string) => {
+        const handleDeleteSite = async (siteId: string) => {    
         try {
             const token = await getToken({ template: "backend" });
             await dispatch(deleteSiteThunk({ siteId, token }));
@@ -76,7 +76,7 @@ function Sidebar() {
                         <h2 className="text-xs uppercase text-gray-500 mb-2">Clients</h2>
                     )}
 
-                    <button className="text-gray-400 hover:text-white mb-2 cursor-pointer" onClick={() => { navigate("/create-site") }}>
+                    <button className="text-gray-400 hover:text-white mb-2 cursor-pointer" onClick={() => { navigate("/create-site"); console.log("sites:", sites) }}>
                         <Plus size={18} />
                     </button>
                 </div>

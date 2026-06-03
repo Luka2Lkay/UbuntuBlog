@@ -4,23 +4,9 @@ import { useAuth } from "@clerk/react";
 import { useNavigate } from "react-router-dom";
 import { postSitesThunk } from "../../redux/thunks/site_thunk";
 import { useAppDispatch } from "../../hooks/redux_hooks";
-import { useSiteContext } from "../../context/SiteContext";
+import { type SitePayload, type Site } from "../../interfaces/interface";
+// import { useSiteContext } from "../../context/SiteContext";
 
-interface SitePayload {
-    name: string;
-    slug: string;
-    domain: string;
-    niche: string;
-    userId: string | null | undefined;
-}
-
-interface Site {
-    _id: string;
-    name: string;
-    slug: string;
-    domain: string;
-    niche: string;
-}
 
 function CreateSite() {
 
@@ -28,9 +14,9 @@ function CreateSite() {
     const { userId, getToken } = useAuth();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const {setSelectedSite} = useSiteContext();
+    // const {setSelectedSite} = useSiteContext();
 
-    const handleCreateSite = async (data: Omit<SitePayload, "userId">) => {
+    const handleCreateSite = async (data: SitePayload) => {
 
         try {
             setLoading(true);
@@ -42,11 +28,13 @@ function CreateSite() {
             }
 
 
-           const dispatchResult = await dispatch(postSitesThunk({ siteData: payload, token }));
+            const dispatchResult= await dispatch(postSitesThunk({ siteData: payload, token }));
 
-            console.log("Site created successfully:", dispatchResult);
+            const createdSite = dispatchResult.payload as Site;
+
+            console.log("Site created successfully:", createdSite.name);
             // setSelectedSite(payload.name ? {
-            //     _id: ,
+            //     _id: dispatchResult.payload?._id,
             //     name: payload.name,
             //     slug: payload.slug,
             //     domain: payload.domain,

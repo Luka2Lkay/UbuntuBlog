@@ -3,14 +3,15 @@ import slugify from "slugify"
 import { selectError, setError } from "../../redux/reducers/site_slice"
 import { useAppSelector, useAppDispatch } from "../../hooks/redux_hooks"
 
-type SiteFormData = {
+interface SiteFormData {
     name: string;
     slug: string;
     niche: string;
     domain: string;
+    userId: string | null | undefined;
 }
 
-type Props = {
+interface Props {
     initialData?: Partial<SiteFormData>;
     onSubmit: (data: SiteFormData) => void;
     loading: boolean;
@@ -22,7 +23,7 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
     const error = useAppSelector(selectError);
 
 
-    const [formData, setFormData] = useState<SiteFormData>({ name: initialData?.name || "", slug: initialData?.slug || "", niche: initialData?.niche || "", domain: initialData?.domain || "" })
+    const [formData, setFormData] = useState<SiteFormData>({ name: initialData?.name || "", slug: initialData?.slug || "", niche: initialData?.niche || "", domain: initialData?.domain || "", userId: initialData?.userId || null });
 
 
     useMemo(() => {
