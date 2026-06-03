@@ -46,12 +46,9 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
 
         const { name, value } = e.target;
 
-        console.log(name, value);
-
         if (name === "domain") {
             if (value && !/^w{3}?\.+/i.test(value)) {
                 dispatch(setError("Domain must start with www."))
-                console.log("no www!")
             } else {
                 dispatch(setError(null));
             }
@@ -89,7 +86,7 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
                 <div>
                     <label className="block text-left text-sm font-medium mb-2">Domain</label>
                     <input type="text" name="domain" value={formData.domain} onChange={handleChange} className="w-full border rounded-lg px-4 py-3" placeholder="www.sitename.co.za" required />
-                    {error && <p className="text-red-500 text-sm">{error}</p>}
+                    {error && error.includes("Domain") && <p className="text-red-500 text-sm">{error}</p>}
                 </div>
 
                 <div>
