@@ -1,5 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchWithAuth, postWithAuth } from "../../services/api";
+import {
+  fetchWithAuth,
+  postWithAuth,
+  deleteWithAuth,
+} from "../../services/api";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
 
@@ -19,7 +23,7 @@ export const fetchSitesThunk = createAsyncThunk<
 >("site/fetchSites", async (token, { rejectWithValue }) => {
   try {
     const response = await fetchWithAuth(`${BASE_URL}/api/sites`, token);
-    return response;
+    return response.data;
   } catch (error) {
     console.error("Error fetching sites:", error);
     return rejectWithValue("Failed to fetch sites");
@@ -41,5 +45,23 @@ export const postSitesThunk = createAsyncThunk<
   } catch (error) {
     console.error("Error posting site data", error);
     return rejectWithValue("Failed to post site data");
+  }
+});
+
+export const deleteSiteThunk = createAsyncThunk<
+  string,
+  { siteId: string; token: string | null },
+  { rejectValue: string }
+>("site/deleteSite", async ({ siteId, token }, { rejectWithValue }) => {
+  try {
+    const response = await deleteWithAuth(
+      `${BASE_URL}/api/sites/${siteId}`,
+      token,
+    );
+
+    return response.data.message;
+  } catch (error) {
+    console.error("Error deleting site:", error);
+    return rejectWithValue("Failed to delete site");
   }
 });

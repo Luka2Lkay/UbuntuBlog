@@ -31,7 +31,7 @@ function Dashboard() {
 
                 console.log(token);
 
-                return data.user;
+                return data;
             } catch (error) {
                 console.error("Error loading user data:", error);
             }

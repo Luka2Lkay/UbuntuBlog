@@ -13,9 +13,7 @@ export const fetchWithAuth = async (url: string, token: string | null) => {
       },
     });
 
-    const data = response.data;
-
-    return data;
+    return response;
   } catch (error) {
     console.error("Error fetching data:", error);
     throw new Error("Failed to fetch data");
@@ -43,5 +41,25 @@ export const postWithAuth = async (
   } catch (error) {
     console.error("Error posting data", error);
     throw new Error("Failed to post data");
+  }
+};
+
+export const deleteWithAuth = async (url: string, token: string | null) => {
+  if (!token) {
+    throw new Error("No token found");
+  }
+
+  try {
+    const response = await axios.delete(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.error("Error deleting data", error);
+    throw new Error("Failed to delete data");
   }
 };
