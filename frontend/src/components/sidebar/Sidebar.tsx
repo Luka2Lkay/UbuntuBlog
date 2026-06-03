@@ -105,7 +105,11 @@ function Sidebar() {
                                 </button>
 
                                 {clientMenuOpen === clientSite?._id && (
+
                                     <div className="absolute right-120 top-50 z-50 gap-10 w-50 rounded-lg bg-gray-900 border border-gray-800 overflow-hidden shadow-xl">
+                                        <div className="border-b border-gray-500 flex justify-end">
+                                            <button className="cursor-pointer p-4 font-semibold hover:text-red-500" onClick={() => setClientMenuOpen(null)}>X</button>
+                                        </div>
                                         <button className="w-full gap-2 flex items-center px-4 py-3 text-sm hover:bg-gray-800" onClick={() => alert(clientSite?._id)}>
                                             <Pencil size={16} />
                                             Edit Client
