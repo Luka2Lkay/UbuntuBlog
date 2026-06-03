@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { fetchSitesThunk } from "../../redux/thunks/site_thunk";
 import { useAuth } from "@clerk/react";
 import { useAppDispatch } from "../../hooks/redux_hooks";
+import { deleteSiteThunk } from "../../redux/thunks/site_thunk";
 
 function Sidebar() {
     const { selectedSite, setSelectedSite } = useSiteContext();
@@ -31,6 +32,15 @@ function Sidebar() {
         fetchSites();
 
     }, [dispatch])
+
+    const handleDeleteSite = async (siteId: string) => {
+        try {
+            const token = await getToken({ template: "backend" });
+            await dispatch(deleteSiteThunk({ siteId, token }));
+        } catch (error) {
+            console.error("Error deleting site:", error);
+        }
+    };
 
     return (
         <aside className={`min-h-screen bg-gray-900 text-white flex flex-col transition-all duration-300 hidden md:block ${collapsed ? 'w-20' : 'w-64'}`}>
@@ -66,7 +76,7 @@ function Sidebar() {
                         <h2 className="text-xs uppercase text-gray-500 mb-2">Clients</h2>
                     )}
 
-                    <button className="text-gray-400 hover:text-white mb-2 cursor-pointer" onClick={() => { navigate("/create-site"); console.log("sites:", sites) }}>
+                    <button className="text-gray-400 hover:text-white mb-2 cursor-pointer" onClick={() => { navigate("/create-site") }}>
                         <Plus size={18} />
                     </button>
                 </div>
@@ -93,7 +103,7 @@ function Sidebar() {
                                             <Pencil size={16} />
                                             Edit Client
                                         </button>
-                                        <button className="w-full flex items-center gap-2 px-4 py-3 text-sm text-red-400 hover:bg-gray-800" onClick={() => alert("Remove client not implemented yet")}>
+                                        <button className="w-full flex items-center gap-2 px-4 py-3 text-sm text-red-400 hover:bg-gray-800" onClick={() => handleDeleteSite(clientSite?._id)}>
                                             <Trash size={16} />
                                             Remove Client
                                         </button>
