@@ -55,8 +55,6 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
             } else {
                 dispatch(setError(null));
             }
-
-
         }
 
         setFormData((prev) => ({
@@ -100,7 +98,7 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
                 </div>
 
                 <div>
-                    <button disabled={loading || !!error} type="submit" className="mt-4 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-black disabled:bg-gray-400 transition cursor-pointer">Add</button>
+                    <button disabled={loading || !!error || !formData.name || !formData.domain} type="submit" className="mt-4 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-black disabled:bg-gray-400 transition cursor-pointer">Add</button>
                 </div>
             </div>
         </form>
