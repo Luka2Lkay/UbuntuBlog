@@ -26,22 +26,12 @@ function CreateSite() {
                 userId
             }
 
+            const dispatchResult = await dispatch(postSitesThunk({ siteData: payload, token }));
 
-            const dispatchResult= await dispatch(postSitesThunk({ siteData: payload, token }));
+            const createdSite = dispatchResult.payload as Site;
 
-            const createdSite= dispatchResult.payload as Site;
+            setSelectedSite(createdSite);
 
-            console.log("Site created successfully:", createdSite.name);
-            // setSelectedSite(createdSite);
-
-            setSelectedSite(createdSite.name ? {
-                _id: createdSite._id,
-                name: createdSite.name,
-                slug: payload.slug,
-                domain: payload.domain,
-                niche: payload.niche,
-                userId: payload.userId
-            } : null);
             navigate("/dashboard")
 
         } catch (error) {

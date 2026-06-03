@@ -15,9 +15,7 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
     const dispatch = useAppDispatch();
     const error = useAppSelector(selectError);
 
-
     const [formData, setFormData] = useState<SiteFormData>({ name: initialData?.name || "", slug: initialData?.slug || "", niche: initialData?.niche || "", domain: initialData?.domain || "", userId: initialData?.userId || null });
-
 
     useMemo(() => {
 
@@ -56,7 +54,6 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
 
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         onSubmit(formData);
     }
 

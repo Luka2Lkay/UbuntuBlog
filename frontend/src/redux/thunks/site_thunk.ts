@@ -4,17 +4,9 @@ import {
   postWithAuth,
   deleteWithAuth,
 } from "../../services/api";
+import { type Site } from "../../interfaces/interface";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
-
-interface Site {
-  _id: string;
-  name: string;
-  slug: string;
-  domain: string;
-  niche: string;
-  userId: string | null | undefined;
-}
 
 export const fetchSitesThunk = createAsyncThunk<
   Site[],
