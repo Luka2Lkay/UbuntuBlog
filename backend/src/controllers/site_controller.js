@@ -44,7 +44,7 @@ const deleteSite = async (req, res) => {
   const { siteId } = req.params;
 
   if (!userId) {
-    res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Unauthorized" });
   }
 
   try {
