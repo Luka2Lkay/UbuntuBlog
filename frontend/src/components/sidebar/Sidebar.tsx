@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { fetchSitesThunk } from "../../redux/thunks/site_thunk";
 import { useAuth } from "@clerk/react";
 import { useAppDispatch } from "../../hooks/redux_hooks";
-import {deleteSiteThunk} from "../../redux/thunks/site_thunk";
+import { deleteSitesThunk } from "../../redux/thunks/site_thunk";
 
 function Sidebar() {
     const { selectedSite, setSelectedSite } = useSiteContext();
@@ -24,7 +24,7 @@ function Sidebar() {
         const fetchSites = async () => {
             try {
                 const token = await getToken({ template: "backend" });
-                await dispatch(fetchSitesThunk(token));
+                await dispatch(fetchSitesThunk(token)).unwrap();
             } catch (error) {
                 console.error("Error fetching sites:", error);
             }
@@ -33,10 +33,17 @@ function Sidebar() {
 
     }, [dispatch])
 
-        const handleDeleteSite = async (siteId: string) => {    
+    const handleDeleteSite = async (siteId: string) => {
         try {
+
             const token = await getToken({ template: "backend" });
-            await dispatch(deleteSiteThunk({ siteId, token }));
+            await dispatch(deleteSitesThunk({ siteId, token })).unwrap();
+            setClientMenuOpen(null);
+
+            if (selectedSite?._id === siteId) {
+                setSelectedSite(null);
+            }
+
         } catch (error) {
             console.error("Error deleting site:", error);
         }
@@ -98,7 +105,7 @@ function Sidebar() {
                                 </button>
 
                                 {clientMenuOpen === clientSite?._id && (
-                                    <div className="absolute right-120 top-5 z-50 gap-10 w-40 rounded-lg bg-gray-900 border border-gray-800 overflow-hidden shadow-xl">
+                                    <div className="absolute right-120 top-50 z-50 gap-10 w-50 rounded-lg bg-gray-900 border border-gray-800 overflow-hidden shadow-xl">
                                         <button className="w-full gap-2 flex items-center px-4 py-3 text-sm hover:bg-gray-800" onClick={() => alert(clientSite?._id)}>
                                             <Pencil size={16} />
                                             Edit Client

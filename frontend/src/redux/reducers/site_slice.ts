@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchSitesThunk, postSitesThunk } from "../thunks/site_thunk";
+import {
+  fetchSitesThunk,
+  postSitesThunk,
+  deleteSitesThunk,
+} from "../thunks/site_thunk";
 import { type Site } from "../../interfaces/interface";
 
 interface SiteState {
@@ -65,6 +69,18 @@ const siteSlice = createSlice({
         state.error = null;
       })
       .addCase(postSitesThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(deleteSitesThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.sites = state.sites.filter((site) => site._id !== action.payload);
+      })
+      .addCase(deleteSitesThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteSitesThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });
