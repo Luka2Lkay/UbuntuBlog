@@ -7,9 +7,10 @@ export interface SitePayload {
 }
 
 export interface Site {
-    _id: string | null;
+    _id: string;
     name: string;
     slug: string;
     domain: string;
     niche: string;
+    userId: string | null | undefined;
 }

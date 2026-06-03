@@ -5,8 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { postSitesThunk } from "../../redux/thunks/site_thunk";
 import { useAppDispatch } from "../../hooks/redux_hooks";
 import { type SitePayload, type Site } from "../../interfaces/interface";
-// import { useSiteContext } from "../../context/SiteContext";
-
+import { useSiteContext } from "../../context/SiteContext";
 
 function CreateSite() {
 
@@ -14,7 +13,7 @@ function CreateSite() {
     const { userId, getToken } = useAuth();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    // const {setSelectedSite} = useSiteContext();
+    const { setSelectedSite } = useSiteContext();
 
     const handleCreateSite = async (data: SitePayload) => {
 
@@ -30,16 +29,19 @@ function CreateSite() {
 
             const dispatchResult= await dispatch(postSitesThunk({ siteData: payload, token }));
 
-            const createdSite = dispatchResult.payload as Site;
+            const createdSite= dispatchResult.payload as Site;
 
             console.log("Site created successfully:", createdSite.name);
-            // setSelectedSite(payload.name ? {
-            //     _id: dispatchResult.payload?._id,
-            //     name: payload.name,
-            //     slug: payload.slug,
-            //     domain: payload.domain,
-            //     niche: payload.niche
-            // } : null);
+            // setSelectedSite(createdSite);
+
+            setSelectedSite(createdSite.name ? {
+                _id: createdSite._id,
+                name: createdSite.name,
+                slug: payload.slug,
+                domain: payload.domain,
+                niche: payload.niche,
+                userId: payload.userId
+            } : null);
             navigate("/dashboard")
 
         } catch (error) {

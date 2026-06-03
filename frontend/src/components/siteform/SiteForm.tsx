@@ -2,14 +2,7 @@ import React, { useMemo, useState } from "react"
 import slugify from "slugify"
 import { selectError, setError } from "../../redux/reducers/site_slice"
 import { useAppSelector, useAppDispatch } from "../../hooks/redux_hooks"
-
-interface SiteFormData {
-    name: string;
-    slug: string;
-    niche: string;
-    domain: string;
-    userId: string | null | undefined;
-}
+import { type SitePayload as SiteFormData } from "../../interfaces/interface"
 
 interface Props {
     initialData?: Partial<SiteFormData>;

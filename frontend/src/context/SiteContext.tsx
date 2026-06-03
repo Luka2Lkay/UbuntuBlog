@@ -1,14 +1,7 @@
 import { createContext, useState, useContext} from "react";
+import { type Site } from "../interfaces/interface";
 
 type ReactNode = React.ReactNode;
-
-interface Site {
-    _id: string;
-    name: string;
-    slug: string;
-    domain: string;
-    niche: string;
-}
 
 interface SiteContextType {
     selectedSite: Site | null;
