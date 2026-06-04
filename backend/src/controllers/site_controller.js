@@ -24,6 +24,37 @@ const createSite = async (req, res) => {
   }
 };
 
+const editSite = async (req, res) => {
+  const errors = validationResult(req);
+  const { userId } = getAuth(req);
+  const { siteId } = req.params;
+
+  if (!siteId) {
+    return res.status(400).json({ message: "Site ID is required" });
+  }
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  if (!userId) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  try {
+    const updateSite = await Site.findByIdAndUpdate(siteId, req.body, {
+      new: true,
+    });
+
+    if (!updateSite) {
+      return res.status(404).json({ message: "Site not found" });
+    }
+    res.status(200).json(updateSite);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 const getSites = async (req, res) => {
   const { userId } = getAuth(req);
 
@@ -47,6 +78,10 @@ const deleteSite = async (req, res) => {
     return res.status(401).json({ message: "Unauthorized" });
   }
 
+  if (!siteId) {
+    return res.status(400).json({ message: "Site ID is required" });
+  }
+
   try {
     await Site.findByIdAndDelete(siteId);
 
@@ -56,4 +91,4 @@ const deleteSite = async (req, res) => {
   }
 };
 
-module.exports = { createSite, getSites, deleteSite };
+module.exports = { createSite, getSites, deleteSite, editSite };
