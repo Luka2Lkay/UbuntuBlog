@@ -2,32 +2,16 @@ import { useNavigate } from "react-router-dom"
 import { useSiteContext } from "../../context/SiteContext"
 import PostForm from "../../components/postform/PostForm"
 import { useState } from "react"
-import {type Site} from "../../interfaces/interface";
 import { type Post } from "../../interfaces/interface";
 
-// interface PostPayload {
-//     site: Site | null;
-//     title: string;
-//     slug: string;
-//     excerpt: string;
-//     content: string;
-//     featuredImage: string;
-//     category: string;
-//     tags: string[];
-//     published: boolean;
-//     seo: {
-//         metaTitle: string;
-//         metaDescription: string;
-//         keywords: string[]
-//     },
-// }
+type PostPayload = Omit<Post, "_id">;
 
 function CreatePost() {
     const navigate = useNavigate();
     const { selectedSite } = useSiteContext();
     const [loading, setLoading] = useState(false);
 
-    const handleCreatePost = async (data: Omit<PostPayload, "site">) => {
+    const handleCreatePost = async (data: PostPayload) => {
         try {
             setLoading(true);
 
