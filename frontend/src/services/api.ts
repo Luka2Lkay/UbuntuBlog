@@ -63,3 +63,27 @@ export const deleteWithAuth = async (url: string, token: string | null) => {
     throw new Error("Failed to delete data");
   }
 };
+
+export const updateWithAuth = async (
+  url: string,
+  data: {},
+  token: string | null,
+) => {
+  if (!token) {
+    throw new Error("No token found!");
+  }
+
+  try {
+    const response = await axios.patch(url, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.error("Error editing data", error);
+    throw new Error("Failed to edit data");
+  }
+};
