@@ -12,7 +12,7 @@ const siteRoutes = (app) => {
 
   router.post("/sites", validateSiteCreation, createSite);
   router.get("/sites", getSites);
-  router.put("/sites/:siteId", validateSiteCreation, editSite);
+  router.patch("/sites/:siteId", editSite);
   router.delete("/sites/:siteId", deleteSite);
 
   app.use("/api", router);

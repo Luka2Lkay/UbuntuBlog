@@ -43,7 +43,7 @@ const editSite = async (req, res) => {
 
   try {
     const updateSite = await Site.findByIdAndUpdate(siteId, req.body, {
-      new: true,
+      returnDocument: "after",
     });
 
     if (!updateSite) {
