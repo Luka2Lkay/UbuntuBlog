@@ -2,11 +2,13 @@ import React, { useMemo, useState } from "react"
 import slugify from "slugify"
 import { selectError, setError } from "../../redux/reducers/site_slice"
 import { useAppSelector, useAppDispatch } from "../../hooks/redux_hooks"
-import { type SitePayload as SiteFormData } from "../../interfaces/interface"
+import { type Site } from "../../interfaces/interface"
+
+type SiteData = Omit<Site, "_id">;
 
 interface Props {
-    initialData?: Partial<SiteFormData>;
-    onSubmit: (data: SiteFormData) => void;
+    initialData?: Partial<SiteData>;
+    onSubmit: (data: SiteData) => void;
     loading: boolean;
 }
 
@@ -15,7 +17,7 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
     const dispatch = useAppDispatch();
     const error = useAppSelector(selectError);
 
-    const [formData, setFormData] = useState<SiteFormData>({ name: initialData?.name || "", slug: initialData?.slug || "", niche: initialData?.niche || "", domain: initialData?.domain || "", userId: initialData?.userId || null });
+    const [formData, setFormData] = useState<SiteData>({ name: initialData?.name || "", slug: initialData?.slug || "", niche: initialData?.niche || "", domain: initialData?.domain || "", userId: initialData?.userId || null });
 
     useMemo(() => {
 
