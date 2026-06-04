@@ -4,8 +4,7 @@ import { useAuth } from "@clerk/react";
 import { useNavigate } from "react-router-dom";
 import { postSitesThunk } from "../../redux/thunks/site_thunk";
 import { useAppDispatch } from "../../hooks/redux_hooks";
-// import { type SitePayload, type Site } from "../../interfaces/interface";
-import {type Site} from "../../interfaces/interface";
+import { type Site } from "../../interfaces/interface";
 import { useSiteContext } from "../../context/SiteContext";
 
 type SitePayload = Omit<Site, "_id">;
