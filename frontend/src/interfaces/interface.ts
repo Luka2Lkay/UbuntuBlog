@@ -9,6 +9,7 @@ export interface Site {
 
 export interface Post {
     _id: string;
+    site: Site | null;
     title: string;
     slug: string;
     excerpt: string;

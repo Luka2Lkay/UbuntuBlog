@@ -3,23 +3,24 @@ import { useSiteContext } from "../../context/SiteContext"
 import PostForm from "../../components/postform/PostForm"
 import { useState } from "react"
 import {type Site} from "../../interfaces/interface";
+import { type Post } from "../../interfaces/interface";
 
-interface PostPayload {
-    site: Site | null;
-    title: string;
-    slug: string;
-    excerpt: string;
-    content: string;
-    featuredImage: string;
-    category: string;
-    tags: string[];
-    published: boolean;
-    seo: {
-        metaTitle: string;
-        metaDescription: string;
-        keywords: string[]
-    },
-}
+// interface PostPayload {
+//     site: Site | null;
+//     title: string;
+//     slug: string;
+//     excerpt: string;
+//     content: string;
+//     featuredImage: string;
+//     category: string;
+//     tags: string[];
+//     published: boolean;
+//     seo: {
+//         metaTitle: string;
+//         metaDescription: string;
+//         keywords: string[]
+//     },
+// }
 
 function CreatePost() {
     const navigate = useNavigate();

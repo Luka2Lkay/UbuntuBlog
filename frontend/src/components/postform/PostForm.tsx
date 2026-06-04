@@ -23,6 +23,7 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
     const [keywordInput, setKeywordInput] = useState("");
 
     const [formData, setFormData] = useState<PostFormData>({
+        site: initialData?.site || null,
         title: initialData?.title || "",
         slug: initialData?.slug || "",
         excerpt: initialData?.excerpt || "",
