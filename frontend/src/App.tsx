@@ -7,6 +7,7 @@ import Home from "./pages/home/Home";
 import Posts from './pages/posts/Posts';
 import CreatePost from './pages/create_post/CreatePost';
 import CreateSite from './pages/create_site/CreateSite'
+import EditSite from './pages/edit_site/EditSite';
 import Layout from './pages/layout/Layout';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/posts" element={<Posts />} />
           <Route path="/create-post" element={<CreatePost />} />
           <Route path="/create-site" element={<CreateSite />} />
+          <Route path="/edit-site" element={<EditSite />} />
         </Route>
       </Routes>
     </BrowserRouter>
