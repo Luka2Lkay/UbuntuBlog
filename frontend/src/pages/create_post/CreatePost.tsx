@@ -2,14 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { useSiteContext } from "../../context/SiteContext"
 import PostForm from "../../components/postform/PostForm"
 import { useState } from "react"
-
-interface Site {
-    _id: string;
-    name: string;
-    slug: string;
-    domain: string;
-    niche: string;
-}
+import {type Site} from "../../interfaces/interface";
 
 interface PostPayload {
     site: Site | null;
