@@ -4,21 +4,7 @@ import { useSiteContext } from "../../context/SiteContext";
 import axios from "axios"
 import Tiptap from "../tiptap/Tiptap";
 
-interface PostFormData {
-    title: string;
-    slug: string;
-    excerpt: string;
-    content: string;
-    featuredImage: string;
-    category: string;
-    tags: string[];
-    published: boolean;
-    seo: {
-        metaTitle: string;
-        metaDescription: string;
-        keywords: string[]
-    },
-}
+
 
 interface Props {
     initialData?: Partial<PostFormData>;
