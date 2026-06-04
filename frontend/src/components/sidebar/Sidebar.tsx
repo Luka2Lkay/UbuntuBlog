@@ -77,7 +77,7 @@ function Sidebar() {
 
                 </NavLink>
 
-                <NavLink to="/create-post" className={({ isActive }) => navClass(isActive)}>
+                <NavLink to="/posts/create" className={({ isActive }) => navClass(isActive)}>
                     <PlusSquare size={18} />
                     {!collapsed && (<span>New Post</span>)}
                 </NavLink>
@@ -89,7 +89,7 @@ function Sidebar() {
                         <h2 className="text-xs uppercase text-gray-500 mb-2">Clients</h2>
                     )}
 
-                    <button className="text-gray-400 hover:text-white mb-2 cursor-pointer" onClick={() => { navigate("/create-site"); console.log("sites:", sites) }}>
+                    <button className="text-gray-400 hover:text-white mb-2 cursor-pointer" onClick={() => { navigate("/sites/create"); console.log("sites:", sites) }}>
                         <Plus size={18} />
                     </button>
                 </div>

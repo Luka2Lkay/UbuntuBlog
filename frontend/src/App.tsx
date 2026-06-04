@@ -20,9 +20,9 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/posts" element={<Posts />} />
-          <Route path="/create-post" element={<CreatePost />} />
-          <Route path="/create-site" element={<CreateSite />} />
-          <Route path="/edit-site" element={<EditSite />} />
+          <Route path="/posts/create" element={<CreatePost />} />
+          <Route path="/sites/create" element={<CreateSite />} />
+          <Route path="/sites/:id/edit" element={<EditSite />} />
         </Route>
       </Routes>
     </BrowserRouter>
