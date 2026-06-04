@@ -49,6 +49,12 @@ function Sidebar() {
         }
     };
 
+    const navigetToEdit = () => {
+
+        setClientMenuOpen(null);
+        navigate("/edit-site");
+    }
+
     return (
         <aside className={`min-h-screen bg-gray-900 text-white flex flex-col transition-all duration-300 hidden md:block ${collapsed ? 'w-20' : 'w-64'}`}>
             <div className="flex items-center justify-between px-4 py-6 border-b border-gray-800 shadow-sm">
@@ -110,7 +116,7 @@ function Sidebar() {
                                         <div className="border-b border-gray-500 flex justify-end">
                                             <button className="cursor-pointer p-4 font-semibold hover:text-red-500" onClick={() => setClientMenuOpen(null)}>X</button>
                                         </div>
-                                        <button className="w-full gap-2 flex items-center px-4 py-3 text-sm hover:bg-gray-800" onClick={() => alert(clientSite?._id)}>
+                                        <button className="w-full gap-2 flex items-center px-4 py-3 text-sm hover:bg-gray-800" onClick={navigetToEdit}>
                                             <Pencil size={16} />
                                             Edit Client
                                         </button>
