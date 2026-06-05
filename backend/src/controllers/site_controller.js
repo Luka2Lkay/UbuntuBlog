@@ -11,7 +11,7 @@ const createSite = async (req, res) => {
   }
 
   if (!userId) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Unauthorized!" });
   }
 
   try {
@@ -25,7 +25,6 @@ const createSite = async (req, res) => {
 };
 
 const editSite = async (req, res) => {
-  const errors = validationResult(req);
   const { userId } = getAuth(req);
   const { siteId } = req.params;
 
@@ -33,12 +32,8 @@ const editSite = async (req, res) => {
     return res.status(400).json({ message: "Site ID is required" });
   }
 
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
   if (!userId) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Unauthorized!" });
   }
 
   try {
@@ -59,12 +54,33 @@ const getSites = async (req, res) => {
   const { userId } = getAuth(req);
 
   if (!userId) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Unauthorized!" });
   }
 
   try {
     const sites = await Site.find();
     res.status(200).json(sites);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const getSite = async (req, res) => {
+  const { userId } = getAuth(req);
+  const { siteId } = req.params;
+
+  if (!userId) {
+    return res.status(401).json({ message: "Unauthorized!" });
+  }
+
+  if (!siteId) {
+    return res.status(400).json({message: "Site ID is required"});
+  }
+
+  try {
+    const site = await Site.findById(siteId);
+
+    res.status(200).json({site});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
