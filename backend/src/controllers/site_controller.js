@@ -74,13 +74,13 @@ const getSite = async (req, res) => {
   }
 
   if (!siteId) {
-    return res.status(400).json({message: "Site ID is required"});
+    return res.status(400).json({ message: "Site ID is required" });
   }
 
   try {
     const site = await Site.findById(siteId);
 
-    res.status(200).json({site});
+    res.status(200).json({ site });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -107,4 +107,4 @@ const deleteSite = async (req, res) => {
   }
 };
 
-module.exports = { createSite, getSites, deleteSite, editSite };
+module.exports = { createSite, getSites, deleteSite, editSite, getSite };

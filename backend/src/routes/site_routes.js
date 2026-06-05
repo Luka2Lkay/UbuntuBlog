@@ -4,6 +4,7 @@ const {
   getSites,
   deleteSite,
   editSite,
+  getSite,
 } = require("../controllers/site_controller");
 const { validateSiteCreation } = require("../middleware/validation");
 
@@ -14,6 +15,7 @@ const siteRoutes = (app) => {
   router.get("/sites", getSites);
   router.patch("/sites/:siteId", editSite);
   router.delete("/sites/:siteId", deleteSite);
+  router.get("/sites/:siteId", getSite);
 
   app.use("/api", router);
 };
