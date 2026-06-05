@@ -16,8 +16,8 @@ export const fetchWithAuth = async (url: string, token: string | null) => {
 
     return response;
   } catch (error) {
-    console.error(errorMessages.apiError("fetch"), error);
-    throw new Error(errorMessages.apiError("fetch"));
+    console.error(`${errorMessages.apiError("fetch", "data")}: `, error);
+    throw new Error(errorMessages.apiError("fetch", "data"));
   }
 };
 
@@ -40,8 +40,8 @@ export const postWithAuth = async (
 
     return response;
   } catch (error) {
-    console.error(errorMessages.apiError("post"), error);
-    throw new Error(errorMessages.apiError("post"));
+    console.error(`${errorMessages.apiError("post", "data")}: `, error);
+    throw new Error(errorMessages.apiError("post", "data"));
   }
 };
 
@@ -60,8 +60,8 @@ export const deleteWithAuth = async (url: string, token: string | null) => {
 
     return response;
   } catch (error) {
-    console.error(errorMessages.apiError("delete"), error);
-    throw new Error(errorMessages.apiError("delete"));
+    console.error(`${errorMessages.apiError("delete", "data")}: `, error);
+    throw new Error(errorMessages.apiError("delete", "data"));
   }
 };
 
@@ -84,12 +84,12 @@ export const updateWithAuth = async (
 
     return response;
   } catch (error) {
-    console.error(errorMessages.apiError("edit"), error);
-    throw new Error(errorMessages.apiError("edit"));
+    console.error(`${errorMessages.apiError("edit", "data")}: `, error);
+    throw new Error(errorMessages.apiError("edit", "data"));
   }
 };
 
-export const getSiteWithAuth = async (url: string, token: string | null) => {
+export const fetchOneWithAuth = async (url: string, token: string | null) => {
   if (!token) {
     throw new Error(errorMessages.noToken);
   }
@@ -103,7 +103,7 @@ export const getSiteWithAuth = async (url: string, token: string | null) => {
 
     return response;
   } catch (error) {
-    console.error(errorMessages.apiError("fetch"), error);
-    throw new Error(errorMessages.apiError("fetch"));
+    console.error(`${errorMessages.apiError("fetch", "data")}: `, error);
+    throw new Error(errorMessages.apiError("fetch", "data"));
   }
 };

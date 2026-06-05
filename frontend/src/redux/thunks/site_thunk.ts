@@ -3,9 +3,11 @@ import {
   fetchWithAuth,
   postWithAuth,
   deleteWithAuth,
+  fetchOneWithAuth,
 } from "../../services/api";
 import { type Site } from "../../interfaces/interface";
 import { deleteSite } from "../reducers/site_slice";
+import { errorMessages } from "../../helpers/messages_helper";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
 
@@ -13,13 +15,27 @@ export const fetchSitesThunk = createAsyncThunk<
   Site[],
   string | null,
   { rejectValue: string }
->("site/fetchSites", async (token, { rejectWithValue }) => {
+>("sites/fetchSites", async (token, { rejectWithValue }) => {
   try {
     const response = await fetchWithAuth(`${BASE_URL}/api/sites`, token);
     return response.data;
   } catch (error) {
-    console.error("Error fetching sites:", error);
-    return rejectWithValue("Failed to fetch sites");
+    console.error(`${errorMessages.apiError("fetch", "sites")}: `, error);
+    return rejectWithValue(errorMessages.apiError("fetch", "sites"));
+  }
+});
+
+export const fetchSiteThunk = createAsyncThunk<
+  Site,
+  string | null,
+  { rejectValue: string }
+>("sites/fetchSite", async (token, { rejectWithValue }) => {
+  try {
+    const response = await fetchOneWithAuth(`${BASE_URL}/api/sites`, token);
+    return response.data;
+  } catch (error) {
+    console.error(`${errorMessages.apiError("fetch", "site")}: `, error);
+    return rejectWithValue(errorMessages.apiError("fetch", "site"));
   }
 });
 
@@ -27,7 +43,7 @@ export const postSitesThunk = createAsyncThunk<
   Site,
   { siteData: Omit<Site, "_id">; token: string | null },
   { rejectValue: string }
->("site/postSite", async ({ siteData, token }, { rejectWithValue }) => {
+>("sites/postSite", async ({ siteData, token }, { rejectWithValue }) => {
   try {
     const response = await postWithAuth(
       `${BASE_URL}/api/sites`,
@@ -37,8 +53,8 @@ export const postSitesThunk = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    console.error("Error posting site data", error);
-    return rejectWithValue("Failed to post site data");
+    console.error(`${errorMessages.apiError("create", "site")}: `, error);
+    return rejectWithValue(errorMessages.apiError("fetch", "sites"));
   }
 });
 
@@ -47,7 +63,7 @@ export const deleteSitesThunk = createAsyncThunk<
   { siteId: string; token: string | null },
   { rejectValue: string }
 >(
-  "site/deleteSites",
+  "sites/deleteSites",
   async ({ siteId, token }, { dispatch, rejectWithValue }) => {
     try {
       const response = await deleteWithAuth(
@@ -59,8 +75,8 @@ export const deleteSitesThunk = createAsyncThunk<
 
       return response.data.message;
     } catch (error) {
-      console.error("Error deleting site:", error);
-      return rejectWithValue("Failed to delete site");
+      console.error(`${errorMessages.apiError("delete", "site")}: `, error);
+      return rejectWithValue(errorMessages.apiError("fetch", "sites"));
     }
   },
 );
