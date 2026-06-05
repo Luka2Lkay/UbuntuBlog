@@ -27,9 +27,10 @@ function Dashboard() {
 
             try {
                 const token = await getToken({ template: "backend" });
+
                 const data = await fetchWithAuth(`${BASE_URL}/api/user`, token);
 
-                console.log(token);
+                console.log(`Token: ${token}`);
 
                 return data;
             } catch (error) {
