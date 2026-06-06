@@ -7,7 +7,7 @@ import { type Site } from "../../interfaces/interface"
 type SiteData = Omit<Site, "_id">;
 
 interface Props {
-    initialData?: Partial<SiteData>;
+    initialData?: Site | null
     onSubmit: (data: SiteData) => void;
     loading: boolean;
 }
