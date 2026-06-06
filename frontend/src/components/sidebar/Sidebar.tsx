@@ -50,6 +50,7 @@ function Sidebar() {
     };
 
     const navigeteToEdit = (siteId: string) => {
+        console.log("sites: ", sites)
         setClientMenuOpen(null);
         navigate(`/sites/${siteId}/edit`);
     }

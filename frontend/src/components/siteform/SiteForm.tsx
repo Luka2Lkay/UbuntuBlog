@@ -8,7 +8,7 @@ type SiteData = Omit<Site, "_id">;
 
 interface Props {
     initialData?: Site | null
-    onSubmit: (data: SiteData) => void;
+    onSubmit: (data: Site) => void;
     loading: boolean;
 }
 
@@ -17,7 +17,7 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
     const dispatch = useAppDispatch();
     const error = useAppSelector(selectError);
 
-    const [formData, setFormData] = useState<SiteData>({ name: initialData?.name || "", slug: initialData?.slug || "", niche: initialData?.niche || "", domain: initialData?.domain || "", userId: initialData?.userId || null });
+    const [formData, setFormData] = useState<Site>({ _id: initialData?._id || "", name: initialData?.name || "", slug: initialData?.slug || "", niche: initialData?.niche || "", domain: initialData?.domain || "", userId: initialData?.userId || null });
 
     useMemo(() => {
 
