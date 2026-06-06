@@ -27,11 +27,19 @@ export const fetchSitesThunk = createAsyncThunk<
 
 export const fetchSiteThunk = createAsyncThunk<
   Site,
-  string | null,
+  { siteId: string; token: string },
   { rejectValue: string }
->("sites/fetchSite", async (token, { rejectWithValue }) => {
+>("sites/fetchSite", async ({ siteId, token }, { rejectWithValue }) => {
+  if (!token) {
+    throw new Error(errorMessages.noToken);
+  }
+
   try {
-    const response = await fetchOneWithAuth(`${BASE_URL}/api/sites`, token);
+    const response = await fetchOneWithAuth(
+      `${BASE_URL}/api/sites/${siteId}`,
+      token,
+    );
+
     return response.data;
   } catch (error) {
     console.error(`${errorMessages.apiError("fetch", "site")}: `, error);
