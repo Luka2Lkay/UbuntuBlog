@@ -4,8 +4,6 @@ import { selectError, setError } from "../../redux/reducers/site_slice"
 import { useAppSelector, useAppDispatch } from "../../hooks/redux_hooks"
 import { type Site } from "../../interfaces/interface"
 
-type SiteData = Omit<Site, "_id">;
-
 interface Props {
     initialData?: Site | null
     onSubmit: (data: Site) => void;
