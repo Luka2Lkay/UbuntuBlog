@@ -88,7 +88,7 @@ function Sidebar() {
                         <h2 className="text-xs uppercase text-gray-500 mb-2">Clients</h2>
                     )}
 
-                    <button className="text-gray-400 hover:text-white mb-2 cursor-pointer" onClick={() => { navigate("/sites/create"); console.log("sites:", sites) }}>
+                    <button className="text-gray-400 hover:text-white mb-2 cursor-pointer" onClick={() => { navigate("/sites/create") }}>
                         <Plus size={18} />
                     </button>
                 </div>
