@@ -42,7 +42,7 @@ export const fetchSiteThunk = createAsyncThunk<
         token,
       );
 
-      dispatch(setCurrentSite(siteId));
+      dispatch(setCurrentSite(response.data.site));
       return response.data;
     } catch (error) {
       console.error(`${errorMessages.apiError("fetch", "site")}: `, error);

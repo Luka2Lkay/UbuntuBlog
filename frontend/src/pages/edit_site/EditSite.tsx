@@ -27,6 +27,9 @@ function EditSite() {
         const token = await getToken({ template: "backend" });
         await dispatch(fetchSiteThunk({ siteId, token })).unwrap()
 
+        console.log("current site", currentSite)
+        console.log("id: ", siteId)
+
       } catch (error) {
         console.error("Error fetching site ", error)
       }
@@ -45,6 +48,8 @@ function EditSite() {
       const token = await getToken({ template: "backend" });
 
       await dispatch(fetchSiteThunk({ siteId: data._id, token }))
+
+
 
     } catch (error) {
       console.error("Failed to update", error)
