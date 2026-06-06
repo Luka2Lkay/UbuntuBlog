@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { fetchSitesThunk } from "../../redux/thunks/site_thunk";
 import { useAuth } from "@clerk/react";
 import { useAppDispatch } from "../../hooks/redux_hooks";
-import { deleteSitesThunk } from "../../redux/thunks/site_thunk";
+import { deleteSiteThunk } from "../../redux/thunks/site_thunk";
 
 function Sidebar() {
     const { selectedSite, setSelectedSite } = useSiteContext();
@@ -37,7 +37,7 @@ function Sidebar() {
         try {
 
             const token = await getToken({ template: "backend" });
-            await dispatch(deleteSitesThunk({ siteId, token })).unwrap();
+            await dispatch(deleteSiteThunk({ siteId, token })).unwrap();
             setClientMenuOpen(null);
 
             if (selectedSite?._id === siteId) {
