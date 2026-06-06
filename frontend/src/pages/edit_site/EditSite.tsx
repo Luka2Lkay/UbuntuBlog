@@ -20,13 +20,12 @@ function EditSite() {
 
 
     const fetchSite = async () => {
-      // fetch site using redux thunk
-
+    
       try {
         const token = await getToken({ template: "backend" });
-        // const response = await dispatch(fetchSiteThunk({ siteId, token })).unwrap()
+        const response = await dispatch(fetchSiteThunk({ siteId, token })).unwrap()
 
-        console.log("id value", siteId);
+        console.log(response);
 
       } catch (error) {
         console.error("Error fetching site ", error)

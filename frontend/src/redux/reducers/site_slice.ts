@@ -91,6 +91,7 @@ export const selectSites = (state: { site: SiteState }) =>
   state.site.sites ?? [];
 export const selectError = (state: { site: SiteState }) => state.site.error;
 export const selectLoading = (state: { site: SiteState }) => state.site.loading;
+export const selectCurrentSite = (state: {site: SiteState}) => state.site.currentSite;
 
 export const { setCurrentSite, addSite, deleteSite, setError } =
   siteSlice.actions;
