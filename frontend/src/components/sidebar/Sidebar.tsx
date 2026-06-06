@@ -49,10 +49,9 @@ function Sidebar() {
         }
     };
 
-    const navigetToEdit = () => {
-
+    const navigeteToEdit = (siteId: string) => {
         setClientMenuOpen(null);
-        navigate("/edit-site");
+        navigate(`/sites/${siteId}/edit`);
     }
 
     return (
@@ -116,7 +115,7 @@ function Sidebar() {
                                         <div className="border-b border-gray-500 flex justify-end">
                                             <button className="cursor-pointer p-4 font-semibold hover:text-red-500" onClick={() => setClientMenuOpen(null)}>X</button>
                                         </div>
-                                        <button className="w-full gap-2 flex items-center px-4 py-3 text-sm hover:bg-gray-800" onClick={navigetToEdit}>
+                                        <button className="w-full gap-2 flex items-center px-4 py-3 text-sm hover:bg-gray-800" onClick={() => navigeteToEdit(clientSite?._id)}>
                                             <Pencil size={16} />
                                             Edit Client
                                         </button>

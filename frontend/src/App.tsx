@@ -22,7 +22,7 @@ function App() {
           <Route path="/posts" element={<Posts />} />
           <Route path="/posts/create" element={<CreatePost />} />
           <Route path="/sites/create" element={<CreateSite />} />
-          <Route path="/sites/:id/edit" element={<EditSite />} />
+          <Route path="/sites/:siteId/edit" element={<EditSite />} />
         </Route>
       </Routes>
     </BrowserRouter>

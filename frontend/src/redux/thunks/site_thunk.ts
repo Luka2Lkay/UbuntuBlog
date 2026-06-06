@@ -27,7 +27,7 @@ export const fetchSitesThunk = createAsyncThunk<
 
 export const fetchSiteThunk = createAsyncThunk<
   Site,
-  { siteId: string; token: string },
+  { siteId: string | undefined; token: string | null },
   { rejectValue: string }
 >("sites/fetchSite", async ({ siteId, token }, { rejectWithValue }) => {
   if (!token) {
