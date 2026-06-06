@@ -4,6 +4,7 @@ import {
   postSitesThunk,
   deleteSiteThunk,
   fetchSiteThunk,
+  updateSiteThunk,
 } from "../thunks/site_thunk";
 import { type Site } from "../../interfaces/interface";
 
@@ -85,6 +86,26 @@ const siteSlice = createSlice({
         state.error = null;
       })
       .addCase(deleteSiteThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(updateSiteThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        const updatedSite = action.payload;
+        const index = state.sites.findIndex((site) => site._id === updatedSite._id);
+
+        if (index !== -1) {
+          state.sites[index] = updatedSite;
+        } else {
+          state.sites.unshift(updatedSite);
+        }
+      })
+      .addCase(updateSiteThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateSiteThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })

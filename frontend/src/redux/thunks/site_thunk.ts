@@ -7,9 +7,12 @@ import {
   updateWithAuth,
 } from "../../services/api";
 import { type Site } from "../../interfaces/interface";
-import { deleteSite, setCurrentSite } from "../reducers/site_slice";
+import {
+  deleteSite,
+  setCurrentSite,
+  selectCurrentSite,
+} from "../reducers/site_slice";
 import { errorMessages } from "../../helpers/messages_helper";
-import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
 
@@ -45,7 +48,8 @@ export const fetchSiteThunk = createAsyncThunk<
       );
 
       dispatch(setCurrentSite(response.data.site));
-      return response.data;
+
+      return response.data.site;
     } catch (error) {
       console.error(`${errorMessages.apiError("fetch", "site")}: `, error);
       return rejectWithValue(errorMessages.apiError("fetch", "site"));
@@ -73,26 +77,30 @@ export const postSitesThunk = createAsyncThunk<
 
 export const updateSiteThunk = createAsyncThunk<
   Site,
-  { siteData: Site; token: string | null },
+  { siteData: Site; siteId: string; token: string | null },
   { rejectValue: string }
->("sites/updateSite", async ({ siteData, token }, { rejectWithValue }) => {
-  if (!token) {
-    throw new Error(errorMessages.noToken);
-  }
+>(
+  "sites/updateSite",
+  async ({ siteData, siteId, token }, { dispatch, rejectWithValue }) => {
+    if (!token) {
+      throw new Error(errorMessages.noToken);
+    }
 
-  try {
-    const response = await updateWithAuth(
-      `${BASE_URL}/api/sites`,
-      siteData,
-      token,
-    );
+    try {
+      const response = await updateWithAuth(
+        `${BASE_URL}/api/sites/${siteId}`,
+        siteData,
+        token,
+      );
 
-    return response.data.site;
-  } catch (error) {
-    console.error(`${errorMessages.apiError("update", "site")}: `, error);
-    return rejectWithValue(errorMessages.apiError("update", "site"));
-  }
-});
+      dispatch(setCurrentSite(response.data));
+      return response.data;
+    } catch (error) {
+      console.error(`${errorMessages.apiError("update", "site")}: `, error);
+      return rejectWithValue(errorMessages.apiError("update", "site"));
+    }
+  },
+);
 
 export const deleteSiteThunk = createAsyncThunk<
   string,

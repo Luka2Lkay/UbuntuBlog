@@ -4,10 +4,8 @@ import { type Site } from "../../interfaces/interface";
 import SiteForm from "../../components/siteform/SiteForm";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux_hooks";
 import { useAuth } from "@clerk/react";
-import { fetchSiteThunk,  } from "../../redux/thunks/site_thunk";
+import { fetchSiteThunk, updateSiteThunk } from "../../redux/thunks/site_thunk";
 import { selectCurrentSite, selectLoading } from "../../redux/reducers/site_slice";
-
-type SiteData = Omit<Site, "_id">;
 
 function EditSite() {
   const dispatch = useAppDispatch();
@@ -20,6 +18,8 @@ function EditSite() {
   const loading = useAppSelector(selectLoading)
 
   useEffect(() => {
+
+    
 
     const fetchSite = async () => {
 
@@ -37,7 +37,7 @@ function EditSite() {
     fetchSite();
   }, [getToken, dispatch])
 
-  const handleEdit = async (data: Site) => {
+  const handleEdit = async (siteData: Site) => {
 
     if (!siteId) {
       throw new Error("No site id found!")
@@ -47,10 +47,9 @@ function EditSite() {
 
       const token = await getToken({ template: "backend" });
 
-      await dispatch(fetchSiteThunk({ siteId: data._id, token }))
+      await dispatch(updateSiteThunk({ siteData, siteId, token })).unwrap();
 
-
-
+      navigate("/dashboard")
     } catch (error) {
       console.error("Failed to update", error)
     }

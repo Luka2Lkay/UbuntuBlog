@@ -2,11 +2,10 @@ import { useSiteContext } from "../../context/SiteContext";
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft, Plus, MoreVertical, Pencil, Trash } from "lucide-react";
-import { selectSites } from "../../redux/reducers/site_slice";
-import { useSelector } from "react-redux";
+import { selectSites, selectCurrentSite } from "../../redux/reducers/site_slice";
 import { fetchSitesThunk } from "../../redux/thunks/site_thunk";
 import { useAuth } from "@clerk/react";
-import { useAppDispatch } from "../../hooks/redux_hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux_hooks";
 import { deleteSiteThunk } from "../../redux/thunks/site_thunk";
 
 function Sidebar() {
@@ -17,7 +16,8 @@ function Sidebar() {
 
     const { getToken } = useAuth();
     const dispatch = useAppDispatch();
-    const sites = useSelector(selectSites);
+    const sites = useAppSelector(selectSites);
+    const currentSite = useAppSelector(selectCurrentSite);
 
     useEffect(() => {
 
@@ -50,7 +50,8 @@ function Sidebar() {
     };
 
     const navigeteToEdit = (siteId: string) => {
-        console.log("sites: ", sites)
+        // console.log("sites: ", sites)
+        console.log("site yangoku", currentSite)
         setClientMenuOpen(null);
         navigate(`/sites/${siteId}/edit`);
     }
