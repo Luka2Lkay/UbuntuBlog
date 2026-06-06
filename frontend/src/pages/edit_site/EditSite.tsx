@@ -4,7 +4,7 @@ import { type Site } from "../../interfaces/interface";
 import SiteForm from "../../components/siteform/SiteForm";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux_hooks";
 import { useAuth } from "@clerk/react";
-import { fetchSiteThunk } from "../../redux/thunks/site_thunk";
+import { fetchSiteThunk,  } from "../../redux/thunks/site_thunk";
 import { selectCurrentSite, selectLoading } from "../../redux/reducers/site_slice";
 
 type SiteData = Omit<Site, "_id">;

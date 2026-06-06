@@ -1,4 +1,5 @@
 import axios from "axios";
+import { type Site } from "../interfaces/interface";
 import { errorMessages } from "../helpers/messages_helper";
 
 export const fetchWithAuth = async (url: string, token: string | null) => {
@@ -23,7 +24,7 @@ export const fetchWithAuth = async (url: string, token: string | null) => {
 
 export const postWithAuth = async (
   url: string,
-  data: {},
+  data: Site,
   token: string | null,
 ) => {
   if (!token) {
@@ -67,7 +68,7 @@ export const deleteWithAuth = async (url: string, token: string | null) => {
 
 export const updateWithAuth = async (
   url: string,
-  data: {},
+  data: Site,
   token: string | null,
 ) => {
   if (!token) {
