@@ -3,6 +3,7 @@ import {
   fetchSitesThunk,
   postSitesThunk,
   deleteSitesThunk,
+  fetchSiteThunk,
 } from "../thunks/site_thunk";
 import { type Site } from "../../interfaces/interface";
 
@@ -45,6 +46,9 @@ const siteSlice = createSlice({
     setError(state, action) {
       state.error = action.payload;
     },
+    setLoading(state, action) {
+      state.loading = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -83,6 +87,18 @@ const siteSlice = createSlice({
       .addCase(deleteSitesThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+      })
+      .addCase(fetchSiteThunk.fulfilled, (state) => {
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(fetchSiteThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchSiteThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
       });
   },
 });
@@ -91,8 +107,9 @@ export const selectSites = (state: { site: SiteState }) =>
   state.site.sites ?? [];
 export const selectError = (state: { site: SiteState }) => state.site.error;
 export const selectLoading = (state: { site: SiteState }) => state.site.loading;
-export const selectCurrentSite = (state: {site: SiteState}) => state.site.currentSite;
+export const selectCurrentSite = (state: { site: SiteState }) =>
+  state.site.currentSite;
 
-export const { setCurrentSite, addSite, deleteSite, setError } =
+export const { setCurrentSite, addSite, deleteSite, setError, setLoading } =
   siteSlice.actions;
 export default siteSlice.reducer;

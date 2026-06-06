@@ -62,7 +62,6 @@ export const postSitesThunk = createAsyncThunk<
       siteData,
       token,
     );
-
     return response.data;
   } catch (error) {
     console.error(`${errorMessages.apiError("create", "site")}: `, error);
