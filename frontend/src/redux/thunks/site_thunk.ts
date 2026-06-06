@@ -6,7 +6,7 @@ import {
   fetchOneWithAuth,
 } from "../../services/api";
 import { type Site } from "../../interfaces/interface";
-import { deleteSite } from "../reducers/site_slice";
+import { deleteSite, setCurrentSite } from "../reducers/site_slice";
 import { errorMessages } from "../../helpers/messages_helper";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
@@ -29,23 +29,27 @@ export const fetchSiteThunk = createAsyncThunk<
   Site,
   { siteId: string | undefined; token: string | null },
   { rejectValue: string }
->("sites/fetchSite", async ({ siteId, token }, { rejectWithValue }) => {
-  if (!token) {
-    throw new Error(errorMessages.noToken);
-  }
+>(
+  "sites/fetchSite",
+  async ({ siteId, token }, { dispatch, rejectWithValue }) => {
+    if (!token) {
+      throw new Error(errorMessages.noToken);
+    }
 
-  try {
-    const response = await fetchOneWithAuth(
-      `${BASE_URL}/api/sites/${siteId}`,
-      token,
-    );
+    try {
+      const response = await fetchOneWithAuth(
+        `${BASE_URL}/api/sites/${siteId}`,
+        token,
+      );
 
-    return response.data;
-  } catch (error) {
-    console.error(`${errorMessages.apiError("fetch", "site")}: `, error);
-    return rejectWithValue(errorMessages.apiError("fetch", "site"));
-  }
-});
+      dispatch(setCurrentSite(siteId));
+      return response.data;
+    } catch (error) {
+      console.error(`${errorMessages.apiError("fetch", "site")}: `, error);
+      return rejectWithValue(errorMessages.apiError("fetch", "site"));
+    }
+  },
+);
 
 export const postSitesThunk = createAsyncThunk<
   Site,
