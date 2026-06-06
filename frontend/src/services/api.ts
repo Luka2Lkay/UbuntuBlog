@@ -16,8 +16,8 @@ export const fetchWithAuth = async (url: string, token: string | null) => {
 
     return response;
   } catch (error) {
-    console.error(`${errorMessages.apiError("fetch", "data")}: `, error);
-    throw new Error(errorMessages.apiError("fetch", "data"));
+    console.error(`${errorMessages.apiError("fetch")}: `, error);
+    throw new Error(errorMessages.apiError("fetch"));
   }
 };
 
@@ -40,8 +40,8 @@ export const postWithAuth = async (
 
     return response;
   } catch (error) {
-    console.error(`${errorMessages.apiError("post", "data")}: `, error);
-    throw new Error(errorMessages.apiError("post", "data"));
+    console.error(`${errorMessages.apiError("post")}: `, error);
+    throw new Error(errorMessages.apiError("post"));
   }
 };
 
@@ -60,8 +60,8 @@ export const deleteWithAuth = async (url: string, token: string | null) => {
 
     return response;
   } catch (error) {
-    console.error(`${errorMessages.apiError("delete", "data")}: `, error);
-    throw new Error(errorMessages.apiError("delete", "data"));
+    console.error(`${errorMessages.apiError("delete")}: `, error);
+    throw new Error(errorMessages.apiError("delete"));
   }
 };
 
@@ -84,8 +84,8 @@ export const updateWithAuth = async (
 
     return response;
   } catch (error) {
-    console.error(`${errorMessages.apiError("edit", "data")}: `, error);
-    throw new Error(errorMessages.apiError("edit", "data"));
+    console.error(`${errorMessages.apiError("edit")}: `, error);
+    throw new Error(errorMessages.apiError("edit"));
   }
 };
 
@@ -103,7 +103,7 @@ export const fetchOneWithAuth = async (url: string, token: string | null) => {
 
     return response;
   } catch (error) {
-    console.error(`${errorMessages.apiError("fetch", "data")}: `, error);
-    throw new Error(errorMessages.apiError("fetch", "data"));
+    console.error(`${errorMessages.apiError("fetch")}: `, error);
+    throw new Error(errorMessages.apiError("fetch"));
   }
 };
