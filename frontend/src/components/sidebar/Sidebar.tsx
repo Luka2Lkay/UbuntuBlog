@@ -2,12 +2,13 @@ import { useSiteContext } from "../../context/SiteContext";
 import { type Site } from "../../interfaces/interface";
 import { useState, useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft, Plus, MoreVertical, Pencil, Trash } from "lucide-react";
+import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft, Plus } from "lucide-react";
 import { selectSites } from "../../redux/reducers/site_slice";
 import { fetchSitesThunk } from "../../redux/thunks/site_thunk";
 import { useAuth } from "@clerk/react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux_hooks";
 import { deleteSiteThunk } from "../../redux/thunks/site_thunk";
+
 
 function Sidebar() {
     const { selectedSite, setSelectedSite } = useSiteContext();
