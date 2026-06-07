@@ -116,11 +116,11 @@ function Sidebar() {
                                         <div className="border-b border-gray-500 flex justify-end">
                                             <button type="button" className="cursor-pointer p-4 font-semibold hover:text-red-500" onClick={() => setClientMenuOpen(null)}>X</button>
                                         </div>
-                                        <button type="button" className="w-full gap-2 flex items-center px-4 py-3 text-sm hover:bg-gray-800" onClick={() => navigateToEdit(clientSite?._id)}>
+                                        <button type="button" className="w-full gap-2 flex items-center px-4 py-3 text-sm hover:bg-gray-800" onClick={() => navigateToEdit(clientSite._id)}>
                                             <Pencil size={16} />
                                             Edit Client
                                         </button>
-                                        <button type="button" className="w-full flex items-center gap-2 px-4 py-3 text-sm text-red-400 hover:bg-gray-800" onClick={() => handleDeleteSite(clientSite?._id)}>
+                                        <button type="button" className="w-full flex items-center gap-2 px-4 py-3 text-sm text-red-400 hover:bg-gray-800" onClick={() => handleDeleteSite(clientSite._id)}>
                                             <Trash size={16} />
                                             Remove Client
                                         </button>
