@@ -68,11 +68,6 @@ function Sidebar() {
         navigate(`/sites/${site._id}`);
     }
 
-    const navigateToEdit = (siteId: string) => {
-        setClientMenuOpen(null);
-        navigate(`/sites/${siteId}/edit`);
-    }
-
     return (
         <aside ref={sidebarRef} className={`min-h-screen bg-gray-900 text-white flex flex-col transition-all duration-300 hidden md:block ${collapsed ? 'w-20' : 'w-64'}`}>
             <div className="flex items-center justify-between px-4 py-6 border-b border-gray-800 shadow-sm">
