@@ -17,7 +17,6 @@ function Sidebar() {
     const { getToken } = useAuth();
     const dispatch = useAppDispatch();
     const sites = useAppSelector(selectSites);
-    const currentSite = useAppSelector(selectCurrentSite);
 
     useEffect(() => {
 
@@ -114,7 +113,7 @@ function Sidebar() {
 
                                 {clientMenuOpen === clientSite?._id && (
 
-                                    <div className="absolute right-120 top-50 z-50 gap-10 w-50 rounded-lg bg-gray-900 border border-gray-800 overflow-hidden shadow-xl">
+                                    <div className="absolute right-[120px] top-[50px] z-50 gap-10 w-50 rounded-lg bg-gray-900 border border-gray-800 overflow-hidden shadow-xl">
                                         <div className="border-b border-gray-500 flex justify-end">
                                             <button type="button" className="cursor-pointer p-4 font-semibold hover:text-red-500" onClick={() => setClientMenuOpen(null)}>X</button>
                                         </div>
