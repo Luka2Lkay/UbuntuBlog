@@ -31,7 +31,7 @@ function Sidebar() {
         };
         fetchSites();
 
-    }, [dispatch])
+    }, [dispatch, getToken])
 
     const handleDeleteSite = async (siteId: string) => {
         try {
