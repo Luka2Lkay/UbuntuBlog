@@ -100,7 +100,7 @@ function Sidebar() {
                                     <button type="button" onClick={() => setSelectedSite(clientSite)}
                                         className={`text-left px-3 py-2 rounded-md w-full text-sm transition ${selectedSite?._id === clientSite?._id ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
                                     >
-                                        {collapsed ? clientSite?.name.charAt(0).toUpperCase() : clientSite?.name}
+                                        {collapsed ? clientSite?.name?.charAt(0).toUpperCase() : clientSite?.name}
                                     </button>
                                     <div className="flex items-center justify-between">
                                         <MoreVertical size={16} className="text-gray-400 hover:text-white cursor-pointer" onClick={(e) => {
