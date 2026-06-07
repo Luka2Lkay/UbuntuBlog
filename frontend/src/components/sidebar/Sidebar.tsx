@@ -1,4 +1,5 @@
 import { useSiteContext } from "../../context/SiteContext";
+import { type Site } from "../../interfaces/interface";
 import { useState, useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft, Plus, MoreVertical, Pencil, Trash } from "lucide-react";
@@ -62,6 +63,11 @@ function Sidebar() {
         }
     };
 
+    const navigateToSite = (site: Site) => {
+        setSelectedSite(site);
+        navigate(`/sites/${site._id}`);
+    }
+
     const navigateToEdit = (siteId: string) => {
         setClientMenuOpen(null);
         navigate(`/sites/${siteId}/edit`);
@@ -109,9 +115,12 @@ function Sidebar() {
                 <div className="flex flex-col gap-1">
                     {
                         sites.map(clientSite => (
-                            <div key={clientSite._id}>
+                            <div key={clientSite._id} className="relative">
                                 <div className="flex">
-                                    <button type="button" onClick={() => setSelectedSite(clientSite)}
+                                    <button
+                                        type="button"
+                                        title={clientSite?.name}
+                                        onClick={() => navigateToSite(clientSite)}
                                         className={`text-left px-3 py-2 rounded-md w-full text-sm transition ${selectedSite?._id === clientSite?._id ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
                                     >
                                         {collapsed ? clientSite?.name?.charAt(0).toUpperCase() : clientSite?.name}
@@ -119,14 +128,14 @@ function Sidebar() {
                                     <div className="flex items-center justify-between">
                                         <MoreVertical size={16} className="text-gray-400 hover:text-white cursor-pointer" onClick={(e) => {
                                             e.stopPropagation();
-                                            setClientMenuOpen(clientMenuOpen === clientSite?._id ? null : clientSite?._id);
+                                            setClientMenuOpen(prev => prev === clientSite?._id ? null : clientSite?._id);
                                         }} />
                                     </div>
                                 </div>
 
                                 {clientMenuOpen === clientSite?._id && (
 
-                                    <div className="absolute right-[120px] top-[50px] z-50 gap-10 w-50 rounded-lg bg-gray-900 border border-gray-800 overflow-hidden shadow-xl">
+                                    <div className="absolute right-0 top-12 z-50 min-w-[200px] rounded-lg bg-gray-900 border border-gray-800 overflow-hidden shadow-xl">
                                         <div className="border-b border-gray-500 flex justify-end">
                                             <button type="button" className="cursor-pointer p-4 font-semibold hover:text-red-500" onClick={() => setClientMenuOpen(null)}>X</button>
                                         </div>
