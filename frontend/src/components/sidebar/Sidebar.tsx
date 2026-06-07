@@ -2,7 +2,7 @@ import { useSiteContext } from "../../context/SiteContext";
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft, Plus, MoreVertical, Pencil, Trash } from "lucide-react";
-import { selectSites, selectCurrentSite } from "../../redux/reducers/site_slice";
+import { selectSites} from "../../redux/reducers/site_slice";
 import { fetchSitesThunk } from "../../redux/thunks/site_thunk";
 import { useAuth } from "@clerk/react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux_hooks";
@@ -49,7 +49,6 @@ function Sidebar() {
     };
 
     const navigateToEdit = (siteId: string) => {
-        console.log("site yangoku", currentSite)
         setClientMenuOpen(null);
         navigate(`/sites/${siteId}/edit`);
     }
