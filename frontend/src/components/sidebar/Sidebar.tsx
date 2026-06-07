@@ -50,7 +50,6 @@ function Sidebar() {
     };
 
     const navigeteToEdit = (siteId: string) => {
-        // console.log("sites: ", sites)
         console.log("site yangoku", currentSite)
         setClientMenuOpen(null);
         navigate(`/sites/${siteId}/edit`);
@@ -98,7 +97,7 @@ function Sidebar() {
                 <div className="flex flex-col gap-1">
                     {
                         sites.map(clientSite => (
-                            <div key={clientSite?._id}>
+                            <div key={clientSite._id}>
                                 <button onClick={() => setSelectedSite(clientSite)}
                                     className={`text-left px-3 py-2 rounded-md w-full text-sm transition ${selectedSite?._id === clientSite?._id ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
                                 >
