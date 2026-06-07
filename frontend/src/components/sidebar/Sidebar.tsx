@@ -58,7 +58,7 @@ function Sidebar() {
             <div className="flex items-center justify-between px-4 py-6 border-b border-gray-800 shadow-sm">
                 {!collapsed && (<h1 className="text-lg font-semibold">UbuntuBlog</h1>)}
 
-                <button className="text-sm text-gray-400 hover:text-white" onClick={() => setCollapsed(!collapsed)}>
+                <button className="text-sm text-gray-400 hover:text-white" onClick={() => setCollapsed(prev => !prev)}>
                     {collapsed ? <MoveRight /> : <MoveLeft />}
                 </button>
             </div>
