@@ -125,30 +125,7 @@ function Sidebar() {
                                     >
                                         {collapsed ? clientSite?.name?.charAt(0).toUpperCase() : clientSite?.name}
                                     </button>
-                                    <div className="flex items-center justify-between">
-                                        <MoreVertical size={16} className="text-gray-400 hover:text-white cursor-pointer" onClick={(e) => {
-                                            e.stopPropagation();
-                                            setClientMenuOpen(prev => prev === clientSite?._id ? null : clientSite?._id);
-                                        }} />
-                                    </div>
                                 </div>
-
-                                {clientMenuOpen === clientSite?._id && (
-
-                                    <div className="absolute right-0 top-12 z-50 min-w-[200px] rounded-lg bg-gray-900 border border-gray-800 overflow-hidden shadow-xl">
-                                        <div className="border-b border-gray-500 flex justify-end">
-                                            <button type="button" className="cursor-pointer p-4 font-semibold hover:text-red-500" onClick={() => setClientMenuOpen(null)}>X</button>
-                                        </div>
-                                        <button type="button" className="w-full gap-2 flex items-center px-4 py-3 text-sm hover:bg-gray-800" onClick={() => navigateToEdit(clientSite._id)}>
-                                            <Pencil size={16} />
-                                            Edit Client
-                                        </button>
-                                        <button type="button" className="w-full flex items-center gap-2 px-4 py-3 text-sm text-red-400 hover:bg-gray-800" onClick={() => handleDeleteSite(clientSite._id)}>
-                                            <Trash size={16} />
-                                            Remove Client
-                                        </button>
-                                    </div>
-                                )}
                             </div>
                         ))
                     }
