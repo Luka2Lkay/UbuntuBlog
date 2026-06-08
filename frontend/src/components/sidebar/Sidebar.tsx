@@ -48,22 +48,6 @@ function Sidebar() {
         };
     }, [clientMenuOpen]);
 
-    const handleDeleteSite = async (siteId: string) => {
-        try {
-
-            const token = await getToken({ template: "backend" });
-            await dispatch(deleteSiteThunk({ siteId, token })).unwrap();
-            setClientMenuOpen(null);
-
-            if (selectedSite?._id === siteId) {
-                setSelectedSite(null);
-            }
-
-        } catch (error) {
-            console.error("Error deleting site:", error);
-        }
-    };
-
     const navigateToSite = (site: Site) => {
         setSelectedSite(site);
         navigate(`/sites/${site._id}`);

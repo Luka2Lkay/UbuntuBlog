@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useAuth } from "@clerk/react";
-import { fetchSiteThunk } from "../../redux/thunks/site_thunk";
+import { fetchSiteThunk, deleteSiteThunk } from "../../redux/thunks/site_thunk";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux_hooks";
 import { selectCurrentSite, selectLoading } from "../../redux/reducers/site_slice";
 import { useSiteContext } from "../../context/SiteContext";
@@ -14,7 +14,7 @@ function SiteDetails() {
   const { getToken, isLoaded, isSignedIn } = useAuth();
   const currentSite = useAppSelector(selectCurrentSite);
   const loading = useAppSelector(selectLoading);
-  const { setSelectedSite } = useSiteContext();
+  const { setSelectedSite, selectedSite } = useSiteContext();
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -23,6 +23,8 @@ function SiteDetails() {
       navigate("/sign-in");
       return;
     }
+
+    console.log(siteId)
 
     if (!siteId) return;
 
@@ -51,6 +53,21 @@ function SiteDetails() {
   if (!currentSite) {
     return <div className="text-gray-600">Site not found.</div>;
   }
+
+  const handleDeleteSite = async (siteId: string) => {
+    try {
+
+      const token = await getToken({ template: "backend" });
+      await dispatch(deleteSiteThunk({ siteId, token })).unwrap();
+
+      if (selectedSite?._id === siteId) {
+        setSelectedSite(null);
+      }
+
+    } catch (error) {
+      console.error("Error deleting site:", error);
+    }
+  };
 
   return (
     <div className="space-y-6">
