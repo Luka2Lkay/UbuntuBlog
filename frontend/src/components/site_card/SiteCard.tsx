@@ -1,16 +1,23 @@
 import { Globe } from "lucide-react"
 import { SmilePlus } from "lucide-react"
 import { Trash } from "lucide-react";
-import { deleteSite } from "../../redux/reducers/site_slice";
 
 interface Props {
     name: string | undefined;
     domain: string | undefined;
     niche?: string | undefined;
-    deleteSite?: (siteId: string) => void;
+    deleteCurrentSite?: () => void;
 }
 
-function SiteCard({ name, domain, niche }: Props) {
+function SiteCard({ name, domain, niche, deleteCurrentSite }: Props) {
+
+    const handleDeleteClick = async () => {
+
+        if (deleteCurrentSite) {
+            await deleteCurrentSite()
+        }
+    }
+
     return (
         <div className="flex justify-between bg-white border border-gray-200 rounded-lg p-4 w-1/2">
             <div>
@@ -21,7 +28,7 @@ function SiteCard({ name, domain, niche }: Props) {
                 {niche && <p className="text-md text-left"><SmilePlus size={18} className="inline-block mr-2 text-black" />: <span className="text-gray-500 font-semibold">{niche}</span></p>}
             </div>
 
-            <Trash onClick={() => deleteSite} className="text-red-500 hover:text-red-900 cursor-pointer" />
+            <Trash onClick={handleDeleteClick} className="text-red-500 hover:text-red-900 cursor-pointer" />
         </div>
 
     )

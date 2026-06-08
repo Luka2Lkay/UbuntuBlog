@@ -104,7 +104,7 @@ export const updateSiteThunk = createAsyncThunk<
 
 export const deleteSiteThunk = createAsyncThunk<
   string,
-  { siteId: string; token: string | null },
+  { siteId: string | undefined; token: string | null },
   { rejectValue: string }
 >(
   "sites/deleteSites",
