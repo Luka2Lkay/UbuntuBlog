@@ -54,15 +54,14 @@ function SiteDetails() {
 
   const handleDeleteSite = async () => {
     try {
-      console.log("hello")
-      // const token = await getToken({ template: "backend" });
-      // await dispatch(deleteSiteThunk({ siteId, token })).unwrap();
+      const token = await getToken({ template: "backend" });
+      await dispatch(deleteSiteThunk({ siteId, token })).unwrap();
 
-      // if (selectedSite?._id === siteId) {
-      //   setSelectedSite(null);
-      // }
+      if (selectedSite?._id === siteId) {
+        setSelectedSite(null);
+      }
 
-      // navigate("/dashboard")
+      navigate("/dashboard")
 
     } catch (error) {
       console.error("Error deleting site:", error);
@@ -98,7 +97,7 @@ function SiteDetails() {
           name={currentSite.name}
           domain={currentSite.domain}
           niche={currentSite.niche}
-          deleteSite={() => handleDeleteSite()}
+          deleteCurrentSite={() => handleDeleteSite()}
         />
       </div>
     </div>
