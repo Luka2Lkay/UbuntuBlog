@@ -1,5 +1,5 @@
 import { useAuth } from "@clerk/react"
-import { useEffect, } from "react"
+import { useEffect, useState, } from "react"
 import { useNavigate } from "react-router-dom"
 import { fetchWithAuth } from "../../services/api"
 import { useSiteContext } from "../../context/SiteContext"
@@ -50,7 +50,7 @@ function Dashboard() {
             </div>
 
             <div>
-                <SiteCard name={selectedSite?.name} domain={selectedSite?.domain} niche={selectedSite?.niche} />
+                <SiteCard name={selectedSite?.name} domain={selectedSite?.domain} niche={selectedSite?.niche} showDeleteButton={false} />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

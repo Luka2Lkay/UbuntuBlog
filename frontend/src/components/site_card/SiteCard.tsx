@@ -7,9 +7,10 @@ interface Props {
     domain: string | undefined;
     niche?: string | undefined;
     deleteCurrentSite?: () => void;
+    showDeleteButton: boolean;
 }
 
-function SiteCard({ name, domain, niche, deleteCurrentSite }: Props) {
+function SiteCard({ name, domain, niche, deleteCurrentSite, showDeleteButton }: Props) {
 
     const handleDeleteClick = async () => {
 
@@ -28,7 +29,8 @@ function SiteCard({ name, domain, niche, deleteCurrentSite }: Props) {
                 {niche && <p className="text-md text-left"><SmilePlus size={18} className="inline-block mr-2 text-black" />: <span className="text-gray-500 font-semibold">{niche}</span></p>}
             </div>
 
-            <Trash onClick={handleDeleteClick} className="text-red-500 hover:text-red-900 cursor-pointer" />
+            {showDeleteButton && <Trash onClick={handleDeleteClick} className="text-red-500 hover:text-red-900 cursor-pointer" />}
+
         </div>
 
     )

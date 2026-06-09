@@ -98,6 +98,7 @@ function SiteDetails() {
           domain={currentSite.domain}
           niche={currentSite.niche}
           deleteCurrentSite={() => handleDeleteSite()}
+          showDeleteButton={true}
         />
       </div>
     </div>
