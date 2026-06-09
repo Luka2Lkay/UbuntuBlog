@@ -54,19 +54,21 @@ function SiteDetails() {
 
   const handleDeleteSite = async () => {
     try {
-      const token = await getToken({ template: "backend" });
-      await dispatch(deleteSiteThunk({ siteId, token })).unwrap();
 
-      if (selectedSite?._id === siteId) {
-        setSelectedSite(null);
+
+      const isConfirmed = window.confirm("Are you sure you want to delete this site?");
+
+      if (isConfirmed) {
+        alert("Hello!");
       }
 
-      navigate("/dashboard")
 
     } catch (error) {
       console.error("Error deleting site:", error);
     }
   };
+
+
 
   return (
     <div className="space-y-6">
