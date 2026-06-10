@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useAuth } from "@clerk/react";
 import { fetchSiteThunk, deleteSiteThunk } from "../../redux/thunks/site_thunk";
@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux_hooks";
 import { selectCurrentSite, selectLoading } from "../../redux/reducers/site_slice";
 import { useSiteContext } from "../../context/SiteContext";
 import SiteCard from "../../components/site_card/SiteCard";
+import ConfirmationModal from "../../components/confirmation_modal/ConfirmationModal";
 
 function SiteDetails() {
   const { siteId } = useParams();
@@ -15,6 +16,7 @@ function SiteDetails() {
   const currentSite = useAppSelector(selectCurrentSite);
   const loading = useAppSelector(selectLoading);
   const { setSelectedSite, selectedSite } = useSiteContext();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -55,12 +57,7 @@ function SiteDetails() {
   const handleDeleteSite = async () => {
     try {
 
-
-      const isConfirmed = window.confirm("Are you sure you want to delete this site?");
-
-      if (isConfirmed) {
-        alert("Hello!");
-      }
+      alert("Hello world!")
 
 
     } catch (error) {
@@ -99,8 +96,20 @@ function SiteDetails() {
           name={currentSite.name}
           domain={currentSite.domain}
           niche={currentSite.niche}
-          deleteCurrentSite={() => handleDeleteSite()}
+          deleteCurrentSite={() => setOpen(true)}
           showDeleteButton={true}
+        />
+      </div>
+
+      <div>
+        <ConfirmationModal
+          isOpen={open}
+          title="Delete Site"
+          message="This action can not be undone"
+          confirmText="Delete"
+          cancelText="Cancel"
+          onConfirm={handleDeleteSite}
+          onCancel={() => setOpen(false)}
         />
       </div>
     </div>
