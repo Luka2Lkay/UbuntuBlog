@@ -110,6 +110,7 @@ function SiteDetails() {
           cancelText="Cancel"
           onConfirm={handleDeleteSite}
           onCancel={() => setOpen(false)}
+          danger={true}
         />
       </div>
     </div>
