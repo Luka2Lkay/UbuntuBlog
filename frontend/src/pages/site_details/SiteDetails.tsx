@@ -104,7 +104,7 @@ function SiteDetails() {
       <div>
         <ConfirmationModal
           isOpen={open}
-          title="Delete Site"
+          title={`Delete ${selectedSite?.name}`}
           message="This action can not be undone"
           confirmText="Delete"
           cancelText="Cancel"
