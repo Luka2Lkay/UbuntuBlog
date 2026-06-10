@@ -89,7 +89,7 @@ function SiteDetails() {
         </div>
       </div>
 
-      <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+      <div className="flex justify-center bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
         <SiteCard
           name={currentSite.name}
           domain={currentSite.domain}
