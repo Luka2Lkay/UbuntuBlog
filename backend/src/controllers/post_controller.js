@@ -45,6 +45,10 @@ const createPost = async (req, res) => {
     });
 
     const existingPost = await Post.findOne({ slug: postSlug });
+
+    if (existingPost) {
+      return res.status(409).json({ message: "Slug already exists." });
+    }
   } catch (error) {}
 };
 
