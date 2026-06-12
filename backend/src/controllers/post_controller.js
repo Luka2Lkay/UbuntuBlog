@@ -1,6 +1,8 @@
 const Post = require("../models/post_model");
+const User = require("../models/user_model");
 const { validationResult } = require("express-validator");
 const { getAuth } = require("@clerk/express");
+const slugify = require("slugify");
 
 const createPost = async (req, res) => {
   const errors = validationResult(req);
@@ -13,8 +15,6 @@ const createPost = async (req, res) => {
   if (!userId) {
     return res.status(401).json({ message: "Unauthorized!" });
   }
-
-  return res.status(200).send(req);
 
   try {
     const {
@@ -31,6 +31,13 @@ const createPost = async (req, res) => {
       site,
       publishedAt,
     } = req.body;
+
+    if (!title || !content || !site) {
+      return res
+        .status(400)
+        .json({ message: "Title, content, and site are required." });
+    }
+    
   } catch (error) {}
 };
 
