@@ -6,6 +6,10 @@ const {
   editSite,
   getSite,
 } = require("../controllers/site_controller");
+
+const { createPost } = require("../controllers/post_controller");
+
+const { validatePostCreation } = require("../middleware/validation");
 const { validateSiteCreation } = require("../middleware/validation");
 
 const siteRoutes = (app) => {
@@ -20,4 +24,12 @@ const siteRoutes = (app) => {
   app.use("/api", router);
 };
 
-module.exports = { siteRoutes };
+const postRoutes = (app) => {
+  const router = express.Router();
+
+  router.post("/posts", validatePostCreation, createPost);
+
+  app.use("/api", router);
+};
+
+module.exports = { siteRoutes, postRoutes };
