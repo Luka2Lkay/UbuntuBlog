@@ -1,6 +1,7 @@
 const Site = require("../models/site_model");
 const { validationResult } = require("express-validator");
 const { getAuth } = require("@clerk/express");
+const { errorMessages } = require("../helpers/message_helpers");
 
 const createSite = async (req, res) => {
   const errors = validationResult(req);
@@ -11,7 +12,7 @@ const createSite = async (req, res) => {
   }
 
   if (!userId) {
-    return res.status(401).json({ message: "Unauthorized!" });
+    return res.status(401).json({ message: errorMessages.notAuthorized });
   }
 
   try {
@@ -29,11 +30,11 @@ const editSite = async (req, res) => {
   const { siteId } = req.params;
 
   if (!siteId) {
-    return res.status(400).json({ message: "Site ID is required" });
+    return res.status(400).json({ message: errorMessages.missingId("Site") });
   }
 
   if (!userId) {
-    return res.status(401).json({ message: "Unauthorized!" });
+    return res.status(401).json({ message: errorMessages.notAuthorized });
   }
 
   try {
@@ -42,7 +43,7 @@ const editSite = async (req, res) => {
     });
 
     if (!updateSite) {
-      return res.status(404).json({ message: "Site not found" });
+      return res.status(404).json({ message: errorMessages.notFound("Site") });
     }
     res.status(200).json(updateSite);
   } catch (error) {
@@ -54,7 +55,7 @@ const getSites = async (req, res) => {
   const { userId } = getAuth(req);
 
   if (!userId) {
-    return res.status(401).json({ message: "Unauthorized!" });
+    return res.status(401).json({ message: errorMessages.notAuthorized });
   }
 
   try {
@@ -70,11 +71,11 @@ const getSite = async (req, res) => {
   const { siteId } = req.params;
 
   if (!userId) {
-    return res.status(401).json({ message: "Unauthorized!" });
+    return res.status(401).json({ message: errorMessages.notAuthorized });
   }
 
   if (!siteId) {
-    return res.status(400).json({ message: "Site ID is required" });
+    return res.status(400).json({ message: errorMessages.missingId("Site") });
   }
 
   try {
@@ -91,11 +92,11 @@ const deleteSite = async (req, res) => {
   const { siteId } = req.params;
 
   if (!userId) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: errorMessages.notAuthorized });
   }
 
   if (!siteId) {
-    return res.status(400).json({ message: "Site ID is required" });
+    return res.status(400).json({ message: errorMessages.missingId("Site") });
   }
 
   try {
