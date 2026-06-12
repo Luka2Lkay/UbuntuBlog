@@ -43,6 +43,8 @@ const createPost = async (req, res) => {
       trim: true,
       strict: true,
     });
+
+    const existingPost = await Post.findOne({ slug: postSlug });
   } catch (error) {}
 };
 
