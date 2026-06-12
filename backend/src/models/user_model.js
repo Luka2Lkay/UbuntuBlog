@@ -8,12 +8,7 @@ const userSchema = new mongoose.Schema(
       unique: true,
       indexing: true,
     },
-    firstName: {
-      type: String,
-      trim: true,
-      default: "",
-    },
-    lastName: { type: String, trim: true, default: "" },
+    name: { type: String, trim: true, required: true },
     imageUrl: { type: String, default: "" },
     role: { type: String, enum: ["admin", "author"], default: "author" },
     active: { type: Boolean, default: true },
