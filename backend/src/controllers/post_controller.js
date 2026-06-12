@@ -1,7 +1,6 @@
 const Post = require("../models/post_model");
 const { validationResult } = require("express-validator");
 const { getAuth } = require("@clerk/express");
-const { get } = require("mongoose");
 
 const createPost = async (req, res) => {
   const errors = validationResult(req);
@@ -15,7 +14,23 @@ const createPost = async (req, res) => {
     return res.status(401).json({ message: "Unauthorized!" });
   }
 
+  return res.status(200).send(req);
+
   try {
+    const {
+      title,
+      slug,
+      excerpt,
+      content,
+      featuredImage,
+      category,
+      tags,
+      published,
+      seo,
+      author,
+      site,
+      publishedAt,
+    } = req.body;
   } catch (error) {}
 };
 
