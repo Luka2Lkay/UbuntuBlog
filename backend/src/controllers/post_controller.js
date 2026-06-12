@@ -37,7 +37,12 @@ const createPost = async (req, res) => {
         .status(400)
         .json({ message: "Title, content, and site are required." });
     }
-    
+
+    const postSlug = slugify(title, {
+      lower: true,
+      trim: true,
+      strict: true,
+    });
   } catch (error) {}
 };
 
