@@ -1,6 +1,8 @@
 const errorMessages = {
-    notFound: (object) => `${object} not found`,
-    missingId: (object) => `${object} id is required`
-}
+  notFound: (item) => `${item} is not found`,
+  missingId: (item) => `${item} id is required`,
+  exists: (item) => `${item} already exists`,
+  notAuthorized: "Unauthorized!",
+};
 
-module.exports = {errorMessages}
+module.exports = { errorMessages };
