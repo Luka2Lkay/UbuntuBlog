@@ -9,6 +9,8 @@ const createPost = async (req, res) => {
   const errors = validationResult(req);
   const { userId } = getAuth(req);
 
+  const auth = getAuth(req);
+
   if (!errors.isEmpty()) {
     return res.status(400).json({ message: errors.array() });
   }
@@ -65,7 +67,7 @@ const createPost = async (req, res) => {
       featuredImage,
       category,
       tags: tags?.map((tag) => tag.trim().toLowerCase()) || [],
-      pblished: Boolean(published),
+      published: Boolean(published),
       seo: {
         metaTitle: seo?.metaTitle || "",
         metaDescription: seo?.metaDescription || "",
