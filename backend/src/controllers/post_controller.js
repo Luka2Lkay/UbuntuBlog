@@ -51,6 +51,10 @@ const createPost = async (req, res) => {
     }
 
     const user = await User.findOne({ clerkId: userId });
+
+    if (!user) {
+      return res.status(404).json({ message: "User is not found" });
+    }
   } catch (error) {}
 };
 
