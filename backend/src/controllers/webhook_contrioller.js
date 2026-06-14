@@ -7,6 +7,12 @@ const webhookSecret = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
 const clerkWebhook = async (req, res) => {
   try {
     const payload = JSON.stringify(req.body);
+
+    const headers = {
+      "svix-id": req.headers["svix-id"],
+      "svix-timestamp": req.headers["svix-timestamp"],
+      "svix-signature": req.headers["svix-signature"],
+    };
   } catch (error) {
     return res.status(500).json({ message: "Webhook error" });
   }
