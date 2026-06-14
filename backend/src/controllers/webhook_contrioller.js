@@ -13,6 +13,13 @@ const clerkWebhook = async (req, res) => {
       "svix-timestamp": req.headers["svix-timestamp"],
       "svix-signature": req.headers["svix-signature"],
     };
+
+    const webhook = new Webhook(webhookSecret);
+
+    const event = webhook.verify(payload, headers);
+
+    const eventType = event.type;
+    const data = event.data;
   } catch (error) {
     return res.status(500).json({ message: "Webhook error" });
   }
