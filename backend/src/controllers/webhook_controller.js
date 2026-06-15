@@ -21,7 +21,7 @@ const clerkWebhook = async (req, res) => {
     const eventType = event.type;
     const data = event.data;
 
-    console.log("type", eventType)
+    console.log("type", eventType);
 
     switch (eventType) {
       case "user.created":
@@ -32,7 +32,15 @@ const clerkWebhook = async (req, res) => {
           imageUrl: data.image_url || "",
         });
         break;
-
+      case "user.updated":
+        await User.findOneAndUpdate(
+          { clerkId: data.id },
+          {
+            email: data.email_addresses?.[0]?.email_address || "",
+            name: `${data.first_name || ""} ${data.last_name || ""}`.trim(),
+            imageUrl: data.image_url || "",
+          },
+        );
     }
   } catch (error) {
     return res.status(500).json({ message: "Webhook error" });

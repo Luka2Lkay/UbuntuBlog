@@ -38,7 +38,7 @@ const clerkRoutes = (app) => {
 
   router.post("/clerk", clerkWebhook);
 
-  app.use("/api", router);
+  app.use("/api/webhooks", router);
 };
 
 module.exports = { siteRoutes, postRoutes, clerkRoutes };
