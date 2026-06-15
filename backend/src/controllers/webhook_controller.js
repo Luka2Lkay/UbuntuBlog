@@ -41,6 +41,10 @@ const clerkWebhook = async (req, res) => {
             imageUrl: data.image_url || "",
           },
         );
+        break;
+      case "user.delete":
+        await User.findOneAndDelete({ clerkId: data.id });
+        break;
     }
   } catch (error) {
     return res.status(500).json({ message: "Webhook error" });
