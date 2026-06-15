@@ -21,6 +21,8 @@ const clerkWebhook = async (req, res) => {
     const eventType = event.type;
     const data = event.data;
 
+    console.log("type", eventType)
+
     switch (eventType) {
       case "user.created":
         await User.create({
