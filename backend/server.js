@@ -8,7 +8,7 @@ const app = express();
 const port = 3000;
 const { db } = require("./src/config/db_config");
 
-const { siteRoutes, postRoutes } = require("./src/routes/routes");
+const { siteRoutes, postRoutes, clerkRoutes } = require("./src/routes/routes");
 
 app.use(
   cors({
@@ -65,6 +65,7 @@ app.get("/", (req, res) => {
 
 siteRoutes(app);
 postRoutes(app);
+clerkRoutes(app);
 
 app.listen(port, () => {
   console.log(`Server is running on port http://localhost:${port}`);
