@@ -5,6 +5,7 @@ const User = require("../models/user_model");
 const webhookSecret = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
 
 const clerkWebhook = async (req, res) => {
+      console.log("webhook hit");
   try {
     const payload = JSON.stringify(req.body);
 
@@ -21,7 +22,7 @@ const clerkWebhook = async (req, res) => {
     const eventType = event.type;
     const data = event.data;
 
-    console.log("type", eventType);
+
 
     switch (eventType) {
       case "user.created":
