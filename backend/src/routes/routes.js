@@ -35,7 +35,9 @@ const postRoutes = (app) => {
 
 const clerkRoutes = (app) => {
   const router = express.Router();
-
+  router.get("/clerk", (req, res) => {
+    res.send("Webhook route works");
+  });
   router.post("/clerk", clerkWebhook);
 
   app.use("/api/webhooks", router);
