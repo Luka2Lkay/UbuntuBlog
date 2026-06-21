@@ -2,6 +2,7 @@ const Site = require("../models/site_model");
 const { validationResult } = require("express-validator");
 const { getAuth } = require("@clerk/express");
 const { errorMessages } = require("../helpers/message_helpers");
+const User = require("../models/user_model");
 
 const createSite = async (req, res) => {
   const errors = validationResult(req);
@@ -59,8 +60,27 @@ const getSites = async (req, res) => {
   }
 
   try {
+    const user = await User.findById(userId);
     const sites = await Site.find();
+
+    
+
     res.status(200).json(sites);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const getUserSites = async (req, res) => {
+
+  const {userId} = getAuth(req);
+
+    if (!userId) {
+    return res.status(401).json({ message: errorMessages.notAuthorized });
+  }
+
+  try {
+    // const sites = await Site.
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -108,4 +128,4 @@ const deleteSite = async (req, res) => {
   }
 };
 
-module.exports = { createSite, getSites, deleteSite, editSite, getSite };
+module.exports = { createSite, getSites, deleteSite, editSite, getSite, getUserSites };
