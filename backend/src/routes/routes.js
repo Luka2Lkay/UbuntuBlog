@@ -8,7 +8,6 @@ const {
 } = require("../controllers/site_controller");
 
 const { createPost } = require("../controllers/post_controller");
-const { clerkWebhook } = require("../controllers/webhook_controller");
 
 const { validatePostCreation } = require("../middleware/validation");
 const { validateSiteCreation } = require("../middleware/validation");
@@ -33,15 +32,4 @@ const postRoutes = (app) => {
   app.use("/api", router);
 };
 
-const clerkRoutes = (app) => {
-  const router = express.Router();
-  router.post(
-    "/clerk",
-    express.raw({ type: "application/json" }),
-    clerkWebhook,
-  );
-
-  app.use("/api/webhooks", router);
-};
-
-module.exports = { siteRoutes, postRoutes, clerkRoutes };
+module.exports = { siteRoutes, postRoutes };

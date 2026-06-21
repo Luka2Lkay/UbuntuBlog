@@ -8,7 +8,8 @@ const app = express();
 const port = 3000;
 const { db } = require("./src/config/db_config");
 
-const { siteRoutes, postRoutes, clerkRoutes } = require("./src/routes/routes");
+const { siteRoutes, postRoutes } = require("./src/routes/routes");
+const { clerkWebhook } = require("./src/controllers/webhook_controller");
 
 app.use(
   cors({
@@ -19,7 +20,9 @@ app.use(
   }),
 );
 
-clerkRoutes(app);
+// Webhook endpoint needs raw body for signature verification - must be before json() middleware
+app.post("/api/webhooks/clerk", express.raw({ type: "application/json" }), clerkWebhook);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
