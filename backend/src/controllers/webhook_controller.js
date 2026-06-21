@@ -6,10 +6,7 @@ const webhookSecret = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
 
 const clerkWebhook = async (req, res) => {
   try {
-    const payload =
-      req.body instanceof Buffer
-        ? req.body.toString()
-        : JSON.stringify(req.body);
+    const payload = req.body.toString()
 
     const headers = {
       "svix-id": req.headers["svix-id"],
