@@ -7,11 +7,7 @@ import {
   updateWithAuth,
 } from "../../services/api";
 import { type Site } from "../../interfaces/interface";
-import {
-  deleteSite,
-  setCurrentSite,
-  selectCurrentSite,
-} from "../reducers/site_slice";
+import { deleteSite, setCurrentSite } from "../reducers/site_slice";
 import { errorMessages } from "../../helpers/messages_helper";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
