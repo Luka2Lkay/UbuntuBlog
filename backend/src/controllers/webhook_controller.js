@@ -5,7 +5,6 @@ const User = require("../models/user_model");
 const webhookSecret = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
 
 const clerkWebhook = async (req, res) => {
-      console.log("webhook hit");
   try {
     const payload = JSON.stringify(req.body);
 
