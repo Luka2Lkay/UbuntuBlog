@@ -6,7 +6,8 @@ const webhookSecret = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
 
 const clerkWebhook = async (req, res) => {
   try {
-    const payload = JSON.stringify(req.body);
+    const payload =
+      typeof req.body === "string" ? req.body : JSON.stringify(req.body);
 
     const headers = {
       "svix-id": req.headers["svix-id"],
@@ -14,14 +15,18 @@ const clerkWebhook = async (req, res) => {
       "svix-signature": req.headers["svix-signature"],
     };
 
-    const webhook = new Webhook(webhookSecret);
+    if (!webhookSecret) {
+      console.error("Webhook secret not configured");
+      return res.status(500).json({ message: "Webhook secret not configured" });
+    }
 
+    const webhook = new Webhook(webhookSecret);
     const event = webhook.verify(payload, headers);
 
     const eventType = event.type;
     const data = event.data;
 
-
+    console.log(`Processing webhook event: ${eventType}`);
 
     switch (eventType) {
       case "user.created":
@@ -31,6 +36,7 @@ const clerkWebhook = async (req, res) => {
           name: `${data.first_name || ""} ${data.last_name || ""}`.trim(),
           imageUrl: data.image_url || "",
         });
+        console.log(`User created: ${data.id}`);
         break;
       case "user.updated":
         await User.findOneAndUpdate(
@@ -40,14 +46,22 @@ const clerkWebhook = async (req, res) => {
             name: `${data.first_name || ""} ${data.last_name || ""}`.trim(),
             imageUrl: data.image_url || "",
           },
+          { new: true },
         );
         break;
-      case "user.delete":
+      case "user.deleted":
         await User.findOneAndDelete({ clerkId: data.id });
         break;
+      default:
+        console.log(`Unhandled event type: ${eventType}`);
     }
+
+    return res.status(200).json({ message: "Webhook processed successfully" });
   } catch (error) {
-    return res.status(500).json({ message: "Webhook error" });
+    console.error("Webhook verification or processing error:", error.message);
+    return res
+      .status(500)
+      .json({ message: "Webhook error", error: error.message });
   }
 };
 
