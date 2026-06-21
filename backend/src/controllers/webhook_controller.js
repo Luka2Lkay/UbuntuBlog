@@ -6,7 +6,6 @@ const webhookSecret = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
 
 const clerkWebhook = async (req, res) => {
   try {
-    console.log("The webhook is hit!");
     const payload =
       req.body instanceof Buffer
         ? req.body.toString()
@@ -44,7 +43,7 @@ const clerkWebhook = async (req, res) => {
           },
         );
         break;
-      case "user.delete":
+      case "user.deleted":
         await User.findOneAndDelete({ clerkId: data.id });
         break;
     }
