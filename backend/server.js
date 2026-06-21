@@ -19,6 +19,7 @@ app.use(
   }),
 );
 
+clerkRoutes(app);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -65,7 +66,6 @@ app.get("/", (req, res) => {
 
 siteRoutes(app);
 postRoutes(app);
-clerkRoutes(app);
 
 app.listen(port, () => {
   console.log(`Server is running on port http://localhost:${port}`);

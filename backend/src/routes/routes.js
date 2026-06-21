@@ -35,7 +35,11 @@ const postRoutes = (app) => {
 
 const clerkRoutes = (app) => {
   const router = express.Router();
-  router.post("/clerk", clerkWebhook);
+  router.post(
+    "/clerk",
+    express.raw({ type: "application/json" }),
+    clerkWebhook,
+  );
 
   app.use("/api/webhooks", router);
 };
