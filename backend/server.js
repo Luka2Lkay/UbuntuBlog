@@ -20,8 +20,14 @@ app.use(
   }),
 );
 
-// Webhook endpoint needs raw body for signature verification - must be before json() middleware
-app.post("/api/webhooks/clerk", express.raw({ type: "application/json" }), clerkWebhook);
+// Debug middleware for webhook
+app.post("/api/webhooks/clerk", (req, res, next) => {
+  console.log("[WEBHOOK] Request received!");
+  console.log("[WEBHOOK] Headers:", req.headers);
+  console.log("[WEBHOOK] Body type:", typeof req.body);
+  console.log("[WEBHOOK] Body length:", req.body?.length || "undefined");
+  next();
+}, express.raw({ type: "application/json" }), clerkWebhook);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
