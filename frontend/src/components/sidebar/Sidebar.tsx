@@ -39,7 +39,7 @@ function Sidebar() {
                 setClientMenuOpen(null);
             }
         };
-
+        console.log("sites: ", sites)
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
@@ -92,7 +92,8 @@ function Sidebar() {
 
                 <div className="flex flex-col gap-1">
                     {
-                        sites.map(clientSite => (
+
+                        sites && sites.map(clientSite => (
                             <div key={clientSite._id} className="relative">
                                 <div className="flex">
                                     <button

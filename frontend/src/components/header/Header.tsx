@@ -5,32 +5,52 @@ import { useNavigate } from "react-router-dom"
 import { LogOut } from "lucide-react"
 import { useAppSelector } from "../../hooks/redux_hooks"
 import { selectSites } from "../../redux/reducers/site_slice"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import { fetchWithAuth } from "../../services/api"
+
+const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL
 
 function Header() {
     const { selectedSite, setSelectedSite } = useSiteContext();
-    const location = useLocation();
+    // const location = useLocation();
     const navigate = useNavigate();
     const { signOut } = useAuth();
-
+    const { getToken } = useAuth();
     const sites = useAppSelector(selectSites);
+
+    const [username, setUsername] = useState("")
+
 
     useEffect(() => {
         if (sites.length > 0 && !selectedSite) {
             setSelectedSite(sites[0]);
+
+
+            const loadUserData = async () => {
+
+                try {
+                    const token = await getToken({ template: "backend" });
+                    const response = await fetchWithAuth(`${BASE_URL}/api/user`, token);
+
+                    console.log(`Token: ${token}`);
+                    console.log("response: ", response.data.user.username)
+                    setUsername(response.data.user.username);
+                    return username
+                } catch (error) {
+                    console.error("Error loading user response:", error);
+                }
+            }
+            console.log("username: ", username)
+            loadUserData();
         }
+
+
     }, [sites, selectedSite, setSelectedSite])
 
-    const getTitle = () => {
-        switch (location.pathname) {
-            case "/create-post":
-                return "Create Post";
-            case "/posts":
-                return "Posts";
-            default:
-                return "Dashboard";
-        }
-    }
+
+
+
+
 
     const logout = () => {
         signOut();
@@ -40,7 +60,7 @@ function Header() {
     return (
         <div className="flex items-center justify-between px-6 py-4 bg-white border-b shadow-sm">
             <div>
-                <h1 className="text-xl font-semibold text-gray-800">{getTitle()}</h1>
+                <h1 className="text-xl font-semibold text-gray-800">{username}</h1>
                 <p className="text-sm text-gray-500">Active site: <span className="font-medium text-gray-700">{selectedSite?.name}</span></p>
             </div>
 

@@ -7,7 +7,7 @@ import StatisticsCard from "../../components/statistics_card/StatisticsCard"
 import SiteCard from "../../components/site_card/SiteCard"
 import { Link } from "react-router-dom"
 
-const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
+const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -27,12 +27,12 @@ function Dashboard() {
 
             try {
                 const token = await getToken({ template: "backend" });
-
-                const data = await fetchWithAuth(`${BASE_URL}/api/user`, token);
+                const response = await fetchWithAuth(`${BASE_URL}/api/user`, token);
 
                 console.log(`Token: ${token}`);
+                console.log("data: ", response.data.user.username)
 
-                return data;
+                return response;
             } catch (error) {
                 console.error("Error loading user data:", error);
             }

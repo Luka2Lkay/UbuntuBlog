@@ -6,7 +6,7 @@ function SigninPage() {
 
   return (
     <div className="flex justify-center">
-      <SignIn path="/sign-in" routing="path" forceRedirectUrl={redirectUrl} />
+      <SignIn path="/sign-in/:splat*" routing="path" forceRedirectUrl={redirectUrl} />
     </div>
   )
 }
