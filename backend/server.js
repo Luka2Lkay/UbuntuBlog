@@ -11,10 +11,12 @@ const { db } = require("./src/config/db_config");
 const { siteRoutes, postRoutes } = require("./src/routes/routes");
 const { clerkWebhook } = require("./src/controllers/webhook_controller");
 
+const ORIGIN = process.env.LIVE_URL || process.env.LOCAL_URL;
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: ORIGIN,
+    methods: ["GET", "PATCH", "PUT", "DELETE"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
