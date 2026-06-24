@@ -16,7 +16,7 @@ const siteRoutes = (app) => {
   const router = express.Router();
 
   router.post("/sites", validateSiteCreation, createSite);
-  router.get("/sites", getSites);
+  router.get("/:id/sites", getSites);
   router.patch("/sites/:siteId", editSite);
   router.delete("/sites/:siteId", deleteSite);
   router.get("/sites/:siteId", getSite);

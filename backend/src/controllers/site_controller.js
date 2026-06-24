@@ -54,16 +54,15 @@ const editSite = async (req, res) => {
 
 const getSites = async (req, res) => {
   const { userId } = getAuth(req);
+  const { id } = req.params;
 
   if (!userId) {
     return res.status(401).json({ message: errorMessages.notAuthorized });
   }
 
   try {
-    const user = await User.findById(userId);
+    const user = await User.findById(id);
     const sites = await Site.find();
-
-    
 
     res.status(200).json(sites);
   } catch (error) {
@@ -72,10 +71,9 @@ const getSites = async (req, res) => {
 };
 
 const getUserSites = async (req, res) => {
+  const { userId } = getAuth(req);
 
-  const {userId} = getAuth(req);
-
-    if (!userId) {
+  if (!userId) {
     return res.status(401).json({ message: errorMessages.notAuthorized });
   }
 
@@ -128,4 +126,11 @@ const deleteSite = async (req, res) => {
   }
 };
 
-module.exports = { createSite, getSites, deleteSite, editSite, getSite, getUserSites };
+module.exports = {
+  createSite,
+  getSites,
+  deleteSite,
+  editSite,
+  getSite,
+  getUserSites,
+};
