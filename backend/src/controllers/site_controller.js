@@ -54,15 +54,17 @@ const editSite = async (req, res) => {
 
 const getSites = async (req, res) => {
   const { userId } = getAuth(req);
-  const { id } = req.params;
 
   if (!userId) {
     return res.status(401).json({ message: errorMessages.notAuthorized });
   }
 
   try {
-    const user = await User.findById(id);
-    const sites = await Site.find();
+    const user = await User.findOne({ clerkId: userId });
+
+    const sites = (await Site.find()).filter(
+      (site) => site.userId === user.clerkId,
+    );
 
     res.status(200).json(sites);
   } catch (error) {
