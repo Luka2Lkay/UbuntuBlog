@@ -36,9 +36,6 @@ const createSite = async (req, res) => {
       });
     }
 
-    console.log("Error code:", error.code);
-    console.log("Error name:", error.name);
-    console.log("Error message:", error.message);
     res.status(500).json({ message: error.message });
   }
 };
