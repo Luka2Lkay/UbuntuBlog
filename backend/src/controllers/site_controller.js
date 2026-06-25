@@ -22,9 +22,12 @@ const createSite = async (req, res) => {
     await site.save();
     res.status(201).json(site);
   } catch (error) {
+
     if (error.code === 11000) {
-      return res.status(409).json({
-        message: "A site with this slug already exists",
+      const field = Object.keys(error.keyPattern)[0];
+
+      return res.status(400).json({
+        message: `${field} already exists`,
       });
     }
 
