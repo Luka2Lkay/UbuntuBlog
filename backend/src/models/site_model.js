@@ -30,7 +30,8 @@ const siteSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-siteSchema.index({ userId: 1, slug: 1 }, { unique: true });
+siteSchema.index({ userId: 1, name: 1 }, { unique: true });
+siteSchema.index({ userId: 1, domain: 1 }, { unique: true });
 
 siteSchema.plugin(uniqueValidator);
 

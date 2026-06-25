@@ -22,6 +22,11 @@ const createSite = async (req, res) => {
     await site.save();
     res.status(201).json(site);
   } catch (error) {
+    if (error.name === "ValidationError") {
+      return res.status(409).json({
+        message: "You already have a site with these details.",
+      });
+    }
 
     if (error.code === 11000) {
       const field = Object.keys(error.keyPattern)[0];
@@ -31,6 +36,9 @@ const createSite = async (req, res) => {
       });
     }
 
+    console.log("Error code:", error.code);
+    console.log("Error name:", error.name);
+    console.log("Error message:", error.message);
     res.status(500).json({ message: error.message });
   }
 };
