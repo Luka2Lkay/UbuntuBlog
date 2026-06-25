@@ -1,12 +1,12 @@
-import { useSiteContext } from "../../context/SiteContext"
+import { useSiteContext } from "../../state/context/SiteContext"
 import { Link } from "react-router-dom"
 import { useAuth } from "@clerk/react"
 import { useNavigate } from "react-router-dom"
 import { LogOut } from "lucide-react"
-import { useAppSelector } from "../../hooks/redux_hooks"
-import { selectSites } from "../../redux/reducers/site_slice"
+import { useAppSelector } from "@/hooks/redux_hooks"
+import { selectSites } from "@/state/redux/reducers/site_slice"
 import { useEffect, useState } from "react"
-import { fetchWithAuth } from "../../services/api"
+import { fetchWithAuth } from "@/services/api"
 
 const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL
 

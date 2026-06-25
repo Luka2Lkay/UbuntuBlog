@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { useSiteContext } from "../../context/SiteContext"
+import { useSiteContext } from "../../state/context/SiteContext"
 import PostForm from "../../components/postform/PostForm"
 import { useState } from "react"
 import { type Post } from "../../interfaces/interface";

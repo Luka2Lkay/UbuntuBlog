@@ -1,11 +1,11 @@
 import SiteForm from "../../components/siteform/SiteForm"
 import { useAuth } from "@clerk/react";
 import { useNavigate } from "react-router-dom";
-import { postSitesThunk } from "../../redux/thunks/site_thunk";
+import { postSitesThunk } from "@/state/redux/thunks/site_thunk";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux_hooks";
-import { type Site } from "../../interfaces/interface";
-import { useSiteContext } from "../../context/SiteContext";
-import { selectLoading } from "../../redux/reducers/site_slice";
+import { type Site } from "@/interfaces/interface";
+import { useSiteContext } from "@/state/context/SiteContext";
+import { selectLoading } from "@/state/redux/reducers/site_slice";
 
 function CreateSite() {
 
@@ -18,9 +18,10 @@ function CreateSite() {
 
     const handleCreateSite = async (data: Site) => {
 
-
         try {
             const token = await getToken({ template: "backend" });
+
+            console.log("post data: ", data)
             const dispatchResult = await dispatch(postSitesThunk({ siteData: data, token }));
             const createdSite = dispatchResult.payload as Site;
 

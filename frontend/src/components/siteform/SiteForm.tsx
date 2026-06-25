@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react"
 import slugify from "slugify"
-import { selectError, setError } from "../../redux/reducers/site_slice"
+import { selectError, setError } from "@/state/redux/reducers/site_slice"
 import { useAppSelector, useAppDispatch } from "../../hooks/redux_hooks"
 import { type Site } from "../../interfaces/interface"
 

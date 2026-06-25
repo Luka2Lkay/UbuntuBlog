@@ -6,7 +6,7 @@ import {
   fetchSiteThunk,
   updateSiteThunk,
 } from "../thunks/site_thunk";
-import { type Site } from "../../interfaces/interface";
+import { type Site } from "@/interfaces/interface";
 
 interface SiteState {
   currentSite: Site | null;
@@ -93,7 +93,9 @@ const siteSlice = createSlice({
         state.loading = false;
         state.error = null;
         const updatedSite = action.payload;
-        const index = state.sites.findIndex((site) => site._id === updatedSite._id);
+        const index = state.sites.findIndex(
+          (site) => site._id === updatedSite._id,
+        );
 
         if (index !== -1) {
           state.sites[index] = updatedSite;

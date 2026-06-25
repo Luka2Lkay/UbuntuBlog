@@ -22,9 +22,11 @@ export const fetchWithAuth = async (url: string, token: string | null) => {
   }
 };
 
+type NewSite = Omit<Site, "_id">;
+
 export const postWithAuth = async (
   url: string,
-  data: Site,
+  data: NewSite,
   token: string | null,
 ) => {
   if (!token) {

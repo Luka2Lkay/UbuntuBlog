@@ -1,25 +1,25 @@
 import { useAuth } from "@clerk/react"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { fetchWithAuth } from "@/services/api"
-import { useSiteContext } from "@/context/SiteContext"
-// import { fetchSitesThunk } from "../../redux/thunks/site_thunk"
-// import{selectSites} from ""
+import { useSiteContext } from "@/state/context/SiteContext"
+import { fetchSitesThunk } from "@/state/redux/thunks/site_thunk"
+import { selectSites } from "@/state/redux/reducers/site_slice"
+import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks"
 import StatisticsCard from "@/components/statistics_card/StatisticsCard"
 import SiteCard from "@/components/site_card/SiteCard"
 import { Link } from "react-router-dom"
-// import { selectSites } from "../../redux/reducers/site_slice"
-
-const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL
 
 function Dashboard() {
     const navigate = useNavigate();
     const { selectedSite } = useSiteContext();
-    const { isLoaded, isSignedIn, getToken } = useAuth();
+    const { isLoaded, isSignedIn, getToken, userId } = useAuth();
+
+    const dispatch = useAppDispatch();
+    const sites = useAppSelector(selectSites);
 
     useEffect(() => {
 
-        if (!isLoaded) return;
+        if (!isLoaded || !userId) return;
 
         if (!isSignedIn) {
             navigate("/sign-in");
@@ -30,10 +30,9 @@ function Dashboard() {
 
             try {
                 const token = await getToken({ template: "backend" });
-                const response = await fetchWithAuth(`${BASE_URL}/api/courses`, token);
+                const response = await dispatch(fetchSitesThunk(token)).unwrap();
 
                 console.log(`Token: ${token}`);
-                console.log("data: ", response.data)
 
                 return response;
             } catch (error) {
@@ -44,6 +43,12 @@ function Dashboard() {
         loadSites();
 
     }, [isLoaded, isSignedIn, navigate]);
+
+    useEffect(() => {
+        if (sites.length === 0) {
+            navigate("/sites/create")
+        }
+    }, [sites])
 
     return (
         <div className="space-y-6">

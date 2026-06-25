@@ -5,12 +5,14 @@ import {
   deleteWithAuth,
   fetchOneWithAuth,
   updateWithAuth,
-} from "../../services/api";
-import { type Site } from "../../interfaces/interface";
+} from "@/services/api";
+import { type Site } from "@/interfaces/interface";
 import { deleteSite, setCurrentSite } from "../reducers/site_slice";
-import { errorMessages } from "../../helpers/messages_helper";
+import { errorMessages } from "@/helpers/messages_helper";
 
 const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL;
+
+type NewSite = Omit<Site, "_id">;
 
 export const fetchSitesThunk = createAsyncThunk<
   Site[],
@@ -55,7 +57,7 @@ export const fetchSiteThunk = createAsyncThunk<
 
 export const postSitesThunk = createAsyncThunk<
   Site,
-  { siteData: Site; token: string | null },
+  { siteData: NewSite; token: string | null },
   { rejectValue: string }
 >("sites/postSite", async ({ siteData, token }, { rejectWithValue }) => {
   try {
@@ -67,7 +69,7 @@ export const postSitesThunk = createAsyncThunk<
     return response.data;
   } catch (error) {
     console.error(`${errorMessages.apiError("create", "site")}: `, error);
-    return rejectWithValue(errorMessages.apiError("fetch", "sites"));
+    return rejectWithValue(errorMessages.apiError("create", "sites"));
   }
 });
 

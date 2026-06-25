@@ -4,8 +4,8 @@ import { type Site } from "../../interfaces/interface";
 import SiteForm from "../../components/siteform/SiteForm";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux_hooks";
 import { useAuth } from "@clerk/react";
-import { fetchSiteThunk, updateSiteThunk } from "../../redux/thunks/site_thunk";
-import { selectCurrentSite, selectLoading } from "../../redux/reducers/site_slice";
+import { fetchSiteThunk, updateSiteThunk } from "@/state/redux/thunks/site_thunk";
+import { selectCurrentSite, selectLoading } from "@/state/redux/reducers/site_slice";
 
 function EditSite() {
   const dispatch = useAppDispatch();
@@ -19,7 +19,7 @@ function EditSite() {
 
   useEffect(() => {
 
-    
+
 
     const fetchSite = async () => {
 

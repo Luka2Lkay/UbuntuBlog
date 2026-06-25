@@ -1,15 +1,15 @@
 import './App.css'
-import SignupPage from './pages/signup/SignupPage'
+import SignupPage from '@/pages/signup/SignupPage'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import SigninPage from "./pages/signin/SigninPage";
-import Dashboard from "./pages/dashboard/Dashboard";
-import Home from "./pages/home/Home";
-import Posts from './pages/posts/Posts';
-import CreatePost from './pages/create_post/CreatePost';
-import CreateSite from './pages/create_site/CreateSite'
-import EditSite from './pages/edit_site/EditSite';
-import SiteDetails from './pages/site_details/SiteDetails';
-import Layout from './pages/layout/Layout';
+import SigninPage from "@/pages/signin/SigninPage";
+import Dashboard from "@/pages/dashboard/Dashboard";
+import Home from "@/pages/home/Home";
+import Posts from '@/pages/posts/Posts';
+import CreatePost from '@/pages/create_post/CreatePost';
+import CreateSite from '@/pages/create_site/CreateSite'
+import EditSite from '@/pages/edit_site/EditSite';
+import SiteDetails from '@/pages/site_details/SiteDetails';
+import Layout from '@/pages/layout/Layout';
 
 function App() {
   return (

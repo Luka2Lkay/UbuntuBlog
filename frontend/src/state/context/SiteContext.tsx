@@ -1,5 +1,5 @@
 import { createContext, useState, useContext} from "react";
-import { type Site } from "../interfaces/interface";
+import { type Site } from "../../interfaces/interface";
 
 type ReactNode = React.ReactNode;
 

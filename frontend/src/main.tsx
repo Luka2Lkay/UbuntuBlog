@@ -3,8 +3,8 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { ClerkProvider } from "@clerk/react";
-import { SiteProvider } from './context/SiteContext.tsx';
-import store from "./redux/store";
+import { SiteProvider } from './state/context/SiteContext.tsx';
+import store from "@/state/redux/store";
 import { Provider } from "react-redux";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
