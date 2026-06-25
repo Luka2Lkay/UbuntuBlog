@@ -3,7 +3,6 @@ const uniqueValidator = require("mongoose-unique-validator").default;
 
 const siteSchema = new mongoose.Schema(
   {
-    
     name: {
       type: String,
       trim: true,
@@ -18,20 +17,20 @@ const siteSchema = new mongoose.Schema(
       maxLength: 100,
       lowercase: true,
       required: true,
-      unique: true,
     },
     domain: {
       type: String,
       trim: true,
       lowercase: true,
       required: true,
-      unique: true,
     },
     niche: { type: String, trim: true, maxLength: 100, default: "" },
     userId: { type: String, required: true, index: true },
   },
   { timestamps: true },
 );
+
+siteSchema.index({ userId: 1, slug: 1 }, { unique: true });
 
 siteSchema.plugin(uniqueValidator);
 

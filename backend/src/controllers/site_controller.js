@@ -22,7 +22,13 @@ const createSite = async (req, res) => {
     await site.save();
     res.status(201).json(site);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    if (error.code === 11000) {
+      return res.status(409).json({
+        message: "A site with this slug already exists",
+      });
+    }
+
+    res.status(500).json({ message: error.message });
   }
 };
 
