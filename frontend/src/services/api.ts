@@ -17,7 +17,15 @@ export const fetchWithAuth = async (url: string, token: string | null) => {
 
     return response;
   } catch (error) {
-    console.error(`${errorMessages.apiError("fetch")}: `, error);
+    if (axios.isAxiosError(error)) {
+      console.error(
+        `${errorMessages.apiError("post")}:`,
+        error.response?.data || error.message,
+      );
+    } else {
+      console.error(`${errorMessages.apiError("fetch")}: `, error);
+    }
+
     throw new Error(errorMessages.apiError("fetch"));
   }
 };
@@ -34,7 +42,7 @@ export const postWithAuth = async (
   }
 
   try {
-    const response = axios.post(url, data, {
+    const response = await axios.post(url, data, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -43,7 +51,15 @@ export const postWithAuth = async (
 
     return response;
   } catch (error) {
-    console.error(`${errorMessages.apiError("post")}: `, error);
+    if (axios.isAxiosError(error)) {
+      console.error(
+        `${errorMessages.apiError("post")}:`,
+        error.response?.data || error.message,
+      );
+    } else {
+      console.error(`${errorMessages.apiError("post")}:`, error);
+    }
+
     throw new Error(errorMessages.apiError("post"));
   }
 };
@@ -63,7 +79,15 @@ export const deleteWithAuth = async (url: string, token: string | null) => {
 
     return response;
   } catch (error) {
-    console.error(`${errorMessages.apiError("delete")}: `, error);
+    if (axios.isAxiosError(error)) {
+      console.error(
+        `${errorMessages.apiError("delete")}: `,
+        error.request?.data || error.message,
+      );
+    } else {
+      console.error(`${errorMessages.apiError("delete")}: `, error);
+    }
+
     throw new Error(errorMessages.apiError("delete"));
   }
 };
@@ -87,7 +111,15 @@ export const updateWithAuth = async (
 
     return response;
   } catch (error) {
-    console.error(`${errorMessages.apiError("edit")}: `, error);
+    if (axios.isAxiosError(error)) {
+      console.error(
+        `${errorMessages.apiError("edit")}: `,
+        error.response?.data || error.message,
+      );
+    } else {
+      console.error(`${errorMessages.apiError("edit")}: `, error);
+    }
+
     throw new Error(errorMessages.apiError("edit"));
   }
 };
@@ -106,7 +138,15 @@ export const fetchOneWithAuth = async (url: string, token: string | null) => {
 
     return response;
   } catch (error) {
-    console.error(`${errorMessages.apiError("fetch")}: `, error);
+    if (axios.isAxiosError(error)) {
+      console.error(
+        `${errorMessages.apiError("fetch")}: `,
+        error.response?.data || error.message,
+      );
+    } else {
+      console.error(`${errorMessages.apiError("fetch")}: `, error);
+    }
+
     throw new Error(errorMessages.apiError("fetch"));
   }
 };
