@@ -19,16 +19,11 @@ function EditSite() {
 
   useEffect(() => {
 
-
-
     const fetchSite = async () => {
 
       try {
         const token = await getToken({ template: "backend" });
         await dispatch(fetchSiteThunk({ siteId, token })).unwrap()
-
-        console.log("current site", currentSite)
-        console.log("id: ", siteId)
 
       } catch (error) {
         console.error("Error fetching site ", error)

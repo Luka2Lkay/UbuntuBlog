@@ -9,6 +9,7 @@ import {
 import { type Site } from "@/interfaces/interface";
 import { deleteSite, setCurrentSite } from "../reducers/site_slice";
 import { errorMessages } from "@/helpers/messages_helper";
+import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL;
 
@@ -68,8 +69,16 @@ export const postSitesThunk = createAsyncThunk<
     );
     return response.data;
   } catch (error) {
-    console.error(`${errorMessages.apiError("create", "site")}: `, error);
-    return rejectWithValue(errorMessages.apiError("create", "sites"));
+    if (axios.isAxiosError(error)) {
+      return rejectWithValue(
+        error.response?.data?.message ??
+          errorMessages.apiError("create", "site"),
+      );
+    } else {
+      console.error(`${errorMessages.apiError("create", "site")}: `, error);
+    }
+
+    return rejectWithValue("hi");
   }
 });
 

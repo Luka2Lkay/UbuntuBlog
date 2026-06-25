@@ -1,21 +1,32 @@
-import React, { useMemo, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import slugify from "slugify"
 import { selectError, setError } from "@/state/redux/reducers/site_slice"
 import { useAppSelector, useAppDispatch } from "../../hooks/redux_hooks"
 import { type Site } from "../../interfaces/interface"
+import { useAuth } from "@clerk/react"
 
 interface Props {
     initialData?: Site | null
     onSubmit: (data: Site) => void;
     loading: boolean;
+
 }
+
+type NewSite = Omit<Site, "_id">
 
 function SiteForm({ initialData, onSubmit, loading = false }: Props) {
 
     const dispatch = useAppDispatch();
     const error = useAppSelector(selectError);
 
-    const [formData, setFormData] = useState<Site>({ _id: initialData?._id || "", name: initialData?.name || "", slug: initialData?.slug || "", niche: initialData?.niche || "", domain: initialData?.domain || "", userId: initialData?.userId || null });
+    const { userId } = useAuth();
+
+    useEffect(() => {
+        console.log("userId: ", userId)
+
+    }, [userId])
+
+    const [formData, setFormData] = useState<NewSite>({ name: initialData?.name || "", slug: initialData?.slug || "", niche: initialData?.niche || "", domain: initialData?.domain || "", userId: initialData?.userId || userId });
 
     useMemo(() => {
 
@@ -86,7 +97,7 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
                 </div>
 
                 <div>
-                    <button disabled={loading || !!error || !formData.name || !formData.domain} type="submit" className="mt-4 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-black disabled:bg-gray-400 transition cursor-pointer">Add</button>
+                    <button disabled={loading || !!error || !formData.name || !formData.domain} type="submit" className="mt-4 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-black disabled:bg-gray-400 transition cursor-pointer">{initialData ? "EDIT" : "ADD"}</button>
                 </div>
             </div>
         </form>

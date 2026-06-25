@@ -21,6 +21,7 @@ function Dashboard() {
 
         if (!isLoaded || !userId) return;
 
+
         if (!isSignedIn) {
             navigate("/sign-in");
             return;
