@@ -18,7 +18,7 @@ interface SiteState {
 const initialState: SiteState = {
   currentSite: null,
   sites: [],
-  loading: false,
+  loading: true,
   error: null,
 };
 

@@ -3,7 +3,7 @@ import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useSiteContext } from "@/state/context/SiteContext"
 import { fetchSitesThunk } from "@/state/redux/thunks/site_thunk"
-import { selectSites } from "@/state/redux/reducers/site_slice"
+import { selectSites, selectLoading } from "@/state/redux/reducers/site_slice"
 import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks"
 import StatisticsCard from "@/components/statistics_card/StatisticsCard"
 import SiteCard from "@/components/site_card/SiteCard"
@@ -16,8 +16,10 @@ function Dashboard() {
 
     const dispatch = useAppDispatch();
     const sites = useAppSelector(selectSites);
+    const loading = useAppSelector(selectLoading);
 
     useEffect(() => {
+        console.log("loading:", loading)
 
         if (!isLoaded || !userId) return;
 
@@ -26,7 +28,7 @@ function Dashboard() {
             navigate("/sign-in");
             return;
         }
-
+        console.log("loading 2:", loading)
         const loadSites = async () => {
 
             try {
@@ -46,10 +48,28 @@ function Dashboard() {
     }, [isLoaded, isSignedIn, navigate]);
 
     useEffect(() => {
-        if (sites.length === 0) {
-            navigate("/sites/create")
+
+        if (!loading) {
+            if (sites.length === 0) {
+                navigate("/sites/create")
+            } 
         }
-    }, [sites])
+
+    }, [sites, loading])
+
+    if (loading) {
+        console.log("loading 4: ", loading)
+        return (
+            <div className="grid gap-4">
+                {[...Array(5)].map((_, index) => (
+                    <div
+                        key={index}
+                        className="h-32 rounded-lg bg-gray-200 animate-pulse"
+                    />
+                ))}
+            </div>
+        );
+    }
 
     return (
         <div className="space-y-6">
