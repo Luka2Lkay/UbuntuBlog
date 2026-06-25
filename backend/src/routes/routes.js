@@ -5,12 +5,12 @@ const {
   deleteSite,
   editSite,
   getSite,
-} = require("../controllers/site_controller");
+} = require("@/controllers/site_controller");
 
 const { createPost } = require("../controllers/post_controller");
 
-const { validatePostCreation } = require("../middleware/validation");
-const { validateSiteCreation } = require("../middleware/validation");
+const { validatePostCreation } = require("@/middleware/validation");
+const { validateSiteCreation } = require("@/middleware/validation");
 
 const siteRoutes = (app) => {
   const router = express.Router();

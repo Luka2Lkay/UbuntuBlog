@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { Webhook } = require("svix");
-const User = require("../models/user_model");
+const User = require("@/models/user_model");
 
 const webhookSecret = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
 

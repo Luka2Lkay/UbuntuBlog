@@ -1,3 +1,4 @@
+require("module-alias/register");
 require("node:dns/promises").setServers(["1.1.1.1", "8.8.8.8"]);
 require("dotenv").config();
 const { clerkClient, clerkMiddleware, getAuth } = require("@clerk/express");
@@ -6,10 +7,10 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const port = 3000;
-const { db } = require("./src/config/db_config");
+const { db } = require("@/config/db_config");
 
-const { siteRoutes, postRoutes } = require("./src/routes/routes");
-const { clerkWebhook } = require("./src/controllers/webhook_controller");
+const { siteRoutes, postRoutes } = require("@/routes/routes");
+const { clerkWebhook } = require("@/controllers/webhook_controller");
 
 const ORIGIN = process.env.LIVE_URL || process.env.LOCAL_URL;
 

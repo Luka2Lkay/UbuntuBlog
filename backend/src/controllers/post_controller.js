@@ -1,9 +1,9 @@
-const Post = require("../models/post_model");
-const User = require("../models/user_model");
+const Post = require("@/models/post_model");
+const User = require("@/models/user_model");
 const { validationResult } = require("express-validator");
 const { getAuth } = require("@clerk/express");
 const slugify = require("slugify");
-const { errorMessages } = require("../helpers/message_helpers");
+const { errorMessages } = require("@/helpers/message_helpers");
 
 const createPost = async (req, res) => {
   const errors = validationResult(req);
