@@ -1,5 +1,5 @@
 import { useSiteContext } from "../../context/SiteContext"
-import { Link, useLocation } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { useAuth } from "@clerk/react"
 import { useNavigate } from "react-router-dom"
 import { LogOut } from "lucide-react"
@@ -12,7 +12,6 @@ const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL
 
 function Header() {
     const { selectedSite, setSelectedSite } = useSiteContext();
-    // const location = useLocation();
     const navigate = useNavigate();
     const { signOut } = useAuth();
     const { getToken } = useAuth();
@@ -20,37 +19,24 @@ function Header() {
 
     const [username, setUsername] = useState("")
 
-
     useEffect(() => {
         if (sites.length > 0 && !selectedSite) {
             setSelectedSite(sites[0]);
 
-
             const loadUserData = async () => {
-
                 try {
                     const token = await getToken({ template: "backend" });
                     const response = await fetchWithAuth(`${BASE_URL}/api/user`, token);
 
-                    console.log(`Token: ${token}`);
-                    console.log("response: ", response.data.user.username)
                     setUsername(response.data.user.username);
-                    return username
                 } catch (error) {
                     console.error("Error loading user response:", error);
                 }
             }
-            console.log("username: ", username)
             loadUserData();
         }
 
-
     }, [sites, selectedSite, setSelectedSite])
-
-
-
-
-
 
     const logout = () => {
         signOut();
