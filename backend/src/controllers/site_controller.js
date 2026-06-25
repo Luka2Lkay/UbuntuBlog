@@ -134,5 +134,4 @@ module.exports = {
   deleteSite,
   editSite,
   getSite,
-  getUserSites,
 };
