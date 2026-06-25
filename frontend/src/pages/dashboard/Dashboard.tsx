@@ -1,11 +1,14 @@
 import { useAuth } from "@clerk/react"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { fetchWithAuth } from "../../services/api"
-import { useSiteContext } from "../../context/SiteContext"
-import StatisticsCard from "../../components/statistics_card/StatisticsCard"
-import SiteCard from "../../components/site_card/SiteCard"
+import { fetchWithAuth } from "@/services/api"
+import { useSiteContext } from "@/context/SiteContext"
+// import { fetchSitesThunk } from "../../redux/thunks/site_thunk"
+// import{selectSites} from ""
+import StatisticsCard from "@/components/statistics_card/StatisticsCard"
+import SiteCard from "@/components/site_card/SiteCard"
 import { Link } from "react-router-dom"
+// import { selectSites } from "../../redux/reducers/site_slice"
 
 const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL
 
@@ -23,14 +26,14 @@ function Dashboard() {
             return;
         }
 
-        const loadUserData = async () => {
+        const loadSites = async () => {
 
             try {
                 const token = await getToken({ template: "backend" });
-                const response = await fetchWithAuth(`${BASE_URL}/api/user`, token);
+                const response = await fetchWithAuth(`${BASE_URL}/api/courses`, token);
 
                 console.log(`Token: ${token}`);
-                console.log("data: ", response.data.user.username)
+                console.log("data: ", response.data)
 
                 return response;
             } catch (error) {
@@ -38,7 +41,7 @@ function Dashboard() {
             }
         }
 
-        loadUserData();
+        loadSites();
 
     }, [isLoaded, isSignedIn, navigate]);
 
