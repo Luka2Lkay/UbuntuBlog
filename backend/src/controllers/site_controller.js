@@ -86,20 +86,6 @@ const getSites = async (req, res) => {
   }
 };
 
-const getUserSites = async (req, res) => {
-  const { userId } = getAuth(req);
-
-  if (!userId) {
-    return res.status(401).json({ message: errorMessages.notAuthorized });
-  }
-
-  try {
-    // const sites = await Site.
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
 const getSite = async (req, res) => {
   const { userId } = getAuth(req);
   const { siteId } = req.params;
