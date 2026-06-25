@@ -57,6 +57,21 @@ function SiteDetails() {
     }
   };
 
+
+  if (loading) {
+
+    return (
+      <div className="grid gap-4">
+        {[...Array(2)].map((_, index) => (
+          <div
+            key={index}
+            className="h-48 rounded-lg bg-gray-200 animate-pulse"
+          />
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       {loading && (<p>Loading site details...</p>)}

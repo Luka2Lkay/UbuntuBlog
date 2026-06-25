@@ -19,16 +19,14 @@ function Dashboard() {
     const loading = useAppSelector(selectLoading);
 
     useEffect(() => {
-        console.log("loading:", loading)
 
         if (!isLoaded || !userId) return;
-
 
         if (!isSignedIn) {
             navigate("/sign-in");
             return;
         }
-        console.log("loading 2:", loading)
+
         const loadSites = async () => {
 
             try {
@@ -52,13 +50,13 @@ function Dashboard() {
         if (!loading) {
             if (sites.length === 0) {
                 navigate("/sites/create")
-            } 
+            }
         }
 
     }, [sites, loading])
 
     if (loading) {
-        console.log("loading 4: ", loading)
+
         return (
             <div className="grid gap-4">
                 {[...Array(5)].map((_, index) => (
@@ -72,38 +70,40 @@ function Dashboard() {
     }
 
     return (
-        <div className="space-y-6">
-            <div>
-                <h1 className="text-2xl font-semibold text-gray-800">Dashboard</h1>
-                <p className="text-sm text-gray-500">Managing content for <span className="font-medium">{selectedSite?.name}</span></p>
-            </div>
+        <>
+            <div className="space-y-6">
+                <div>
+                    <h1 className="text-2xl font-semibold text-gray-800">Dashboard</h1>
+                    <p className="text-sm text-gray-500">Managing content for <span className="font-medium">{selectedSite?.name}</span></p>
+                </div>
 
-            <div>
-                <SiteCard name={selectedSite?.name} domain={selectedSite?.domain} niche={selectedSite?.niche} showDeleteButton={false} />
-            </div>
+                <div>
+                    <SiteCard name={selectedSite?.name} domain={selectedSite?.domain} niche={selectedSite?.niche} showDeleteButton={false} />
+                </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <StatisticsCard title="Total Posts" value={5} />
-                <StatisticsCard title="Published" value={2} />
-                <StatisticsCard title="Drafts" value={3} />
-            </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <StatisticsCard title="Total Posts" value={5} />
+                    <StatisticsCard title="Published" value={2} />
+                    <StatisticsCard title="Drafts" value={3} />
+                </div>
 
-            <div className="flex gap-3">
-                <Link to="/create-post" className="px-4 py-2 bg-gray-900 text-white rounded-md text-sm hover:bg-black">
-                    + New Post
-                </Link>
+                <div className="flex gap-3">
+                    <Link to="/create-post" className="px-4 py-2 bg-gray-900 text-white rounded-md text-sm hover:bg-black">
+                        + New Post
+                    </Link>
 
-                <Link to="/posts" className="px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-200">
-                    View All Posts
-                </Link>
-            </div>
+                    <Link to="/posts" className="px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-200">
+                        View All Posts
+                    </Link>
+                </div>
 
-            <div className="bg-white rounded-lg border border-gray-200">
-                <div className="px-4 py-3 border-b border-gray-200">
-                    <h2 className="text-sm font-medium text-gray-700">Recent Posts</h2>
+                <div className="bg-white rounded-lg border border-gray-200">
+                    <div className="px-4 py-3 border-b border-gray-200">
+                        <h2 className="text-sm font-medium text-gray-700">Recent Posts</h2>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
