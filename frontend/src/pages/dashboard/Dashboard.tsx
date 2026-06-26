@@ -33,8 +33,6 @@ function Dashboard() {
                 const token = await getToken({ template: "backend" });
                 const response = await dispatch(fetchSitesThunk(token)).unwrap();
 
-                console.log(`Token: ${token}`);
-
                 return response;
             } catch (error) {
                 console.error("Error loading user data:", error);
@@ -43,7 +41,7 @@ function Dashboard() {
 
         loadSites();
 
-    }, [isLoaded, isSignedIn, navigate]);
+    }, [isLoaded, isSignedIn, navigate, userId, getToken, dispatch]);
 
     useEffect(() => {
 
@@ -53,7 +51,7 @@ function Dashboard() {
             }
         }
 
-    }, [sites, loading])
+    }, [sites, loading, navigate])
 
     if (loading) {
 

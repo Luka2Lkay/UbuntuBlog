@@ -31,7 +31,6 @@ function EditSite() {
       }
     })();
 
-    console.log("site:", currentSite)
   }, [getToken, dispatch, siteId])
 
   const handleEdit = async (siteData: Site) => {

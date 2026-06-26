@@ -14,7 +14,7 @@ export default function Home() {
         }
 
         navigate("/sign-in");
-    }, [])
+    }, [isLoaded, isSignedIn, navigate, signOut])
 
     return <></>
 }
