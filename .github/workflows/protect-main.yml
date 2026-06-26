@@ -8,6 +8,7 @@ on:
 jobs:
   enforce-branch:
     runs-on: ubuntu-latest
+    container: node:20
 
     steps:
       - name: Check source branch
