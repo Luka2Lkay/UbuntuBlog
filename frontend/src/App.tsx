@@ -19,12 +19,12 @@ function App() {
         <Route path="/sign-in" element={<SigninPage />} />
         <Route index element={<Home />} />
         <Route path="/" element={<Layout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/posts" element={<Posts />} />
-          <Route path="/posts/create" element={<CreatePost />} />
-          <Route path="/sites/create" element={<CreateSite />} />
-          <Route path="/sites/:siteId" element={<SiteDetails />} />
-          <Route path="/sites/:siteId/edit" element={<EditSite />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="posts" element={<Posts />} />
+          <Route path="posts/create" element={<CreatePost />} />
+          <Route path="sites/create" element={<CreateSite />} />
+          <Route path="sites/:siteId" element={<SiteDetails />} />
+          <Route path="sites/:siteId/edit" element={<EditSite />} />
         </Route>
       </Routes>
     </BrowserRouter>
