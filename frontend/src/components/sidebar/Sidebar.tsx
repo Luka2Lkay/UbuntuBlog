@@ -1,4 +1,4 @@
-import { useSiteContext } from "@/state/context/SiteContext";
+import { useSiteContext } from "@/state/context/useSiteContext";
 import { type Site } from "@/interfaces/interface";
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";

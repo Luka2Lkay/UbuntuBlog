@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { postSiteThunk } from "@/state/redux/thunks/site_thunk";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux_hooks";
 import { type Site } from "@/interfaces/interface";
-import { useSiteContext } from "@/state/context/SiteContext";
+import { useSiteContext } from "@/state/context/useSiteContext";
 import { selectLoading } from "@/state/redux/reducers/site_slice";
 import { selectError } from "@/state/redux/reducers/site_slice";
 

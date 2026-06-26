@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import slugify from "slugify";
-import { useSiteContext } from "../../state/context/SiteContext";
+import { useSiteContext } from "../../state/context/useSiteContext";
 import axios from "axios"
 import Tiptap from "../tiptap/Tiptap";
 import { type Post } from "../../interfaces/interface";

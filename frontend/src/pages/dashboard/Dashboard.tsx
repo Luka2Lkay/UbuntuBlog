@@ -1,7 +1,7 @@
 import { useAuth } from "@clerk/react"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { useSiteContext } from "@/state/context/SiteContext"
+import { useSiteContext } from "@/state/context/useSiteContext"
 import { fetchSitesThunk } from "@/state/redux/thunks/site_thunk"
 import { selectSites, selectLoading } from "@/state/redux/reducers/site_slice"
 import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks"
