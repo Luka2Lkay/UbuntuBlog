@@ -7,6 +7,7 @@ import { selectSites } from "@/state//redux/reducers/site_slice";
 import { fetchSitesThunk } from "@/state/redux/thunks/site_thunk";
 import { useAuth } from "@clerk/react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks";
+import capitalize from "capitalize";
 
 function Sidebar() {
     const { selectedSite, setSelectedSite } = useSiteContext();
@@ -85,11 +86,10 @@ function Sidebar() {
                                 <div className="flex">
                                     <button
                                         type="button"
-                                        title={clientSite?.name}
                                         onClick={() => navigateToSite(clientSite)}
                                         className={`text-left px-3 py-2 rounded-md w-full text-sm transition ${selectedSite?._id === clientSite?._id ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
                                     >
-                                        {collapsed ? clientSite?.name?.charAt(0).toUpperCase() : clientSite?.name}
+                                        {collapsed ? clientSite?.name?.charAt(0).toUpperCase() : capitalize.words(clientSite?.name)}
                                     </button>
                                 </div>
                             </div>
