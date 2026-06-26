@@ -24,7 +24,15 @@ export const fetchSitesThunk = createAsyncThunk<
     const response = await fetchWithAuth(`${BASE_URL}/api/sites`, token);
     return response.data;
   } catch (error) {
-    console.error(`${errorMessages.apiError("fetch", "sites")}: `, error);
+    if (axios.isAxiosError(error)) {
+      rejectWithValue(
+        error.response?.data?.mesaage ??
+          errorMessages.apiError("fetch", "sites"),
+      );
+    } else {
+      console.error(`${errorMessages.apiError("fetch", "sites")}: `, error);
+    }
+
     return rejectWithValue(errorMessages.apiError("fetch", "sites"));
   }
 });
@@ -50,13 +58,21 @@ export const fetchSiteThunk = createAsyncThunk<
 
       return response.data.site;
     } catch (error) {
-      console.error(`${errorMessages.apiError("fetch", "site")}: `, error);
+      if (axios.isAxiosError(error)) {
+        rejectWithValue(
+          error.response?.data?.message ??
+            errorMessages.apiError("fetch", "site"),
+        );
+      } else {
+        console.error(`${errorMessages.apiError("fetch", "site")}: `, error);
+      }
+
       return rejectWithValue(errorMessages.apiError("fetch", "site"));
     }
   },
 );
 
-export const postSitesThunk = createAsyncThunk<
+export const postSiteThunk = createAsyncThunk<
   Site,
   { siteData: NewSite; token: string | null },
   { rejectValue: string }
@@ -103,7 +119,15 @@ export const updateSiteThunk = createAsyncThunk<
       dispatch(setCurrentSite(response.data));
       return response.data;
     } catch (error) {
-      console.error(`${errorMessages.apiError("update", "site")}: `, error);
+      if (axios.isAxiosError(error)) {
+        rejectWithValue(
+          error.response?.data?.message ??
+            errorMessages.apiError("update", "site"),
+        );
+      } else {
+        console.error(`${errorMessages.apiError("update", "site")}: `, error);
+      }
+
       return rejectWithValue(errorMessages.apiError("update", "site"));
     }
   },
@@ -126,7 +150,15 @@ export const deleteSiteThunk = createAsyncThunk<
 
       return response.data.message;
     } catch (error) {
-      console.error(`${errorMessages.apiError("delete", "site")}: `, error);
+      if (axios.isAxiosError(error)) {
+        rejectWithValue(
+          error.response?.data?.message ??
+            errorMessages.apiError("fetch", "sites"),
+        );
+      } else {
+        console.error(`${errorMessages.apiError("delete", "site")}: `, error);
+      }
+
       return rejectWithValue(errorMessages.apiError("fetch", "sites"));
     }
   },

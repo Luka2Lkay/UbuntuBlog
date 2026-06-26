@@ -7,6 +7,7 @@ import { selectCurrentSite, selectLoading } from "@/state/redux/reducers/site_sl
 import { useSiteContext } from "../../state/context/SiteContext";
 import SiteCard from "../../components/site_card/SiteCard";
 import ConfirmationModal from "../../components/confirmation_modal/ConfirmationModal";
+import capitalize from "capitalize";
 
 function SiteDetails() {
   const { siteId } = useParams();
@@ -74,11 +75,10 @@ function SiteDetails() {
 
   return (
     <div className="space-y-6">
-      {loading && (<p>Loading site details...</p>)}
       {!currentSite && (<p className="text-gray-600">Site not found.</p>)}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-800">{currentSite?.name}</h1>
+          <h1 className="text-2xl font-semibold text-gray-800">{capitalize.words(currentSite?.name ?? "")}</h1>
           <p className="text-sm text-gray-500">Manage this site and see its details.</p>
         </div>
 

@@ -7,6 +7,7 @@ import { useAppSelector } from "@/hooks/redux_hooks"
 import { selectSites } from "@/state/redux/reducers/site_slice"
 import { useEffect, useState } from "react"
 import { fetchWithAuth } from "@/services/api"
+import capitalize from "capitalize"
 
 const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL
 
@@ -47,7 +48,7 @@ function Header() {
         <div className="flex items-center justify-between px-6 py-4 bg-white border-b shadow-sm">
             <div>
                 <h1 className="text-xl font-semibold text-gray-800">{username}</h1>
-                <p className="text-sm text-gray-500">Active site: <span className="font-medium text-gray-700">{selectedSite?.name}</span></p>
+                <p className="text-sm text-gray-500">Active site: <span className="font-medium text-gray-700">{capitalize.words(selectedSite?.name ?? "")}</span></p>
             </div>
 
             <div className="flex items-center gap-4">

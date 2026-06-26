@@ -1,7 +1,7 @@
 import SiteForm from "../../components/siteform/SiteForm"
 import { useAuth } from "@clerk/react";
 import { useNavigate } from "react-router-dom";
-import { postSitesThunk } from "@/state/redux/thunks/site_thunk";
+import { postSiteThunk } from "@/state/redux/thunks/site_thunk";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux_hooks";
 import { type Site } from "@/interfaces/interface";
 import { useSiteContext } from "@/state/context/SiteContext";
@@ -24,7 +24,7 @@ function CreateSite() {
 
         try {
             const token = await getToken({ template: "backend" });
-            const dispatchResult = await dispatch(postSitesThunk({ siteData: data, token })).unwrap();
+            const dispatchResult = await dispatch(postSiteThunk({ siteData: data, token })).unwrap();
             const createdSite = dispatchResult.payload as Site;
 
             setSelectedSite(createdSite);
