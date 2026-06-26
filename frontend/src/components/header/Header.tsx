@@ -47,7 +47,7 @@ function Header() {
     return (
         <div className="flex items-center justify-between px-6 py-4 bg-white border-b shadow-sm">
             <div>
-                <h1 className="text-xl font-semibold text-gray-800">{username}</h1>
+                <h1 className="text-xl text-left font-semibold text-gray-800">{capitalize.words(username)}</h1>
                 <p className="text-sm text-gray-500">Active site: <span className="font-medium text-gray-700">{capitalize.words(selectedSite?.name ?? "")}</span></p>
             </div>
 
