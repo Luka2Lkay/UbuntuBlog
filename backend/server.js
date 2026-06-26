@@ -17,7 +17,7 @@ const ORIGIN = process.env.LIVE_URL || process.env.LOCAL_URL;
 app.use(
   cors({
     origin: ORIGIN,
-    methods: ["GET", "PATCH", "PUT", "DELETE"],
+    methods: ["GET", "PATCH", "POST", "DELETE"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
