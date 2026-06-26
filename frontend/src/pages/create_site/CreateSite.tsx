@@ -25,10 +25,10 @@ function CreateSite() {
         try {
             const token = await getToken({ template: "backend" });
             const dispatchResult = await dispatch(postSiteThunk({ siteData: data, token })).unwrap();
-            const createdSite = dispatchResult.payload as Site;
+            const createdSite = dispatchResult as Site;
 
             setSelectedSite(createdSite);
-            navigate("/dashboard");
+            navigate(`/sites/${data._id}`);
 
         } catch (error) {
             console.error("Error creating the site", error);

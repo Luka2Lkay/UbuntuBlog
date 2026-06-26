@@ -37,7 +37,7 @@ function Header() {
             loadUserData();
         }
 
-    }, [sites, selectedSite, setSelectedSite])
+    }, [sites, selectedSite, setSelectedSite, getToken])
 
     const logout = () => {
         signOut();

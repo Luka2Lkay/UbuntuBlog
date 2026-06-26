@@ -9,14 +9,21 @@ import {
 import { type Site } from "@/interfaces/interface";
 
 interface SiteState {
-  currentSite: Site | null;
+  currentSite: Site;
   sites: Site[];
   loading: boolean;
   error: string | null;
 }
 
 const initialState: SiteState = {
-  currentSite: null,
+  currentSite: {
+    _id: "",
+    name: "",
+    slug: "",
+    domain: "",
+    niche: "",
+    userId: "",
+  },
   sites: [],
   loading: true,
   error: null,

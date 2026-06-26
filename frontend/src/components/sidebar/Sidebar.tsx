@@ -35,7 +35,7 @@ function Sidebar() {
 
     const navigateToSite = (site: Site) => {
         setSelectedSite(site);
-        navigate(`/sites/${site._id}`);
+        navigate(`/sites/${site._id}`, { state: { site } });
     }
 
     return (

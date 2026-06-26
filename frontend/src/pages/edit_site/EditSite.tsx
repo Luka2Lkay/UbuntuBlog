@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Navigate } from "react-router-dom";
 import { type Site } from "../../interfaces/interface";
 import SiteForm from "../../components/siteform/SiteForm";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux_hooks";
@@ -18,8 +18,9 @@ function EditSite() {
   const loading = useAppSelector(selectLoading)
 
   useEffect(() => {
+    if (!siteId) return;
 
-    const fetchSite = async () => {
+    (async () => {
 
       try {
         const token = await getToken({ template: "backend" });
@@ -28,9 +29,10 @@ function EditSite() {
       } catch (error) {
         console.error("Error fetching site ", error)
       }
-    }
-    fetchSite();
-  }, [getToken, dispatch])
+    })();
+
+    console.log("site:", currentSite)
+  }, [getToken, dispatch, siteId])
 
   const handleEdit = async (siteData: Site) => {
 
@@ -50,9 +52,13 @@ function EditSite() {
     }
   }
 
+
+  if (!currentSite._id) {
+    return <Navigate to="/sites/site-details" replace />;
+  }
+
   return (
     <div className="max-w-4xl">
-      <p>Edit</p>
       <SiteForm initialData={currentSite} onSubmit={handleEdit} loading={loading} />
     </div>
   )
