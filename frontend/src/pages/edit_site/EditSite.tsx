@@ -44,7 +44,7 @@ function EditSite() {
 
       await dispatch(updateSiteThunk({ siteData, siteId, token })).unwrap();
 
-      navigate("/dashboard")
+      navigate(`/sites/${siteData._id}`);
     } catch (error) {
       console.error("Failed to update", error)
     }

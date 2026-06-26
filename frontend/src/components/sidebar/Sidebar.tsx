@@ -24,7 +24,6 @@ function Sidebar() {
         const fetchSites = async () => {
             try {
                 const token = await getToken({ template: "backend" });
-                console.log("token: ", token);
                 await dispatch(fetchSitesThunk(token)).unwrap();
             } catch (error) {
                 console.error("Error fetching sites:", error);
