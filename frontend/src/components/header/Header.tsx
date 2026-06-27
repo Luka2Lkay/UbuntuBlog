@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 import { fetchWithAuth } from "@/services/api"
 import capitalize from "capitalize"
 
-const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL
+const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL
 
 function Header() {
     const { selectedSite, setSelectedSite } = useSiteContext();
@@ -23,7 +23,6 @@ function Header() {
     useEffect(() => {
         if (sites.length > 0 && !selectedSite) {
             setSelectedSite(sites[0]);
-
             const loadUserData = async () => {
                 try {
                     const token = await getToken({ template: "backend" });
@@ -57,11 +56,11 @@ function Header() {
                     Posts
                 </Link>
 
-                <Link to="/create-post" className="bg-black text-white px-4 py-2 rounded-md text-sm hover:bg-gray-800 transition">
-                    + Create Post
+                <Link to="/create-post" className="bg-black text-white px-2 py-1 md:px-4 md:py-2 rounded-md text-xs md:text-sm hover:bg-gray-800 transition">
+                    <span className="text-lg">+</span> Post
                 </Link>
 
-                <button className="text-gray-600 hover:text-red-500 transition cursor-pointer" onClick={logout}>
+                <button className="text-gray-600 w-[2px] hover:text-red-500 transition cursor-pointer" onClick={logout}>
                     <LogOut />
                 </button>
             </div>
