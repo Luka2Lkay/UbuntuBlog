@@ -9,8 +9,6 @@ const createPost = async (req, res) => {
   const errors = validationResult(req);
   const { userId } = getAuth(req);
 
-  const auth = getAuth(req);
-
   if (!errors.isEmpty()) {
     return res.status(400).json({ message: errors.array() });
   }
@@ -22,7 +20,6 @@ const createPost = async (req, res) => {
   try {
     const {
       title,
-      slug,
       excerpt,
       content,
       featuredImage,
@@ -30,9 +27,7 @@ const createPost = async (req, res) => {
       tags,
       published,
       seo,
-      author,
       site,
-      publishedAt,
     } = req.body;
 
     if (!title || !content || !site) {
