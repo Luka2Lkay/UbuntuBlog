@@ -1,0 +1,35 @@
+name: Type
+
+on:
+    push:
+        branches:
+            - develop
+
+jobs:
+    type-check:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                projects: [frontend]
+
+        defaults:
+            run:
+                working-directory: ${{matrix.projects}}
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Setup node
+              uses: actions/setup-node@v4
+
+              with:
+                  node-version: 22
+                  cache: npm
+                  cache-dependency-path: ${{matrix.projects}}/package-lock.json
+
+            - name: Install dependecies
+              run: npm ci
+
+            - name: Run type-check
+              run: npm run type-check
