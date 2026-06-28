@@ -39,7 +39,7 @@ function Sidebar() {
     }
 
     return (
-        <aside className={`min-h-screen bg-gray-900 text-white flex flex-col transition-all duration-300 hidden md:block ${collapsed ? 'w-20' : 'w-64'}`}>
+        <aside className={`bg-gray-900 text-white flex flex-col transition-all duration-300 ${collapsed ? 'w-20' : 'w-64'}`}>
             <div className="flex items-center justify-between px-4 py-6 border-b border-gray-800 shadow-sm">
                 {!collapsed && (<h1 className="text-lg font-semibold">UbuntuBlog</h1>)}
 
