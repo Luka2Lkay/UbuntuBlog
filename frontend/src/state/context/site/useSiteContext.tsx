@@ -1,4 +1,4 @@
-import { SiteContext } from "@/state/context/SiteContext";
+import { SiteContext } from "@/state/context/site/SiteContext";
 import { useContext } from "react";
 
 export function useSiteContext() {

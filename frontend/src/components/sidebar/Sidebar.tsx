@@ -1,9 +1,9 @@
-import { useSiteContext } from "@/state/context/useSiteContext";
+import { useSiteContext } from "@/state/context/site/useSiteContext";
 import { type Site } from "@/interfaces/Site";
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft, Plus } from "lucide-react";
-import { selectSites } from "@/state//redux/reducers/site_slice";
+import { selectSites } from "@/state/redux/reducers/site_slice";
 import { fetchSitesThunk } from "@/state/redux/thunks/site_thunk";
 import { useAuth } from "@clerk/react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks";
@@ -20,7 +20,6 @@ function Sidebar() {
     const sites = useAppSelector(selectSites);
 
     useEffect(() => {
-        console.log("sites: ", sites)
         const fetchSites = async () => {
             try {
                 const token = await getToken({ template: "backend" });

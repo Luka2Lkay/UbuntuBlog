@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from '@/App'
 import { ClerkProvider } from "@clerk/react";
-import { SiteProvider } from '@/state/context/SiteProvider.tsx';
+import { SiteProvider } from '@/state/context/site/SiteProvider';
 import store from "@/state/redux/store";
 import { Provider } from "react-redux";
 
