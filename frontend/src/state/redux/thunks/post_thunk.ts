@@ -30,3 +30,22 @@ export const fetchPostThunks = createAsyncThunk<
     return rejectWithValue(errorMessages.apiError("fetch", "posts"));
   }
 });
+
+export const createPostThunk = createAsyncThunk<
+  Post,
+  { data: NewPost; token: string | null },
+  { rejectValue: string }
+>("posts/postSite", async ({ data, token }, { rejectWithValue }) => {
+  try {
+    const response = await postWithAuth(`${BASE_URL}/api/posts`, data, token);
+
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      rejectWithValue(
+        error.response?.data?.message ??
+          errorMessages.apiError("create", "post"),
+      );
+    }
+  }
+});
