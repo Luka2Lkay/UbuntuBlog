@@ -6,7 +6,7 @@ import {
   fetchSiteThunk,
   updateSiteThunk,
 } from "../thunks/site_thunk";
-import { type Site } from "@/interfaces/interface";
+import { type Site } from "@/interfaces/Site";
 
 interface SiteState {
   currentSite: Site;

@@ -1,9 +1,9 @@
-import SiteForm from "../../components/siteform/SiteForm"
+import SiteForm from "@/components/siteform/SiteForm"
 import { useAuth } from "@clerk/react";
 import { useNavigate } from "react-router-dom";
 import { postSiteThunk } from "@/state/redux/thunks/site_thunk";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux_hooks";
-import { type Site } from "@/interfaces/interface";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks";
+import { type Site } from "@/interfaces/Site";
 import { useSiteContext } from "@/state/context/useSiteContext";
 import { selectLoading } from "@/state/redux/reducers/site_slice";
 import { selectError } from "@/state/redux/reducers/site_slice";

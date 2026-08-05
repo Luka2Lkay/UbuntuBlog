@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate, useParams, Navigate } from "react-router-dom";
-import { type Site } from "../../interfaces/interface";
-import SiteForm from "../../components/siteform/SiteForm";
+import { type Site } from "@/interfaces/Site";
+import SiteForm from "@/components/siteform/SiteForm";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux_hooks";
 import { useAuth } from "@clerk/react";
 import { fetchSiteThunk, updateSiteThunk } from "@/state/redux/thunks/site_thunk";

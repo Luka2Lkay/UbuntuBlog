@@ -1,5 +1,5 @@
-import { createContext} from "react";
-import { type Site } from "../../interfaces/interface";
+import { createContext } from "react";
+import { type Site } from "@/interfaces/Site";
 
 interface SiteContextType {
     selectedSite: Site | null;

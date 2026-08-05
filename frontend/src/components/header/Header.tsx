@@ -1,4 +1,4 @@
-import { useSiteContext } from "../../state/context/useSiteContext"
+import { useSiteContext } from "@/state/context/useSiteContext"
 import { Link } from "react-router-dom"
 import { useAuth } from "@clerk/react"
 import { useNavigate } from "react-router-dom"

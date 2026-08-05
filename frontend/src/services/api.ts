@@ -1,6 +1,6 @@
 import axios from "axios";
-import { type Site } from "../interfaces/interface";
-import { errorMessages } from "../helpers/messages_helper";
+import { type Site } from "@/interfaces/Site";
+import { errorMessages } from "@/helpers/messages_helper";
 
 export const fetchWithAuth = async (url: string, token: string | null) => {
   if (!token) {

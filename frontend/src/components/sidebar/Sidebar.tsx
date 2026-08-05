@@ -1,5 +1,5 @@
 import { useSiteContext } from "@/state/context/useSiteContext";
-import { type Site } from "@/interfaces/interface";
+import { type Site } from "@/interfaces/Site";
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { LayoutDashboard, FileText, PlusSquare, MoveRight, MoveLeft, Plus } from "lucide-react";

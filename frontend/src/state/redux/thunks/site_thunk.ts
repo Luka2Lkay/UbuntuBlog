@@ -6,8 +6,8 @@ import {
   fetchOneWithAuth,
   updateWithAuth,
 } from "@/services/api";
-import { type Site } from "@/interfaces/interface";
-import { deleteSite, setCurrentSite } from "../reducers/site_slice";
+import { type Site } from "@/interfaces/Site";
+import { deleteSite, setCurrentSite } from "@/state/redux/reducers/site_slice";
 import { errorMessages } from "@/helpers/messages_helper";
 import axios from "axios";
 
