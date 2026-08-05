@@ -1,5 +1,7 @@
 import { type Post } from "@/interfaces/Post";
 import { createSlice } from "@reduxjs/toolkit";
+import { setError, setLoading } from "./site_slice";
+import { act } from "react";
 
 interface PostState {
   currentPost: Post | null;
@@ -48,6 +50,16 @@ const postSlice = createSlice({
       } else {
         state.posts[index] = newPost;
       }
+    },
+    deletePost(state, action) {
+      const postId = action.payload;
+      state.posts = state.posts.filter((post) => post._id !== postId);
+    },
+    setError(state, action) {
+      state.error = action.payload;
+    },
+    setLoading(state, action) {
+      state.loading = action.payload;
     },
   },
 });
