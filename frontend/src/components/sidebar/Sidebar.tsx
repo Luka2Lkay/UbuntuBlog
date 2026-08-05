@@ -20,7 +20,7 @@ function Sidebar() {
     const sites = useAppSelector(selectSites);
 
     useEffect(() => {
-
+        console.log("sites: ", sites)
         const fetchSites = async () => {
             try {
                 const token = await getToken({ template: "backend" });

@@ -1,6 +1,5 @@
-import { Globe } from "lucide-react"
-import { SmilePlus } from "lucide-react"
-import { Trash } from "lucide-react";
+import { Globe, SmilePlus, Trash, ExternalLink, ShieldCheck } from "lucide-react"
+
 import capitalize from "capitalize"
 
 interface Props {
@@ -21,19 +20,58 @@ function SiteCard({ name, domain, niche, deleteCurrentSite, showDeleteButton }: 
     }
 
     return (
-        <div className="flex justify-between bg-white border border-gray-200 rounded-lg p-4 w-1/2">
-            <div>
-                <h2 className="text-lg font-semibold text-left">{capitalize.words(name ?? "")}</h2>
+        <div className="w-full max-w-3xl rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition-shadow">
 
-                <p className="text-md text-left"> <Globe size={18} className="inline-block mr-2 text-black" />: <span className="text-gray-500 font-semibold hover:text-blue-500"><a href={`https://${domain}`} target="_blank" rel="noopener noreferrer">{domain}</a></span></p>
+            <div className="flex items-start justify-between p-6">
+                <div className="flex gap-4">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-blue-100">
+                        <Globe className="h-7 w-7 text-blue-600" />
+                    </div>
 
-                {niche && <p className="text-md text-left"><SmilePlus size={18} className="inline-block mr-2 text-black" />: <span className="text-gray-500 font-semibold">{niche}</span></p>}
+                    <div className="space-y-3">
+                        <div>
+                            <h2 className="text-2xl font-semibold text-gray-900">{capitalize.words(name ?? "")}</h2>
+                            <p className="text-sm text-gray-500">Website Details</p>
+                        </div>
+
+                        <div className="flex items-center gap-2 text-sm">
+                            <Globe className="h-4 w-4 text-gray-500" />
+                            <a target="_blank" href={`https://${domain}`} rel="noopener noreferrer" className="font-medium text-blue-600 hover:underline">
+                                {domain}
+                            </a>
+                            <ExternalLink className="h-4 w-4 text-gray-400" />
+                        </div>
+
+                        <div className="flex items-center gap-2 text-sm">
+                            <ShieldCheck className="h-4 w-4 text-green-600" />
+                            <span className="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">
+                                HTTPS
+                            </span>
+                        </div>
+
+                        {niche && (
+                            <div className="flex items-center gap-2 text-sm">
+                                <SmilePlus className="h-4 w-4 text-purple-600" />
+                                <span className="rounded-full bg-purple-100 px-3 py-1 text-xs font-medium text-purple-700">
+                                    {capitalize.words(niche)}
+                                </span>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                    <a target="_blank" href={`https://${domain}`} rel="noopener noreferrer" className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium hover:bg-gray-100">
+                        Visit Website
+                    </a>
+                    {showDeleteButton && (
+                        <button onClick={handleDeleteClick} className="rounded-lg bg-red-50 p-2 text-red-600 transition hover:bg-red-100">
+                            <Trash size={18} />
+                        </button>
+                    )}
+                </div>
             </div>
-
-            {showDeleteButton && <Trash onClick={handleDeleteClick} className="text-red-500 hover:text-red-900 cursor-pointer" />}
-
         </div>
-
     )
 }
 
