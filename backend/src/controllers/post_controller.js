@@ -96,7 +96,7 @@ const getPost = async (req, res) => {
   try {
     const post = await Post.findById(postId);
 
-    res.status(200).json({post})
+    res.status(200).json({ post });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -120,19 +120,25 @@ const getPosts = async (req, res) => {
   }
 };
 
-const deletePosts = async (req, res) => {
+const deletePost = async (req, res) => {
   const { userId } = getAuth(req);
+  const { postId } = req.params;
 
   if (!userId) {
     return res.status(401).json({ message: errorMessages.notAuthorized });
   }
 
-  try {
-    await Post.delete();
+  if (!postId) {
+    return res.status(404).json({ message: errorMessages.missingId("Post") });
+  }
 
-    res.status(200).json({ message: "All posts have been deleted!" });
+  try {
+    await Post.findByIdAndDelete(postId);
+
+    res.status(200).json({ message: "The post has been deleted!" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-module.exports = { createPost, getPost, getPosts };
+
+module.exports = { createPost, getPost, getPosts, deletePost };
