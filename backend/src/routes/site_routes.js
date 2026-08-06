@@ -7,8 +7,6 @@ const {
   getSite,
 } = require("@/controllers/site_controller");
 
-const { createPost } = require("@/controllers/post_controller");
-
 const { validatePostCreation } = require("@/middleware/validation");
 const { validateSiteCreation } = require("@/middleware/validation");
 
