@@ -7,7 +7,6 @@ const {
   getSite,
 } = require("@/controllers/site_controller");
 
-const { validatePostCreation } = require("@/middleware/validation");
 const { validateSiteCreation } = require("@/middleware/validation");
 
 const siteRoutes = (app) => {
