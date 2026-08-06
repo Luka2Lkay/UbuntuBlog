@@ -54,12 +54,14 @@ postSchema.index({
 postSchema.index({ published: 1, publishedAt: -1 });
 postSchema.index({ "author.clerkId": 1 });
 
-postSchema.pre("save", function (next) {
-  if (this.published && !this.publishedAt) {
-    this.publishedAt = new Date();
+postSchema.pre("save", function () {
+  try {
+    if (this.published && !this.publishedAt) {
+      this.publishedAt = new Date();
+    }
+  } catch (error) {
+    next(error);
   }
-
-  next();
 });
 
 module.exports = mongoose.model("Post", postSchema);
