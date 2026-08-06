@@ -9,10 +9,11 @@ const app = express();
 const port = 3000;
 const { db } = require("@/config/db_config");
 
-const { siteRoutes, postRoutes } = require("@/routes/routes");
+const { siteRoutes } = require("@/routes/site_routes");
+const { postRoutes } = require("@/routes/post_routes");
 const { clerkWebhook } = require("@/controllers/webhook_controller");
 
-const ORIGIN = process.env.LIVE_URL || process.env.LOCAL_URL;
+const ORIGIN = process.env.LOCAL_URL; //change to LIVE_URL
 
 app.use(
   cors({
