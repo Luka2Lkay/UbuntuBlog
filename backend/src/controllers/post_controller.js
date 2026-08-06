@@ -14,7 +14,6 @@ const createPost = async (req, res) => {
   }
 
   if (!userId) {
-    console.log("userId: ", userId);
     return res.status(401).json({ message: errorMessages.notAuthorized });
   }
 
