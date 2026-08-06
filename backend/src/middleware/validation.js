@@ -48,19 +48,6 @@ const validatePostCreation = [
   body("site")
     .isMongoId()
     .withMessage("Site ID must be a valid MongoDB ObjectId"),
-  body("author").isObject().withMessage("Author must be an object"),
-  body("author.clerkId")
-    .isString()
-    .withMessage("Author clerkId must be a string"),
-  body("author.name").isString().withMessage("Author name must be a string"),
-  body("author.imageUrl")
-    .optional()
-    .isString()
-    .withMessage("Author imageUrl must be a string"),
-  body("author.email")
-    .optional()
-    .isString()
-    .withMessage("Author email must be a string"),
   body("publishedAt")
     .optional()
     .isISO8601()

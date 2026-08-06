@@ -6,12 +6,12 @@ import {
   fetchOneWithAuth,
   updateWithAuth,
 } from "@/services/api";
-import { type Site } from "@/interfaces/interface";
-import { deleteSite, setCurrentSite } from "../reducers/site_slice";
+import { type Site } from "@/interfaces/Site";
+import { deleteSite, setCurrentSite } from "@/state/redux/reducers/site_slice";
 import { errorMessages } from "@/helpers/messages_helper";
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL; // CHANGE TO LIVE URL
 
 type NewSite = Omit<Site, "_id">;
 

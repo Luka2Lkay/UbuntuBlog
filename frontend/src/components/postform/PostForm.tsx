@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
 import slugify from "slugify";
-import { useSiteContext } from "../../state/context/useSiteContext";
+import { useSiteContext } from "@/state/context/site/useSiteContext";
 import axios from "axios"
 import Tiptap from "../tiptap/Tiptap";
-import { type Post } from "../../interfaces/interface";
+import { type Post } from "@/interfaces/Post";
 
 export type PostFormData = Omit<Post, "_id">;
 

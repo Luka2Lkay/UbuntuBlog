@@ -14,7 +14,7 @@ const createPost = async (req, res) => {
   }
 
   if (!userId) {
-    return res.status(401).json({ message: errorMessages.notFound });
+    return res.status(401).json({ message: errorMessages.notAuthorized });
   }
 
   try {
@@ -67,22 +67,77 @@ const createPost = async (req, res) => {
         metaTitle: seo?.metaTitle || "",
         metaDescription: seo?.metaDescription || "",
         keywords:
-          seo?.keywords.map((keyword) => keyword.trim().toLowerCase()) || [],
+          seo?.keywords?.map((keyword) => keyword.trim().toLowerCase()) || [],
       },
-      author: {
-        clerkId: user.clerkId,
-        name: user.firstName,
-        imageUrl: user.imageUrl,
-        email: user.email,
-      },
+      author: user,
       site,
       publishedAt: published ? new Date() : null,
     });
 
-    res.status(201).json(post);
+    return res.status(201).json(post);
   } catch (error) {
-    res.status(500).status({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
-module.exports = { createPost };
+const getPost = async (req, res) => {
+  const { userId } = getAuth(req);
+  const { postId } = req.params;
+
+  if (!userId) {
+    return res.status(401).json({ message: errorMessages.notAuthorized });
+  }
+
+  if (!postId) {
+    return res.status(404).json({ message: errorMessages.missingId("Post") });
+  }
+
+  try {
+    const post = await Post.findById(postId);
+
+    res.status(200).json({ post });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const getPosts = async (req, res) => {
+  const { userId } = getAuth(req);
+
+  if (!userId) {
+    return res.status(401).json({ message: errorMessages.notAuthorized });
+  }
+  try {
+    const user = await User.findOne({ clerkId: userId });
+    const posts = (await Post.find()).filter(
+      (post) => post.author.clerkId === user.clerkId,
+    );
+
+    res.status(200).json({ posts });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const deletePost = async (req, res) => {
+  const { userId } = getAuth(req);
+  const { postId } = req.params;
+
+  if (!userId) {
+    return res.status(401).json({ message: errorMessages.notAuthorized });
+  }
+
+  if (!postId) {
+    return res.status(404).json({ message: errorMessages.missingId("Post") });
+  }
+
+  try {
+    await Post.findByIdAndDelete(postId);
+
+    res.status(200).json({ message: "The post has been deleted!" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { createPost, getPost, getPosts, deletePost };

@@ -5,8 +5,8 @@ import {
   deleteSiteThunk,
   fetchSiteThunk,
   updateSiteThunk,
-} from "../thunks/site_thunk";
-import { type Site } from "@/interfaces/interface";
+} from "@/state/redux/thunks/site_thunk";
+import { type Site } from "@/interfaces/Site";
 
 interface SiteState {
   currentSite: Site;

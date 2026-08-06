@@ -1,14 +1,7 @@
-export interface Site {
-  _id?: string;
-  name: string;
-  slug: string;
-  domain: string;
-  niche: string;
-  userId: string | null | undefined;
-}
+import { type Site } from "@/interfaces/Site";
 
 export interface Post {
-  _id: string;
+  _id?: string;
   site: Site | null;
   title: string;
   slug: string;
