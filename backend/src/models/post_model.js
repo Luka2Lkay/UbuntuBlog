@@ -55,12 +55,8 @@ postSchema.index({ published: 1, publishedAt: -1 });
 postSchema.index({ "author.clerkId": 1 });
 
 postSchema.pre("save", function () {
-  try {
-    if (this.published && !this.publishedAt) {
-      this.publishedAt = new Date();
-    }
-  } catch (error) {
-    next(error);
+  if (this.published && !this.publishedAt) {
+    this.publishedAt = new Date();
   }
 });
 
