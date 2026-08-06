@@ -13,7 +13,7 @@ function CreatePost() {
     const handleCreatePost = async (data: PostPayload) => {
         try {
             setLoading(true);
-
+console.log(data)
             // Make API call to create post using axios
 
             navigate("/posts");

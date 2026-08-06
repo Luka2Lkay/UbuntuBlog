@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 import { fetchWithAuth } from "@/services/api"
 import capitalize from "capitalize"
 
-const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL
+const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL //use LIVE URL
 
 function Header() {
     const { selectedSite, setSelectedSite } = useSiteContext();
@@ -26,8 +26,10 @@ function Header() {
             const loadUserData = async () => {
                 try {
                     const token = await getToken({ template: "backend" });
+                    console.log("token: ", token
+                    )
                     const response = await fetchWithAuth(`${BASE_URL}/api/user`, token);
-
+                    console.log("userId: ", response.data.user)
                     setUsername(response.data.user.username);
                 } catch (error) {
                     console.error("Error loading user response:", error);

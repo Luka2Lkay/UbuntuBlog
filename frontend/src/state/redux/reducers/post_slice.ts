@@ -1,7 +1,5 @@
 import { type Post } from "@/interfaces/Post";
 import { createSlice } from "@reduxjs/toolkit";
-import { setError, setLoading } from "./site_slice";
-import { act } from "react";
 
 interface PostState {
   currentPost: Post | null;
@@ -64,5 +62,11 @@ const postSlice = createSlice({
   },
 });
 
+export const selectPosts = (state: { post: PostState }) =>
+  state.post.posts ?? [];
+export const selectCurrentPost = (state: { post: PostState }) =>
+  state.post.currentPost;
+export const selectLoading = (state: { post: PostState }) => state.post.loading;
+export const selectError = (state: { post: PostState }) => state.post.error;
 
 export default postSlice.reducer;
