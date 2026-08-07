@@ -1,6 +1,6 @@
 import axios from "axios";
 import { type Site } from "@/interfaces/Site";
-// import { type Post } from "@/interfaces/Post";
+import { type Post } from "@/interfaces/Post";
 import { errorMessages } from "@/helpers/messages_helper";
 
 export const fetchWithAuth = async (url: string, token: string | null) => {
@@ -18,11 +18,11 @@ export const fetchWithAuth = async (url: string, token: string | null) => {
 };
 
 type NewSite = Omit<Site, "_id">;
-// type NewPost = Omit<Post, "_id">
+type NewPost = Omit<Post, "_id">
 
-export const postWithAuth = async (
+export const createWithAuth = async (
   url: string,
-  data: NewSite,
+  data: NewSite |NewPost,
   token: string | null,
 ) => {
   if (!token) {

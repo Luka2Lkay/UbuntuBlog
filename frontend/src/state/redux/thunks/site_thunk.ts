@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   fetchWithAuth,
-  postWithAuth,
+  createWithAuth,
   deleteWithAuth,
   fetchOneWithAuth,
   updateWithAuth,
@@ -72,13 +72,13 @@ export const fetchSiteThunk = createAsyncThunk<
   },
 );
 
-export const postSiteThunk = createAsyncThunk<
+export const createSiteThunk = createAsyncThunk<
   Site,
   { siteData: NewSite; token: string | null },
   { rejectValue: string }
 >("sites/postSite", async ({ siteData, token }, { rejectWithValue }) => {
   try {
-    const response = await postWithAuth(
+    const response = await createWithAuth(
       `${BASE_URL}/api/sites`,
       siteData,
       token,
@@ -87,7 +87,6 @@ export const postSiteThunk = createAsyncThunk<
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const { data } = error.response ?? {};
-      console.log("hello world: ", data?.message);
       const message =
         data?.message ??
         data?.errors[0]?.msg ??
