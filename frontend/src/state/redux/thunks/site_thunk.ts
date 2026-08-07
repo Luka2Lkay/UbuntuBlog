@@ -10,6 +10,7 @@ import { type Site } from "@/interfaces/Site";
 import { deleteSite, setCurrentSite } from "@/state/redux/reducers/site_slice";
 import { errorMessages } from "@/helpers/messages_helper";
 import axios from "axios";
+import { data } from "react-router-dom";
 
 const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL; // change to live
 
@@ -59,10 +60,14 @@ export const fetchSiteThunk = createAsyncThunk<
       return response.data.site;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        rejectWithValue(
-          error.response?.data?.message ??
-            errorMessages.apiError("fetch", "site"),
-        );
+        const { data } = error.response ?? {};
+        const message =
+          data?.message ??
+          data?.errors[0]?.msg ??
+          errorMessages.apiError("fetch", "site");
+
+        console.error("axios error: ", message);
+        rejectWithValue(message);
       } else {
         console.error(`${errorMessages.apiError("fetch", "site")}: `, error);
       }
