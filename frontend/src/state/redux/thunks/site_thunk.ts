@@ -86,16 +86,20 @@ export const postSiteThunk = createAsyncThunk<
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.log("axios error: ", error.response?.data.errors[0].msg);
-      return rejectWithValue(
-        error.response?.data?.errors[0].msg ??
-          errorMessages.apiError("create", "site"),
-      );
+      const { data } = error.response ?? {};
+      console.log("hello world: ", data?.message);
+      const message =
+        data?.message ??
+        data?.errors[0]?.msg ??
+        errorMessages.apiError("create", "site");
+
+      console.error("axios error: ", message);
+
+      return rejectWithValue(message);
     } else {
-      console.log("not axios error");
       console.error(`${errorMessages.apiError("create", "site")}: `, error);
     }
-
+    console.error(`${errorMessages.apiError("create", "site")}: `, error);
     return rejectWithValue(errorMessages.apiError("create", "site"));
   }
 });
@@ -127,6 +131,7 @@ export const updateSiteThunk = createAsyncThunk<
             errorMessages.apiError("update", "site"),
         );
       } else {
+        console.error("other: ");
         console.error(`${errorMessages.apiError("update", "site")}: `, error);
       }
 

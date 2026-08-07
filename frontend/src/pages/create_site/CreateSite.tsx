@@ -34,17 +34,9 @@ function CreateSite() {
         } catch (error: unknown) {
             console.error("Error creating the site", error);
 
-
             if (error && typeof error === 'object' && "message" in error && typeof error.message === "string") {
                 dispatch(setError("Failed to create site"))
             }
-            // if (error instanceof Error && error.message) {
-
-            //     dispatch(setError(error.message))
-
-            // } else {
-            //     dispatch(setError("Failed to create the site"))
-            // }
 
             throw new Error("Failed to create the site");
         }
