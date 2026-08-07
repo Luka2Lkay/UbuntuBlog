@@ -98,7 +98,6 @@ export const createSiteThunk = createAsyncThunk<
     } else {
       console.error(`${errorMessages.apiError("create", "site")}: `, error);
     }
-    console.error(`${errorMessages.apiError("create", "site")}: `, error);
     return rejectWithValue(errorMessages.apiError("create", "site"));
   }
 });
@@ -125,15 +124,17 @@ export const updateSiteThunk = createAsyncThunk<
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        rejectWithValue(
-          error.response?.data?.message ??
-            errorMessages.apiError("update", "site"),
-        );
+        const { data } = error.response ?? {};
+        const message =
+          data?.message ??
+          data.errors[0].msg ??
+          errorMessages.apiError("update", "site");
+
+        console.error("axios error: ", message);
+        return rejectWithValue(message);
       } else {
-        console.error("other: ");
         console.error(`${errorMessages.apiError("update", "site")}: `, error);
       }
-
       return rejectWithValue(errorMessages.apiError("update", "site"));
     }
   },
