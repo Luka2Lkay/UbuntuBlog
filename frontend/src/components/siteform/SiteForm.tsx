@@ -72,7 +72,7 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
 
                 <div>
                     <label className="block text-left text-sm font-medium mb-2">Slug</label>
-                    <input type="text" name="slug" value={slug} onChange={handleChange} className="w-full border rounded-lg px-4 py-3 bg-gray-300" readOnly />
+                    <input type="text" name="slug" value={slug || ""} onChange={handleChange} className="w-full border rounded-lg px-4 py-3 bg-gray-300" readOnly />
                 </div>
 
                 <div>

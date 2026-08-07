@@ -11,7 +11,7 @@ import { deleteSite, setCurrentSite } from "@/state/redux/reducers/site_slice";
 import { errorMessages } from "@/helpers/messages_helper";
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL; // change to live
 
 type NewSite = Omit<Site, "_id">;
 
@@ -86,15 +86,17 @@ export const postSiteThunk = createAsyncThunk<
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
+      console.log("axios error: ", error.response?.data.errors[0].msg);
       return rejectWithValue(
-        error.response?.data?.message ??
+        error.response?.data?.errors[0].msg ??
           errorMessages.apiError("create", "site"),
       );
     } else {
+      console.log("not axios error");
       console.error(`${errorMessages.apiError("create", "site")}: `, error);
     }
 
-    return rejectWithValue("hi");
+    return rejectWithValue(errorMessages.apiError("create", "site"));
   }
 });
 
