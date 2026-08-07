@@ -9,6 +9,12 @@ import { useAuth } from "@clerk/react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks";
 import capitalize from "capitalize";
 
+const navigation = [
+    { 'label': "Dashboard", "to": "/dashboard", "icon": LayoutDashboard, end: true },
+    { "label": "Posts", "to": "/posts", "icon": FileText, end: true },
+    { "label": "New Posts", "to": "/posts/create", "icon": PlusSquare }
+]
+
 function Sidebar() {
     const { selectedSite, setSelectedSite } = useSiteContext();
     const [collapsed, setCollapsed] = useState(false);
@@ -20,9 +26,13 @@ function Sidebar() {
     const sites = useAppSelector(selectSites);
 
     useEffect(() => {
+        if (sites.length) return;
+
         const fetchSites = async () => {
             try {
                 const token = await getToken({ template: "backend" });
+
+                if (!token) return;
                 await dispatch(fetchSitesThunk(token)).unwrap();
             } catch (error) {
                 console.error("Error fetching sites:", error);
@@ -30,7 +40,7 @@ function Sidebar() {
         };
         fetchSites();
 
-    }, [dispatch, getToken])
+    }, [dispatch, getToken, sites.length])
 
     const navigateToSite = (site: Site) => {
         setSelectedSite(site);
@@ -38,7 +48,7 @@ function Sidebar() {
     }
 
     return (
-        <aside className={`bg-gray-900 text-white flex flex-col transition-all duration-300 ${collapsed ? 'w-20' : 'w-64'}`}>
+        <aside className={`bg-gray-900 text-white flex flex-col flex-none h-screen transition-all duration-300 ${collapsed ? 'w-20' : 'w-64'}`}>
             <div className="flex items-center justify-between px-4 py-6 border-b border-gray-800 shadow-sm">
                 {!collapsed && (<h1 className="text-lg font-semibold">UbuntuBlog</h1>)}
 
@@ -47,22 +57,21 @@ function Sidebar() {
                 </button>
             </div>
 
-            <nav className="flex-1 flex-col gap-1 px-2 py-4">
-                <NavLink to="/dashboard" className={({ isActive }) => navClass(isActive)}>
-                    <LayoutDashboard size={18} />
-                    {!collapsed && (<span>Dashboard</span>)}
-                </NavLink>
+            <nav className="flex-1 px-2 py-4">
+                <ul className="flex flex-col gap-1">
+                    {navigation.map((item) => {
+                        const Icon = item.icon;
 
-                <NavLink to="/posts" className={({ isActive }) => navClass(isActive)}>
-                    <FileText size={18} />
-                    {!collapsed && (<span>Posts</span>)}
-
-                </NavLink>
-
-                <NavLink to="/posts/create" className={({ isActive }) => navClass(isActive)}>
-                    <PlusSquare size={18} />
-                    {!collapsed && (<span>New Post</span>)}
-                </NavLink>
+                        return (
+                            <li key={item.to}>
+                                <NavLink to={item.to} end={item.end} className={({ isActive }) => navClass(isActive)}>
+                                    <Icon size={18} />
+                                    {!collapsed && (<span>{item.label}</span>)}
+                                </NavLink>
+                            </li>
+                        )
+                    })}
+                </ul>
             </nav>
 
             <div className="px-3 py-4 border-t border-gray-800 flex-1 overflow-y-auto">
@@ -71,23 +80,23 @@ function Sidebar() {
                         <h2 className="text-xs uppercase text-gray-500 mb-2">Clients</h2>
                     )}
 
-                    <button className="text-gray-400 hover:text-white mb-2 cursor-pointer" onClick={() => { navigate("/sites/create") }}>
+                    <button aria-label="Create new site" className="text-gray-400 hover:text-white mb-2 cursor-pointer" onClick={() => { navigate("/sites/create") }}>
                         <Plus size={18} />
                     </button>
                 </div>
 
                 <div className="flex flex-col gap-1">
                     {
-
-                        sites && sites.map(clientSite => (
+                        sites.map(clientSite => (
                             <div key={clientSite._id} className="relative">
                                 <div className="flex">
                                     <button
+                                        aria-label={`Select ${clientSite.name}`}
                                         type="button"
                                         onClick={() => navigateToSite(clientSite)}
-                                        className={`text-left px-3 py-2 rounded-md w-full text-sm transition ${selectedSite?._id === clientSite?._id ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
+                                        className={`text-left px-3 py-2 rounded-md w-full text-sm transition ${selectedSite?._id === clientSite._id ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}
                                     >
-                                        {collapsed ? clientSite?.name?.charAt(0).toUpperCase() : capitalize.words(clientSite?.name)}
+                                        {collapsed ? clientSite?.name?.charAt(0).toUpperCase() : capitalize.words(clientSite.name ?? "")}
                                     </button>
                                 </div>
                             </div>
