@@ -11,7 +11,7 @@ import { deleteSite, setCurrentSite } from "@/state/redux/reducers/site_slice";
 import { errorMessages } from "@/helpers/messages_helper";
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL; // change to live
+const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL;
 
 type NewSite = Omit<Site, "_id">;
 

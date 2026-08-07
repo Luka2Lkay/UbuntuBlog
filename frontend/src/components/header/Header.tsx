@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 import { fetchWithAuth } from "@/services/api"
 import capitalize from "capitalize"
 
-const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL // change to live
+const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL
 
 function Header() {
     const { selectedSite, setSelectedSite } = useSiteContext();
