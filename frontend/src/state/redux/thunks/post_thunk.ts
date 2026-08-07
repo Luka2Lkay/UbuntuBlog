@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { errorMessages } from "@/helpers/messages_helper";
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_LOCAL_BASE_URL; //change to live url
+const BASE_URL = import.meta.env.VITE_LIVE_BASE_URL;
 
 type NewPost = Omit<Post, "_id">;
 
