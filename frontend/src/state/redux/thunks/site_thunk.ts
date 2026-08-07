@@ -127,7 +127,7 @@ export const updateSiteThunk = createAsyncThunk<
         const { data } = error.response ?? {};
         const message =
           data?.message ??
-          data.errors[0].msg ??
+          data?.errors[0]?.msg ??
           errorMessages.apiError("update", "site");
 
         console.error("axios error: ", message);
@@ -158,15 +158,19 @@ export const deleteSiteThunk = createAsyncThunk<
       return response.data.message;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        rejectWithValue(
-          error.response?.data?.message ??
-            errorMessages.apiError("fetch", "sites"),
-        );
+        const { data } = error.response ?? {};
+        const message =
+          data?.message ??
+          data?.errors[0]?.msg ??
+          errorMessages.apiError("delete", "sites");
+
+        console.error("axios error: ", message);
+        rejectWithValue(message);
       } else {
         console.error(`${errorMessages.apiError("delete", "site")}: `, error);
       }
 
-      return rejectWithValue(errorMessages.apiError("fetch", "sites"));
+      return rejectWithValue(errorMessages.apiError("delete", "site"));
     }
   },
 );
