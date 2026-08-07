@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   fetchSitesThunk,
-  postSiteThunk,
+  createSiteThunk,
   deleteSiteThunk,
   fetchSiteThunk,
   updateSiteThunk,
@@ -72,15 +72,15 @@ const siteSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
-      .addCase(postSiteThunk.fulfilled, (state, action) => {
+      .addCase(createSiteThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.sites.unshift(action.payload);
       })
-      .addCase(postSiteThunk.pending, (state) => {
+      .addCase(createSiteThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(postSiteThunk.rejected, (state, action) => {
+      .addCase(createSiteThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })

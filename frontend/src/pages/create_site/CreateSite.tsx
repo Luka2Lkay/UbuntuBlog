@@ -1,14 +1,14 @@
 import SiteForm from "@/components/siteform/SiteForm"
 import { useAuth } from "@clerk/react";
 import { useNavigate } from "react-router-dom";
-import { postSiteThunk } from "@/state/redux/thunks/site_thunk";
+import { createSiteThunk } from "@/state/redux/thunks/site_thunk";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks";
 import { type Site } from "@/interfaces/Site";
 import { useSiteContext } from "@/state/context/site/useSiteContext";
-import { selectLoading } from "@/state/redux/reducers/site_slice";
+import { selectLoading, setError } from "@/state/redux/reducers/site_slice";
 import { selectError } from "@/state/redux/reducers/site_slice";
 
-type NewSite = Omit<Site, "_d">
+type NewSite = Omit<Site, "_id">
 
 function CreateSite() {
 
@@ -24,14 +24,20 @@ function CreateSite() {
 
         try {
             const token = await getToken({ template: "backend" });
-            const dispatchResult = await dispatch(postSiteThunk({ siteData: data, token })).unwrap();
+            const dispatchResult = await dispatch(createSiteThunk({ siteData: data, token })).unwrap();
             const createdSite = dispatchResult as Site;
 
+            console.log("created site: ", createdSite)
             setSelectedSite(createdSite);
-            navigate(`/sites/${data._id}`);
+            navigate(`/sites/${createdSite._id}`);
 
-        } catch (error) {
+        } catch (error: unknown) {
             console.error("Error creating the site", error);
+
+            if (error && typeof error === 'object' && "message" in error && typeof error.message === "string") {
+                dispatch(setError("Failed to create site"))
+            }
+
             throw new Error("Failed to create the site");
         }
     }

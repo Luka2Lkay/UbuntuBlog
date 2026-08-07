@@ -13,7 +13,7 @@ const { siteRoutes } = require("@/routes/site_routes");
 const { postRoutes } = require("@/routes/post_routes");
 const { clerkWebhook } = require("@/controllers/webhook_controller");
 
-const ORIGIN = process.env.LIVE_URL;
+const ORIGIN = process.env.LOCAL_URL; // Change to live
 
 app.use(
   cors({

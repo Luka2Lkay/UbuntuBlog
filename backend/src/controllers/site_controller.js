@@ -18,6 +18,7 @@ const createSite = async (req, res) => {
 
   try {
     const { name, slug, domain, niche } = req.body;
+
     const site = new Site({ name, slug, domain, niche, userId });
     await site.save();
     res.status(201).json(site);

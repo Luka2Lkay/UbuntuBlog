@@ -12,7 +12,7 @@ interface Props {
 
 }
 
-type NewSite = Omit<Site, "_id">
+type NewSite = Omit<Site, "_id" | "slug">
 
 function SiteForm({ initialData, onSubmit, loading = false }: Props) {
 
@@ -21,13 +21,13 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
 
     const { userId } = useAuth();
 
-    const [formData, setFormData] = useState<NewSite>({ name: initialData?.name || "", slug: initialData?.slug || "", niche: initialData?.niche || "", domain: initialData?.domain || "", userId: initialData?.userId || userId });
+    const [formData, setFormData] = useState<NewSite>({ name: initialData?.name || "", niche: initialData?.niche || "", domain: initialData?.domain || "", userId: initialData?.userId || userId });
 
     const slug = useMemo(() => {
 
-        if (!formData.name) return;
+        if (!formData.name) return "";
 
-        return slugify(formData.name, {
+        return slugify(formData.name || "", {
             lower: true,
             strict: true,
             trim: true
@@ -47,15 +47,19 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
             }
         }
 
+
         setFormData((prev) => ({
             ...prev,
             [name]: value
         }))
-    }
 
+
+    }
+    console.log("formData: ", formData)
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
-        onSubmit(formData);
+        const payload = { ...formData, slug }
+        onSubmit(payload);
     }
 
     return (
@@ -72,7 +76,7 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
 
                 <div>
                     <label className="block text-left text-sm font-medium mb-2">Slug</label>
-                    <input type="text" name="slug" value={slug} onChange={handleChange} className="w-full border rounded-lg px-4 py-3 bg-gray-300" readOnly />
+                    <input type="text" name="slug" value={slug || ""} onChange={handleChange} className="w-full border rounded-lg px-4 py-3 bg-gray-300" readOnly />
                 </div>
 
                 <div>

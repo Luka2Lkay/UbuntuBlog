@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   fetchWithAuth,
-  postWithAuth,
+  createWithAuth,
   deleteWithAuth,
   fetchOneWithAuth,
   updateWithAuth,
@@ -25,10 +25,14 @@ export const fetchSitesThunk = createAsyncThunk<
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      rejectWithValue(
-        error.response?.data?.mesaage ??
-          errorMessages.apiError("fetch", "sites"),
-      );
+      const { data } = error.response ?? {};
+      const message =
+        data?.message ??
+        data?.errors[0]?.msg ??
+        errorMessages.apiError("fetch", "sites");
+
+      console.error(message);
+      rejectWithValue(message);
     } else {
       console.error(`${errorMessages.apiError("fetch", "sites")}: `, error);
     }
@@ -59,26 +63,29 @@ export const fetchSiteThunk = createAsyncThunk<
       return response.data.site;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        rejectWithValue(
-          error.response?.data?.message ??
-            errorMessages.apiError("fetch", "site"),
-        );
+        const { data } = error.response ?? {};
+        const message =
+          data?.message ??
+          data?.errors[0]?.msg ??
+          errorMessages.apiError("fetch", "site");
+
+        console.error("axios error: ", message);
+        rejectWithValue(message);
       } else {
         console.error(`${errorMessages.apiError("fetch", "site")}: `, error);
       }
-
       return rejectWithValue(errorMessages.apiError("fetch", "site"));
     }
   },
 );
 
-export const postSiteThunk = createAsyncThunk<
+export const createSiteThunk = createAsyncThunk<
   Site,
   { siteData: NewSite; token: string | null },
   { rejectValue: string }
 >("sites/postSite", async ({ siteData, token }, { rejectWithValue }) => {
   try {
-    const response = await postWithAuth(
+    const response = await createWithAuth(
       `${BASE_URL}/api/sites`,
       siteData,
       token,
@@ -86,15 +93,19 @@ export const postSiteThunk = createAsyncThunk<
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      return rejectWithValue(
-        error.response?.data?.message ??
-          errorMessages.apiError("create", "site"),
-      );
+      const { data } = error.response ?? {};
+      const message =
+        data?.message ??
+        data?.errors[0]?.msg ??
+        errorMessages.apiError("create", "site");
+
+      console.error("axios error: ", message);
+
+      return rejectWithValue(message);
     } else {
       console.error(`${errorMessages.apiError("create", "site")}: `, error);
     }
-
-    return rejectWithValue("hi");
+    return rejectWithValue(errorMessages.apiError("create", "site"));
   }
 });
 
@@ -120,14 +131,17 @@ export const updateSiteThunk = createAsyncThunk<
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        rejectWithValue(
-          error.response?.data?.message ??
-            errorMessages.apiError("update", "site"),
-        );
+        const { data } = error.response ?? {};
+        const message =
+          data?.message ??
+          data?.errors[0]?.msg ??
+          errorMessages.apiError("update", "site");
+
+        console.error("axios error: ", message);
+        return rejectWithValue(message);
       } else {
         console.error(`${errorMessages.apiError("update", "site")}: `, error);
       }
-
       return rejectWithValue(errorMessages.apiError("update", "site"));
     }
   },
@@ -151,15 +165,19 @@ export const deleteSiteThunk = createAsyncThunk<
       return response.data.message;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        rejectWithValue(
-          error.response?.data?.message ??
-            errorMessages.apiError("fetch", "sites"),
-        );
+        const { data } = error.response ?? {};
+        const message =
+          data?.message ??
+          data?.errors[0]?.msg ??
+          errorMessages.apiError("delete", "sites");
+
+        console.error("axios error: ", message);
+        rejectWithValue(message);
       } else {
         console.error(`${errorMessages.apiError("delete", "site")}: `, error);
       }
 
-      return rejectWithValue(errorMessages.apiError("fetch", "sites"));
+      return rejectWithValue(errorMessages.apiError("delete", "site"));
     }
   },
 );
