@@ -5,10 +5,6 @@ const validatePostCreation = [
     .isString()
     .isLength({ min: 3, max: 300 })
     .withMessage("Title must be between 3 and 300 characters"),
-  body("slug")
-    .isString()
-    .isLength({ min: 3, max: 300 })
-    .withMessage("Slug must be between 3 and 300 characters"),
   body("content").isString().withMessage("Content is required"),
   body("excerpt")
     .optional()
@@ -64,10 +60,6 @@ const validateSiteCreation = [
     .isString()
     .isLength({ min: 3, max: 100 })
     .withMessage("Name must be between 3 and 100 characters"),
-  body("slug")
-    .isString()
-    .isLength({ min: 3, max: 100 })
-    .withMessage("Slug must be between 3 and 100 characters"),
   body("domain")
     .isString()
     .isLength({ min: 3, max: 100 })
