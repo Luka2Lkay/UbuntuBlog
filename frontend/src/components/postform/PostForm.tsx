@@ -157,7 +157,7 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6 max-w-5xl mx-auto px-4 sm:px-0">
 
             <div className="bg-white border rounded-xl p-6 space-y-5">
                 <div>
@@ -187,9 +187,9 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
 
                 <div>
                     <label className="block text-left text-sm font-medium mb-2">Tags</label>
-                    <div className="flex gap-2">
+                    <div className="flex flex-col gap-2 sm:flex-row">
                         <input type="text" value={tagInput} onChange={(e) => setTagInput(e.target.value)} placeholder="e.g., leaking pipes" className="flex-1 border rounded-lg px-4 py-3" />
-                        <button type="button" onClick={addTag} className="px-4 bg-gray-900 text-white rounded-lg cursor-pointer">Add Tag</button>
+                        <button type="button" onClick={addTag} className="w-full sm:w-auto px-4 bg-gray-900 text-white rounded-lg cursor-pointer">Add Tag</button>
                     </div>
 
                     <div className="mt-3 flex flex-wrap gap-2">
@@ -207,7 +207,7 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
                 <div>
                     <label className="block text-left text-sm font-medium mb-2">Featured Image</label>
                     <input type="file" accept="image/*" onChange={handleFeaturedImageUpload} className="w-full cursor-pointer" />
-                    {formData.featuredImage && (<img src={formData.featuredImage} alt="Featured" className="mt-4 max-h-60 object-cover rounded-lg" />)}
+                    {formData.featuredImage && (<img src={formData.featuredImage} alt="Featured" className="mt-4 w-full max-h-60 object-cover rounded-lg" />)}
                 </div>
 
                 <div>
@@ -230,9 +230,9 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
 
                     <div>
                         <label className="block text-left text-sm font-medium mb-2">SEO Keywords</label>
-                        <div className="flex gap-2">
+                        <div className="flex flex-col gap-2 sm:flex-row">
                             <input type="text" value={keywordInput} onChange={(e) => setKeywordInput(e.target.value)} placeholder="e.g., home improvement" className="flex-1 border rounded-lg px-4 py-3" />
-                            <button type="button" onClick={addKeyword} className="px-4 bg-gray-900 text-white rounded-lg cursor-pointer">Add Keyword</button>
+                            <button type="button" onClick={addKeyword} className="w-full sm:w-auto px-4 bg-gray-900 text-white rounded-lg cursor-pointer">Add Keyword</button>
                         </div>
 
                         {
@@ -250,16 +250,18 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
             </div>
 
             <div className="bg-white border rounded-xl p-6">
-                <div className="flex items-center gap-3">
-                    <input type="checkbox" name="published" checked={formData.published} onChange={handleChange} />
-                    <label className="text-sm">Publish immediately</label>
-                </div>
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex items-center gap-3">
+                        <input type="checkbox" name="published" checked={formData.published} onChange={handleChange} />
+                        <label className="text-sm">Publish immediately</label>
+                    </div>
 
-                <button type="submit" disabled={loading} className="mt-4 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-black disabled:bg-gray-400 transition cursor-pointer">
-                    {
-                        loading ? "Saving..." : formData.published ? "Publish Post" : "Save Draft"
-                    }
-                </button>
+                    <button type="submit" disabled={loading} className="w-full sm:w-auto mt-0 sm:mt-0 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-black disabled:bg-gray-400 transition cursor-pointer">
+                        {
+                            loading ? "Saving..." : formData.published ? "Publish Post" : "Save Draft"
+                        }
+                    </button>
+                </div>
             </div>
         </form>
     )
