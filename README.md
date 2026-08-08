@@ -75,7 +75,6 @@ Each client website fetches only its own content using the API.
 ## Project Structure
 
 ├──backend/
-|   ├──.env/
 |   ├──.env.example/
 |   ├──.gitignore/
 |   ├──eslint.config.mjs/
@@ -101,7 +100,6 @@ Each client website fetches only its own content using the API.
 |         ├──post_routes.js/
 |         └──site_routes.js/
 ├──frontend/
-|   ├──.env/
 |   ├──.env.example/
 |   ├──.gitignore/
 |   ├──eslint.config.js/
@@ -190,3 +188,45 @@ Each client website fetches only its own content using the API.
 
 
 ---
+## :nut_and_bolt: Getting Started
+
+1. Clone the repo
+
+```
+git clone git@github.com:Luka2Lkay/UbuntuBlog.git
+cd ubuntublog
+
+```
+
+2. Install dependencies
+
+```
+cd backend && npm install
+cd frontend && npm install
+```
+
+3. Run the app
+
+```
+# backend
+npm run dev
+
+# frontend
+npm run dev
+
+```
+
+---
+
+## :ok_hand: Contribution
+
+Small team workflow:
+
+- Create branches from `develop`
+- Never push directly to `main`
+- Open pull requests into `develop`
+- Merge `develop` -> `main` for releases
+
+## :page_facing_up: License
+
+MIT
