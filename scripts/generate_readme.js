@@ -1,3 +1,4 @@
+import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -25,6 +26,21 @@ const formatDependencies = (dependencies = {}) => {
 
 const frontend = readJson(frontdendPackageJson);
 const backend = readJson(backendPackageJson);
+
+const generateTree = () => {
+  try {
+    return execSync("tree -I 'node_modules|dist|build|.git' -L 2", {
+      cwd: ROOT_DIR,
+      encoding: "utf-8",
+    }).trim();
+  } catch (error) {
+    return `UbuntuBlog/
+├── frontend/
+├── backend/
+├── scripts/
+└── .github/`;
+  }
+};
 
 const version = frontend.version || backend.version || "0.0.0";
 
