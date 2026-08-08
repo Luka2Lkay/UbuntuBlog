@@ -55,10 +55,25 @@ Each client website fetches only its own content using the API.
 
 ### Frontend
 
-{{FRONTEND_STACK}}
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Router
+- Redux Toolkit
+- ^Clerk Auth
+- Tip Tap
 
 ### Backend
 
 {{BACKEND_STACK}}
+
+---
+
+## Project Structure
+
+```text
+{{TREE}}
+```
 
 ---

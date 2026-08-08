@@ -62,3 +62,11 @@ Each client website fetches only its own content using the API.
 {{BACKEND_STACK}}
 
 ---
+
+## Project Structure
+
+```text
+{{TREE}}
+```
+
+---

@@ -23,23 +23,23 @@ const readJson = (filePath) => {
   return JSON.parse(fs.readFileSync(filePath, "utf-8"));
 };
 
-const formatDependencies = (dependencies = {}) => {
-  return Object.keys(dependencies)
-    .sort()
-    .map((dependency) => `- ${dependency}`)
-    .join("\n");
-};
+// const formatDependencies = (dependencies = {}) => {
+//   return Object.keys(dependencies)
+//     .sort()
+//     .map((dependency) => `- ${dependency}`)
+//     .join("\n");
+// };
 
 const getInstalledPackages = (packageJson) => {
-  return new Set([
+  return [
     ...Object.keys(packageJson.dependencies || {}),
     ...Object.keys(packageJson.devDependencies || {}),
-  ]);
+  ];
 };
 
 const generateTechnologyList = (installedPackages, technologyMap) => {
   return Object.entries(technologyMap)
-    .filter(([packageName]) => installedPackages.has(packageName))
+    .filter(([packageName]) => installedPackages.includes(packageName))
     .map(([, technologyName]) => `- ${technologyName}`)
     .join("\n");
 };
@@ -50,11 +50,16 @@ const technologies = readJson(technologiesPath);
 const frontendPackages = getInstalledPackages(frontend);
 const backendPackages = getInstalledPackages(backend);
 
+// console.log("packages", frontendPackages)
+// console.log("technologies", technologies.frontend)
+
 const frontendStack = generateTechnologyList(
   frontendPackages,
   technologies.frontend,
 );
-const backendStack = generateTechnologyList(backend, technologies.backend);
+
+console.log("stack", frontendStack);
+// const backendStack = generateTechnologyList(backend, technologies.backend);
 
 const generateTree = () => {
   try {
@@ -82,16 +87,18 @@ const backendDependencies = {
   ...backend.devDependencies,
 };
 
-const tree = generateTree();
+// const tree = generateTree();
 
-const frontendStack = formatDependencies(frontendDependencies);
-const backendStack = formatDependencies(backendDependencies);
+// const frontendStack = formatDependencies(frontendDependencies);
+// const backendStack = formatDependencies(backendDependencies);
 
 let readme = fs.readFileSync(templatePath, "utf-8");
 
 readme = readme
   .replaceAll("{{VERSION}}", version)
   .replaceAll("{{FRONTEND_STACK}}", frontendStack);
+// .replaceAll("{{BACKEND_STACK}}", backendStack);
+// .replaceAll("{{TREE}}", tree);
 
 fs.writeFileSync(readmePath, readme);
 
