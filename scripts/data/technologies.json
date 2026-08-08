@@ -1,0 +1,17 @@
+{
+    "frontend": {
+        "react": "React",
+        "typescript": "TypeScript",
+        "vite": "Vite",
+        "tailwindcss": "Tailwind CSS",
+        "react-router-dom": "React Router",
+        "@reduxjs/toolkit": "Redux Toolkit",
+        "@clerk/react": "^Clerk Auth",
+        "@tiptap/react": "Tip Tap"
+    },
+    "backend": {
+        "express": "Express",
+        "mongoose": "Mongoose",
+        "@clerk/express": "Clerk Auth"
+    }
+}

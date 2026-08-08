@@ -12,6 +12,12 @@ const backendPackageJson = path.join(ROOT_DIR, "backend", "package.json");
 
 const templatePath = path.join(ROOT_DIR, "README.template.md");
 const readmePath = path.join(ROOT_DIR, "README.md");
+const technologiesPath = path.join(
+  ROOT_DIR,
+  "scripts",
+  "data",
+  "technologies.json",
+);
 
 const readJson = (filePath) => {
   return JSON.parse(fs.readFileSync(filePath, "utf-8"));
@@ -24,8 +30,31 @@ const formatDependencies = (dependencies = {}) => {
     .join("\n");
 };
 
+const getInstalledPackages = (packageJson) => {
+  return new Set([
+    ...Object.keys(packageJson.dependencies || {}),
+    ...Object.keys(packageJson.devDependencies || {}),
+  ]);
+};
+
+const generateTechnologyList = (installedPackages, technologyMap) => {
+  return Object.entries(technologyMap)
+    .filter(([packageName]) => installedPackages.has(packageName))
+    .map(([, technologyName]) => `- ${technologyName}`)
+    .join("\n");
+};
 const frontend = readJson(frontdendPackageJson);
 const backend = readJson(backendPackageJson);
+const technologies = readJson(technologiesPath);
+
+const frontendPackages = getInstalledPackages(frontend);
+const backendPackages = getInstalledPackages(backend);
+
+const frontendStack = generateTechnologyList(
+  frontendPackages,
+  technologies.frontend,
+);
+const backendStack = generateTechnologyList(backend, technologies.backend);
 
 const generateTree = () => {
   try {
@@ -44,9 +73,25 @@ const generateTree = () => {
 
 const version = frontend.version || backend.version || "0.0.0";
 
+const frontendDependencies = {
+  ...frontend.dependencies,
+  ...frontend.devDependencies,
+};
+const backendDependencies = {
+  ...backend.dependencies,
+  ...backend.devDependencies,
+};
+
+const tree = generateTree();
+
+const frontendStack = formatDependencies(frontendDependencies);
+const backendStack = formatDependencies(backendDependencies);
+
 let readme = fs.readFileSync(templatePath, "utf-8");
 
-readme = readme.replaceAll("{{VERSION}}", version);
+readme = readme
+  .replaceAll("{{VERSION}}", version)
+  .replaceAll("{{FRONTEND_STACK}}", frontendStack);
 
 fs.writeFileSync(readmePath, readme);
 
