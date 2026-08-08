@@ -31,15 +31,15 @@ const readJson = (filePath) => {
 // };
 
 const getInstalledPackages = (packageJson) => {
-  return [
+  return new Set([
     ...Object.keys(packageJson.dependencies || {}),
     ...Object.keys(packageJson.devDependencies || {}),
-  ];
+  ]);
 };
 
 const generateTechnologyList = (installedPackages, technologyMap) => {
   return Object.entries(technologyMap)
-    .filter(([packageName]) => installedPackages.includes(packageName))
+    .filter(([packageName]) => installedPackages.has(packageName))
     .map(([, technologyName]) => `- ${technologyName}`)
     .join("\n");
 };
@@ -50,15 +50,11 @@ const technologies = readJson(technologiesPath);
 const frontendPackages = getInstalledPackages(frontend);
 const backendPackages = getInstalledPackages(backend);
 
-// console.log("packages", frontendPackages)
-// console.log("technologies", technologies.frontend)
-
 const frontendStack = generateTechnologyList(
   frontendPackages,
   technologies.frontend,
 );
 
-console.log("stack", frontendStack);
 // const backendStack = generateTechnologyList(backend, technologies.backend);
 
 const generateTree = () => {
