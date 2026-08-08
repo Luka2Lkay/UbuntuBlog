@@ -7,7 +7,6 @@ import { type Post } from "@/interfaces/Post";
 
 export type PostFormData = Omit<Post, "_id">;
 
-
 interface Props {
     initialData?: Partial<PostFormData>;
     onSubmit: (data: PostFormData) => void;
