@@ -62,7 +62,7 @@ function SiteDetails() {
   if (loading) {
 
     return (
-      <div className="grid gap-4">
+      <div className="grid gap-4 px-4 py-6 sm:px-6 lg:px-8">
         {[...Array(2)].map((_, index) => (
           <div
             key={index}
@@ -74,7 +74,7 @@ function SiteDetails() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 px-4 py-6 sm:px-6 lg:px-8 max-w-6xl mx-auto">
       {!currentSite && (<p className="text-gray-600">Site not found.</p>)}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
@@ -82,23 +82,23 @@ function SiteDetails() {
           <p className="text-sm text-gray-500">Manage this site and see its details.</p>
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2">
           <Link
             to={`/sites/${currentSite?._id}/edit`}
-            className="px-4 py-2 bg-gray-900 text-white rounded-md text-sm hover:bg-black"
+            className="w-full sm:w-auto text-center px-4 py-2 bg-gray-900 text-white rounded-md text-sm hover:bg-black"
           >
             Edit Site
           </Link>
           <Link
             to="/dashboard"
-            className="px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-100"
+            className="w-full sm:w-auto text-center px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-100"
           >
             Back to Dashboard
           </Link>
         </div>
       </div>
 
-      <div className="flex justify-center bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+      <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
         <SiteCard
           name={currentSite?.name}
           domain={currentSite?.domain}

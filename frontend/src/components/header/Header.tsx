@@ -2,16 +2,20 @@ import { useSiteContext } from "@/state/context/site/useSiteContext"
 import { Link } from "react-router-dom"
 import { useAuth } from "@clerk/react"
 import { useNavigate } from "react-router-dom"
-import { LogOut } from "lucide-react"
+import { LogOut, Menu } from "lucide-react"
 import { useAppSelector } from "@/hooks/redux_hooks"
 import { selectSites } from "@/state/redux/reducers/site_slice"
 import { useEffect, useState } from "react"
 import { fetchWithAuth } from "@/services/api"
 import capitalize from "capitalize"
 
+type HeaderProps = {
+    onToggleSidebar: () => void;
+}
+
 const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL
 
-function Header() {
+function Header({ onToggleSidebar }: HeaderProps) {
     const { selectedSite, setSelectedSite } = useSiteContext();
     const navigate = useNavigate();
     const { signOut } = useAuth();
@@ -29,8 +33,7 @@ function Header() {
                     console.log("token: ", token
                     )
                     const response = await fetchWithAuth(`${BASE_URL}/api/user`, token);
-                    console.log("userId: ", response.data.user)
-                    setUsername(response.data.user.username);
+                    setUsername(`${response.data.user.firstName} ${response.data.user.lastName}`);
                 } catch (error) {
                     console.error("Error loading user response:", error);
                 }
@@ -47,14 +50,24 @@ function Header() {
 
     return (
         <div className="flex items-center justify-between px-6 py-4 bg-white border-b shadow-sm">
-            <div>
-                <h1 className="text-xl text-left font-semibold text-gray-800">{capitalize.words(username)}</h1>
-                <p className="text-sm text-gray-500">Active site: <span className="font-medium text-gray-700">{capitalize.words(selectedSite?.name ?? "")}</span></p>
+            <div className="flex items-center gap-4">
+                <button
+                    type="button"
+                    className="text-gray-600 hover:text-black md:hidden"
+                    onClick={onToggleSidebar}
+                >
+                    <Menu />
+                </button>
+
+                <div>
+                    <h1 className="text-xl text-left font-semibold text-gray-800">{capitalize.words(username)}</h1>
+                    <p className="text-sm text-gray-500">Active site: <span className="font-medium text-gray-700">{capitalize.words(selectedSite?.name ?? "")}</span></p>
+                </div>
             </div>
 
             <div className="flex items-center gap-4">
 
-                <Link to="/posts" className="text-gray-600 hover:text-black transition">
+                <Link to="/posts" className="text-gray-600 hover:text-black transition hidden sm:inline-flex">
                     Posts
                 </Link>
 
