@@ -74,8 +74,119 @@ Each client website fetches only its own content using the API.
 
 ## Project Structure
 
-```text
-{{TREE}}
-```
+├──backend/
+|   ├──.env/
+|   ├──.env.example/
+|   ├──.gitignore/
+|   ├──eslint.config.mjs/
+|   ├──package-lock.json/
+|   ├──package.json/
+|   ├──server.js/
+|   └──src/
+|      ├──config/
+|      |   └──db_config.js/
+|      ├──controllers/
+|      |   ├──post_controller.js/
+|      |   ├──site_controller.js/
+|      |   └──webhook_controller.js/
+|      ├──helpers/
+|      |   └──message_helpers.js/
+|      ├──middleware/
+|      |   └──validation.js/
+|      ├──models/
+|      |   ├──post_model.js/
+|      |   ├──site_model.js/
+|      |   └──user_model.js/
+|      └──routes/
+|         ├──post_routes.js/
+|         └──site_routes.js/
+├──frontend/
+|   ├──.env/
+|   ├──.env.example/
+|   ├──.gitignore/
+|   ├──eslint.config.js/
+|   ├──index.html/
+|   ├──package-lock.json/
+|   ├──package.json/
+|   ├──src/
+|   |   ├──App.css/
+|   |   ├──App.tsx/
+|   |   ├──components/
+|   |   |   ├──confirmation_modal/
+|   |   |   |   └──ConfirmationModal.tsx/
+|   |   |   ├──header/
+|   |   |   |   └──Header.tsx/
+|   |   |   ├──postform/
+|   |   |   |   └──PostForm.tsx/
+|   |   |   ├──sidebar/
+|   |   |   |   └──Sidebar.tsx/
+|   |   |   ├──site_card/
+|   |   |   |   └──SiteCard.tsx/
+|   |   |   ├──siteform/
+|   |   |   |   └──SiteForm.tsx/
+|   |   |   ├──statistics_card/
+|   |   |   |   └──StatisticsCard.tsx/
+|   |   |   └──tiptap/
+|   |   |      └──Tiptap.tsx/
+|   |   ├──helpers/
+|   |   |   └──messages_helper.ts/
+|   |   ├──hooks/
+|   |   |   └──redux_hooks.ts/
+|   |   ├──index.css/
+|   |   ├──interfaces/
+|   |   |   ├──Post.ts/
+|   |   |   └──Site.ts/
+|   |   ├──main.tsx/
+|   |   ├──pages/
+|   |   |   ├──create_post/
+|   |   |   |   └──CreatePost.tsx/
+|   |   |   ├──create_site/
+|   |   |   |   └──CreateSite.tsx/
+|   |   |   ├──dashboard/
+|   |   |   |   └──Dashboard.tsx/
+|   |   |   ├──edit_site/
+|   |   |   |   └──EditSite.tsx/
+|   |   |   ├──home/
+|   |   |   |   └──Home.tsx/
+|   |   |   ├──layout/
+|   |   |   |   └──Layout.tsx/
+|   |   |   ├──posts/
+|   |   |   |   └──Posts.tsx/
+|   |   |   ├──signin/
+|   |   |   |   └──SigninPage.tsx/
+|   |   |   ├──signup/
+|   |   |   |   └──SignupPage.tsx/
+|   |   |   └──site_details/
+|   |   |      └──SiteDetails.tsx/
+|   |   ├──services/
+|   |   |   └──api.ts/
+|   |   └──state/
+|   |      ├──context/
+|   |      |   ├──post/
+|   |      |   |   ├──PostContext.tsx/
+|   |      |   |   └──PostProvider.tsx/
+|   |      |   └──site/
+|   |      |      ├──SiteContext.tsx/
+|   |      |      ├──SiteProvider.tsx/
+|   |      |      └──useSiteContext.tsx/
+|   |      └──redux/
+|   |         ├──reducers/
+|   |         |   ├──post_slice.ts/
+|   |         |   └──site_slice.ts/
+|   |         ├──store.ts/
+|   |         └──thunks/
+|   |            ├──post_thunk.ts/
+|   |            └──site_thunk.ts/
+|   ├──tsconfig.app.json/
+|   ├──tsconfig.json/
+|   ├──tsconfig.node.json/
+|   └──vite.config.ts/
+├──README.md/
+├──README.template.md/
+└──scripts/
+   ├──data/
+   |   └──technologies.json/
+   └──generate_readme.js/
+
 
 ---

@@ -1,4 +1,5 @@
 import { execSync } from "child_process";
+import console from "console";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -60,20 +61,60 @@ const backendStack = generateTechnologyList(
   technologies.backend,
 );
 
-const generateTree = () => {
-  try {
-    return execSync("tree -I 'node_modules|dist|build|.git' -L 2", {
-      cwd: ROOT_DIR,
-      encoding: "utf-8",
-    }).trim();
-  } catch (error) {
-    return `UbuntuBlog/
-├── frontend/
-├── backend/
-├── scripts/
-└── .github/`;
-  }
+// const generateTree = () => {
+//   try {
+//     return execSync("tree -I 'node_modules|dist|build|.git' -L 2", {
+//       cwd: ROOT_DIR,
+//       encoding: "utf-8",
+//     }).trim();
+//   } catch (error) {
+//     return `UbuntuBlog/
+// ├── frontend/
+// ├── backend/
+// ├── scripts/
+// └── .github/`;
+//   }
+// };
+
+// const generateTree = () => {
+const buildTree = (directory, prefix = "") => {
+  const ignored = new Set(["node_modules", "dist", "build", ".git", ".github"]);
+
+  const entries = fs
+    .readdirSync(directory, { withFileTypes: true })
+    .filter((entry) => !ignored.has(entry.name))
+    .sort((a, b) => {
+      if (a.directory && !b.directory) {
+        return -1;
+      }
+
+      if (a.directory && b.directory) {
+        return 1;
+      }
+
+      return a.name.localeCompare(b.name);
+    });
+
+  return entries
+    .map((entry, index) => {
+      const isLast = index === entries.length - 1;
+      const connector = isLast ? "└──" : "├──";
+      const nextPrefix = prefix + (isLast ? "   " : "|   ");
+
+      if (entry.isDirectory()) {
+        return (
+          `${prefix}${connector}${entry.name}/\n` +
+          buildTree(path.join(directory, entry.name), nextPrefix)
+        );
+      }
+
+      return `${prefix}${connector}${entry.name}/\n`;
+    })
+    .join("");
 };
+
+// return buildTree(ROOT_DIR);
+// };
 
 const version = frontend.version || backend.version || "0.0.0";
 
@@ -86,7 +127,7 @@ const backendDependencies = {
   ...backend.devDependencies,
 };
 
-// const tree = generateTree();
+const tree = buildTree(ROOT_DIR);
 
 // const frontendStack = formatDependencies(frontendDependencies);
 // const backendStack = formatDependencies(backendDependencies);
@@ -96,8 +137,8 @@ let readme = fs.readFileSync(templatePath, "utf-8");
 readme = readme
   .replaceAll("{{VERSION}}", version)
   .replaceAll("{{FRONTEND_STACK}}", frontendStack)
-  .replaceAll("{{BACKEND_STACK}}", backendStack);
-// .replaceAll("{{TREE}}", tree);
+  .replaceAll("{{BACKEND_STACK}}", backendStack)
+  .replaceAll("{{TREE}}", tree);
 
 fs.writeFileSync(readmePath, readme);
 

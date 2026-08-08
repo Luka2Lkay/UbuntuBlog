@@ -65,8 +65,6 @@ Each client website fetches only its own content using the API.
 
 ## Project Structure
 
-```text
 {{TREE}}
-```
 
 ---
