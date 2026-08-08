@@ -18,6 +18,8 @@ jobs:
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v4
+              with:
+                fetch-depth: 0
 
             - name: Setup Node.js
               uses: actions/setup-node@v4
@@ -30,14 +32,14 @@ jobs:
             - name: Commit README If Changed
               run: |
                 git config user.name "github-actions[bot]"
-                git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+                git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
                 git add README.md
 
-                if git diff --chached --quiet; then
+                if git diff --cached --quiet; then
                     echo "README is already up to date."
                 else
                     git commit -m 'docs: update README'
-                    git push
+                    git push origin HEAD:${GITHUB_REF_NAME}
                 fi
 
