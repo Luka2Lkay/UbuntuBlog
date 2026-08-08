@@ -3,7 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(FILE_NAME);
+const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.resolve(__dirname, "..");
 
 const frontdendPackageJson = path.join(ROOT_DIR, "frontend", "package.json");
@@ -23,4 +23,15 @@ const formatDependencies = (dependencies = {}) => {
     .join("\n");
 };
 
+const frontend = readJson(frontdendPackageJson);
+const backend = readJson(backendPackageJson);
 
+const version = frontend.version || backend.version || "0.0.0";
+
+let readme = fs.readFileSync(templatePath, "utf-8");
+
+readme = readme.replaceAll("{{VERSION}}", version);
+
+fs.writeFileSync(readmePath, readme);
+
+console.log("README.md generated successfully!");
