@@ -24,13 +24,6 @@ const readJson = (filePath) => {
   return JSON.parse(fs.readFileSync(filePath, "utf-8"));
 };
 
-// const formatDependencies = (dependencies = {}) => {
-//   return Object.keys(dependencies)
-//     .sort()
-//     .map((dependency) => `- ${dependency}`)
-//     .join("\n");
-// };
-
 const getInstalledPackages = (packageJson) => {
   return new Set([
     ...Object.keys(packageJson.dependencies || {}),
@@ -61,23 +54,7 @@ const backendStack = generateTechnologyList(
   technologies.backend,
 );
 
-// const generateTree = () => {
-//   try {
-//     return execSync("tree -I 'node_modules|dist|build|.git' -L 2", {
-//       cwd: ROOT_DIR,
-//       encoding: "utf-8",
-//     }).trim();
-//   } catch (error) {
-//     return `UbuntuBlog/
-// ├── frontend/
-// ├── backend/
-// ├── scripts/
-// └── .github/`;
-//   }
-// };
-
-// const generateTree = () => {
-const buildTree = (directory, prefix = "") => {
+const generateTree = (directory, prefix = "") => {
   const ignored = new Set(["node_modules", "dist", "build", ".git", ".github"]);
 
   const entries = fs
@@ -104,7 +81,7 @@ const buildTree = (directory, prefix = "") => {
       if (entry.isDirectory()) {
         return (
           `${prefix}${connector}${entry.name}/\n` +
-          buildTree(path.join(directory, entry.name), nextPrefix)
+          generateTree(path.join(directory, entry.name), nextPrefix)
         );
       }
 
@@ -112,9 +89,6 @@ const buildTree = (directory, prefix = "") => {
     })
     .join("");
 };
-
-// return buildTree(ROOT_DIR);
-// };
 
 const version = frontend.version || backend.version || "0.0.0";
 
@@ -127,10 +101,7 @@ const backendDependencies = {
   ...backend.devDependencies,
 };
 
-const tree = buildTree(ROOT_DIR);
-
-// const frontendStack = formatDependencies(frontendDependencies);
-// const backendStack = formatDependencies(backendDependencies);
+const tree = generateTree(ROOT_DIR);
 
 let readme = fs.readFileSync(templatePath, "utf-8");
 
