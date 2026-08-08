@@ -50,3 +50,15 @@ Each client website fetches only its own content using the API.
 - :file_folder Categories and tags
 - :date: Draft and publish system (planned)
 - :mag_right: SEO-friendly structure
+
+## Tech Stack
+
+### Frontend
+
+{{FRONTEND_STACK}}
+
+### Backend
+
+{{BACKEND_STACK}}
+
+---
