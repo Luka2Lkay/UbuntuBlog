@@ -40,3 +40,13 @@ Client Websites (fetch & display content)
 Each client website fetches only its own content using the API.
 
 ---
+
+## :star: Features
+
+- :books: Blog post creation and management
+- :earth_africa: multiple client websites
+- :paperclip: API-based content delivery
+- :hammer: Easy integration into any frontend
+- :file_folder Categories and tags
+- :date: Draft and publish system (planned)
+- :mag_right: SEO-friendly structure
