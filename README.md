@@ -66,7 +66,9 @@ Each client website fetches only its own content using the API.
 
 ### Backend
 
-{{BACKEND_STACK}}
+- Express
+- Mongoose
+- Clerk Auth
 
 ---
 

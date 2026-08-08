@@ -55,7 +55,10 @@ const frontendStack = generateTechnologyList(
   technologies.frontend,
 );
 
-// const backendStack = generateTechnologyList(backend, technologies.backend);
+const backendStack = generateTechnologyList(
+  backendPackages,
+  technologies.backend,
+);
 
 const generateTree = () => {
   try {
@@ -92,8 +95,8 @@ let readme = fs.readFileSync(templatePath, "utf-8");
 
 readme = readme
   .replaceAll("{{VERSION}}", version)
-  .replaceAll("{{FRONTEND_STACK}}", frontendStack);
-// .replaceAll("{{BACKEND_STACK}}", backendStack);
+  .replaceAll("{{FRONTEND_STACK}}", frontendStack)
+  .replaceAll("{{BACKEND_STACK}}", backendStack);
 // .replaceAll("{{TREE}}", tree);
 
 fs.writeFileSync(readmePath, readme);
