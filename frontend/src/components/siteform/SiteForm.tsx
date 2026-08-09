@@ -55,7 +55,7 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
 
 
     }
-    console.log("formData: ", formData)
+  
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         const payload = { ...formData, slug }

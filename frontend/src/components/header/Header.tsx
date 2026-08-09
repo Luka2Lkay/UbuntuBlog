@@ -13,7 +13,7 @@ type HeaderProps = {
     onToggleSidebar: () => void;
 }
 
-const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL
+const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL
 
 function Header({ onToggleSidebar }: HeaderProps) {
     const { selectedSite, setSelectedSite } = useSiteContext();

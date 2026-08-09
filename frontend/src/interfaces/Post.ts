@@ -1,7 +1,7 @@
-import { type Site } from "@/interfaces/Site";
+import { type Site } from "./Site";
 
 export interface Post {
-  _id?: string;
+  _id: string;
   site: Site | null;
   title: string;
   slug: string;

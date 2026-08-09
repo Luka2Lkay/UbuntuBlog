@@ -1,5 +1,6 @@
 import { type Post } from "@/interfaces/Post";
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchPostThunk } from "@/state/redux/thunks/post_thunk";
 
 interface PostState {
   currentPost: Post | null;
@@ -59,6 +60,23 @@ const postSlice = createSlice({
     setLoading(state, action) {
       state.loading = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchPostThunk.fulfilled, (state, action) => {
+        state.posts = action.payload;
+        state.error = null;
+        state.loading = false;
+        state.posts = action.payload;
+      })
+      .addCase(fetchPostThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchPostThunk.rejected, (state, action) => {
+        state.error = action.payload as string;
+        state.loading = false;
+      });
   },
 });
 

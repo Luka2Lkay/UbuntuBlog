@@ -18,11 +18,11 @@ export const fetchWithAuth = async (url: string, token: string | null) => {
 };
 
 type NewSite = Omit<Site, "_id">;
-type NewPost = Omit<Post, "_id">
+type NewPost = Omit<Post, "_id">;
 
 export const createWithAuth = async (
   url: string,
-  data: NewSite |NewPost,
+  data: NewSite | NewPost,
   token: string | null,
 ) => {
   if (!token) {
