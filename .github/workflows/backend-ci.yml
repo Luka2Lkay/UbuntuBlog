@@ -15,7 +15,8 @@ jobs:
 
         strategy:
             matrix:
-                project: [backend]
+                project:
+                    - backend
 
         defaults:
             run:
