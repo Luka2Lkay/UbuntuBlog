@@ -27,10 +27,11 @@ jobs:
 
             - name: Setup Node.js
               uses: actions/setup-node@v4
+
               with:
                   node-version: 22
                   cache: npm
-                  cache-dependency-path: ${{matrix.project}}/package-json.lock
+                  cache-dependency-path: ${{matrix.project}}/package-lock.json
 
             - name: Install Dependencies
               run: npm ci
