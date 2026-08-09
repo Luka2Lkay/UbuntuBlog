@@ -75,7 +75,6 @@ Each client website fetches only its own content using the API.
 ## Project Structure
 
 ├──backend/
-|   ├──.env/
 |   ├──.env.example/
 |   ├──.gitignore/
 |   ├──eslint.config.mjs/
@@ -101,7 +100,6 @@ Each client website fetches only its own content using the API.
 |         ├──post_routes.js/
 |         └──site_routes.js/
 ├──frontend/
-|   ├──.env/
 |   ├──.env.example/
 |   ├──.gitignore/
 |   ├──eslint.config.js/
