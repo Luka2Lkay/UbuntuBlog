@@ -19,10 +19,14 @@ export const fetchPostThunk = createAsyncThunk<
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      rejectWithValue(
-        error.response?.data?.message ??
-          errorMessages.apiError("fetch", "posts"),
-      );
+      const { data } = error.response ?? {};
+      const message =
+        data?.message ??
+        data.errors[0].msg ??
+        errorMessages.apiError("fetch", "posts");
+
+      console.error(message);
+      rejectWithValue(message);
     } else {
       console.error(`${errorMessages.apiError("fetch", "posts")}: `, error);
     }
@@ -54,6 +58,6 @@ export const createPostThunk = createAsyncThunk<
       console.error(`${errorMessages.apiError("create", "post")}: `, error);
     }
 
-    return errorMessages.apiError("create", "post");
+    return rejectWithValue(errorMessages.apiError("create", "post"));
   }
 });
