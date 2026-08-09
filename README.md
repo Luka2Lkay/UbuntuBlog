@@ -74,6 +74,7 @@ Each client website fetches only its own content using the API.
 
 ## Project Structure
 
+```text
 ├──backend/
 |   ├──src/
 |   |   ├──config/
@@ -186,7 +187,7 @@ Each client website fetches only its own content using the API.
 ├──README.md
 └──README.template.md
 
-
+```
 ---
 ## :nut_and_bolt: Getting Started
 
