@@ -74,119 +74,120 @@ Each client website fetches only its own content using the API.
 
 ## Project Structure
 
+```text
 ├──backend/
-|   ├──.env.example/
-|   ├──.gitignore/
-|   ├──eslint.config.mjs/
-|   ├──package-lock.json/
-|   ├──package.json/
-|   ├──server.js/
-|   └──src/
-|      ├──config/
-|      |   └──db_config.js/
-|      ├──controllers/
-|      |   ├──post_controller.js/
-|      |   ├──site_controller.js/
-|      |   └──webhook_controller.js/
-|      ├──helpers/
-|      |   └──message_helpers.js/
-|      ├──middleware/
-|      |   └──validation.js/
-|      ├──models/
-|      |   ├──post_model.js/
-|      |   ├──site_model.js/
-|      |   └──user_model.js/
-|      └──routes/
-|         ├──post_routes.js/
-|         └──site_routes.js/
-├──frontend/
-|   ├──.env.example/
-|   ├──.gitignore/
-|   ├──eslint.config.js/
-|   ├──index.html/
-|   ├──package-lock.json/
-|   ├──package.json/
 |   ├──src/
-|   |   ├──App.css/
-|   |   ├──App.tsx/
+|   |   ├──config/
+|   |   |   └──db_config.js
+|   |   ├──controllers/
+|   |   |   ├──post_controller.js
+|   |   |   ├──site_controller.js
+|   |   |   └──webhook_controller.js
+|   |   ├──helpers/
+|   |   |   └──message_helpers.js
+|   |   ├──middleware/
+|   |   |   └──validation.js
+|   |   ├──models/
+|   |   |   ├──post_model.js
+|   |   |   ├──site_model.js
+|   |   |   └──user_model.js
+|   |   └──routes/
+|   |      ├──post_routes.js
+|   |      └──site_routes.js
+|   ├──.env.example
+|   ├──.gitignore
+|   ├──eslint.config.mjs
+|   ├──package-lock.json
+|   ├──package.json
+|   └──server.js
+├──frontend/
+|   ├──src/
 |   |   ├──components/
 |   |   |   ├──confirmation_modal/
-|   |   |   |   └──ConfirmationModal.tsx/
+|   |   |   |   └──ConfirmationModal.tsx
 |   |   |   ├──header/
-|   |   |   |   └──Header.tsx/
+|   |   |   |   └──Header.tsx
 |   |   |   ├──postform/
-|   |   |   |   └──PostForm.tsx/
+|   |   |   |   └──PostForm.tsx
 |   |   |   ├──sidebar/
-|   |   |   |   └──Sidebar.tsx/
+|   |   |   |   └──Sidebar.tsx
 |   |   |   ├──site_card/
-|   |   |   |   └──SiteCard.tsx/
+|   |   |   |   └──SiteCard.tsx
 |   |   |   ├──siteform/
-|   |   |   |   └──SiteForm.tsx/
+|   |   |   |   └──SiteForm.tsx
 |   |   |   ├──statistics_card/
-|   |   |   |   └──StatisticsCard.tsx/
+|   |   |   |   └──StatisticsCard.tsx
 |   |   |   └──tiptap/
-|   |   |      └──Tiptap.tsx/
+|   |   |      └──Tiptap.tsx
 |   |   ├──helpers/
-|   |   |   └──messages_helper.ts/
+|   |   |   └──messages_helper.ts
 |   |   ├──hooks/
-|   |   |   └──redux_hooks.ts/
-|   |   ├──index.css/
+|   |   |   └──redux_hooks.ts
 |   |   ├──interfaces/
-|   |   |   ├──Post.ts/
-|   |   |   └──Site.ts/
-|   |   ├──main.tsx/
+|   |   |   ├──Post.ts
+|   |   |   └──Site.ts
 |   |   ├──pages/
 |   |   |   ├──create_post/
-|   |   |   |   └──CreatePost.tsx/
+|   |   |   |   └──CreatePost.tsx
 |   |   |   ├──create_site/
-|   |   |   |   └──CreateSite.tsx/
+|   |   |   |   └──CreateSite.tsx
 |   |   |   ├──dashboard/
-|   |   |   |   └──Dashboard.tsx/
+|   |   |   |   └──Dashboard.tsx
 |   |   |   ├──edit_site/
-|   |   |   |   └──EditSite.tsx/
+|   |   |   |   └──EditSite.tsx
 |   |   |   ├──home/
-|   |   |   |   └──Home.tsx/
+|   |   |   |   └──Home.tsx
 |   |   |   ├──layout/
-|   |   |   |   └──Layout.tsx/
+|   |   |   |   └──Layout.tsx
 |   |   |   ├──posts/
-|   |   |   |   └──Posts.tsx/
+|   |   |   |   └──Posts.tsx
 |   |   |   ├──signin/
-|   |   |   |   └──SigninPage.tsx/
+|   |   |   |   └──SigninPage.tsx
 |   |   |   ├──signup/
-|   |   |   |   └──SignupPage.tsx/
+|   |   |   |   └──SignupPage.tsx
 |   |   |   └──site_details/
-|   |   |      └──SiteDetails.tsx/
+|   |   |      └──SiteDetails.tsx
 |   |   ├──services/
-|   |   |   └──api.ts/
-|   |   └──state/
-|   |      ├──context/
-|   |      |   ├──post/
-|   |      |   |   ├──PostContext.tsx/
-|   |      |   |   └──PostProvider.tsx/
-|   |      |   └──site/
-|   |      |      ├──SiteContext.tsx/
-|   |      |      ├──SiteProvider.tsx/
-|   |      |      └──useSiteContext.tsx/
-|   |      └──redux/
-|   |         ├──reducers/
-|   |         |   ├──post_slice.ts/
-|   |         |   └──site_slice.ts/
-|   |         ├──store.ts/
-|   |         └──thunks/
-|   |            ├──post_thunk.ts/
-|   |            └──site_thunk.ts/
-|   ├──tsconfig.app.json/
-|   ├──tsconfig.json/
-|   ├──tsconfig.node.json/
-|   └──vite.config.ts/
-├──README.md/
-├──README.template.md/
-└──scripts/
-   ├──data/
-   |   └──technologies.json/
-   └──generate_readme.js/
+|   |   |   └──api.ts
+|   |   ├──state/
+|   |   |   ├──context/
+|   |   |   |   ├──post/
+|   |   |   |   |   ├──PostContext.tsx
+|   |   |   |   |   └──PostProvider.tsx
+|   |   |   |   └──site/
+|   |   |   |      ├──SiteContext.tsx
+|   |   |   |      ├──SiteProvider.tsx
+|   |   |   |      └──useSiteContext.tsx
+|   |   |   └──redux/
+|   |   |      ├──reducers/
+|   |   |      |   ├──post_slice.ts
+|   |   |      |   └──site_slice.ts
+|   |   |      ├──thunks/
+|   |   |      |   ├──post_thunk.ts
+|   |   |      |   └──site_thunk.ts
+|   |   |      └──store.ts
+|   |   ├──App.css
+|   |   ├──App.tsx
+|   |   ├──index.css
+|   |   └──main.tsx
+|   ├──.env.example
+|   ├──.gitignore
+|   ├──eslint.config.js
+|   ├──index.html
+|   ├──package-lock.json
+|   ├──package.json
+|   ├──tsconfig.app.json
+|   ├──tsconfig.json
+|   ├──tsconfig.node.json
+|   └──vite.config.ts
+├──scripts/
+|   ├──data/
+|   |   └──technologies.json
+|   └──generate_readme.js
+├──README.md
+└──README.template.md
 
-
+```
 ---
 ## :nut_and_bolt: Getting Started
 

@@ -1,25 +1,31 @@
-name: Lint
+name: Backend Ci
 
 on:
     push:
         branches:
             - develop
 
+    pull_request:
+        branches:
+            - develop
+
 jobs:
-    lint:
+    backend-ci:
         runs-on: ubuntu-latest
+
         strategy:
             matrix:
-                project: [backend, frontend]
+                project: [backend]
+
         defaults:
             run:
                 working-directory: ${{matrix.project}}
 
         steps:
-            - name: Checkout repository
+            - name: Checkout Repository
               uses: actions/checkout@v4
 
-            - name: Setup node
+            - name: Setup Node.js
               uses: actions/setup-node@v4
 
               with:
@@ -27,8 +33,8 @@ jobs:
                   cache: npm
                   cache-dependency-path: ${{matrix.project}}/package-lock.json
 
-            - name: Install dependencies
+            - name: Install Dependencies
               run: npm ci
 
-            - name: Run ESLint
+            - name: Run EsLint
               run: npm run lint

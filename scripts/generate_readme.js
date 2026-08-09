@@ -61,11 +61,11 @@ const generateTree = (directory, prefix = "") => {
     .readdirSync(directory, { withFileTypes: true })
     .filter((entry) => !ignored.has(entry.name))
     .sort((a, b) => {
-      if (a.directory && !b.directory) {
+      if (a.isDirectory() && !b.isDirectory()) {
         return -1;
       }
 
-      if (a.directory && b.directory) {
+      if (a.isDirectory() && b.isDirectory()) {
         return 1;
       }
 
@@ -85,7 +85,7 @@ const generateTree = (directory, prefix = "") => {
         );
       }
 
-      return `${prefix}${connector}${entry.name}/\n`;
+      return `${prefix}${connector}${entry.name}\n`;
     })
     .join("");
 };
