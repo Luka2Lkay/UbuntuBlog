@@ -90,6 +90,7 @@ const generateTree = (directory, prefix = "") => {
     .join("");
 };
 
+console.log("version", frontend.version)
 const version = frontend.version || backend.version || "0.0.0";
 
 const frontendDependencies = {
