@@ -22,7 +22,6 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
     const [keywordInput, setKeywordInput] = useState("");
 
     const [formData, setFormData] = useState<PostFormData>({
-        site: initialData?.site || null,
         title: initialData?.title || "",
         slug: initialData?.slug || "",
         excerpt: initialData?.excerpt || "",
@@ -30,12 +29,15 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
         featuredImage: initialData?.featuredImage || "",
         category: initialData?.category || "",
         tags: initialData?.tags || [""],
+        author: initialData?.author || "",
         published: initialData?.published || false,
+        site: initialData?.site || "",
         seo: {
             metaTitle: initialData?.seo?.metaTitle || "",
             metaDescription: initialData?.seo?.metaDescription || "",
             keywords: initialData?.seo?.keywords || [""]
         },
+        publishedAt: initialData?.publishedAt || ""
     })
 
     useMemo(() => {
@@ -257,7 +259,15 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
 
                     <button type="submit" disabled={loading} className="w-full sm:w-auto mt-0 sm:mt-0 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-black disabled:bg-gray-400 transition cursor-pointer">
                         {
-                            loading ? "Saving..." : formData.published ? "Publish Post" : "Save Draft"
+                            loading
+                                ? "Saving..."
+                                : formData.published
+                                    ? initialData
+                                        ? "Update Post"
+                                        : "Publish Post"
+                                    : initialData
+                                        ? "Update Draft"
+                                        : "Save Draft"
                         }
                     </button>
                 </div>
