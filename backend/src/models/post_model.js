@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator").default;
+const User = require("@/models/user_model");
 
 const postSchema = new mongoose.Schema(
   {
@@ -31,10 +32,9 @@ const postSchema = new mongoose.Schema(
       keywords: { type: [String], trim: true },
     },
     author: {
-      clerkId: { type: String, required: true },
-      name: { type: String, required: true },
-      imageUrl: { type: String, default: "" },
-      email: { type: String, default: "" },
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
     site: { type: mongoose.Schema.Types.ObjectId, ref: "Site", required: true },
     publishedAt: { type: Date, default: null },
