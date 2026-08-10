@@ -107,6 +107,8 @@ Each client website fetches only its own content using the API.
 |   |   |   |   └──ConfirmationModal.tsx
 |   |   |   ├──header/
 |   |   |   |   └──Header.tsx
+|   |   |   ├──post_card/
+|   |   |   |   └──PostCard.tsx
 |   |   |   ├──postform/
 |   |   |   |   └──PostForm.tsx
 |   |   |   ├──sidebar/
@@ -139,6 +141,8 @@ Each client website fetches only its own content using the API.
 |   |   |   |   └──Home.tsx
 |   |   |   ├──layout/
 |   |   |   |   └──Layout.tsx
+|   |   |   ├──post_details/
+|   |   |   |   └──PostDetails.tsx
 |   |   |   ├──posts/
 |   |   |   |   └──Posts.tsx
 |   |   |   ├──signin/
@@ -153,7 +157,8 @@ Each client website fetches only its own content using the API.
 |   |   |   ├──context/
 |   |   |   |   ├──post/
 |   |   |   |   |   ├──PostContext.tsx
-|   |   |   |   |   └──PostProvider.tsx
+|   |   |   |   |   ├──PostProvider.tsx
+|   |   |   |   |   └──usePostContext.tsx
 |   |   |   |   └──site/
 |   |   |   |      ├──SiteContext.tsx
 |   |   |   |      ├──SiteProvider.tsx

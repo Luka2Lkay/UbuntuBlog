@@ -106,15 +106,25 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
     }
 
     const addTag = () => {
+        const tag = tagInput.trim();
 
-        if (!tagInput.trim()) return;
+        if (!tag) return;
 
-        setFormData(prev => ({
-            ...prev,
-            tags: [...prev.tags, tagInput.trim()]
-        }))
+        setFormData((prev) => {
+            const tagExists = prev.tags.some(
+                (existingTag) => existingTag.toLowerCase() === tag.toLowerCase()
+            );
 
-    }
+            if (tagExists) return prev;
+
+            return {
+                ...prev,
+                tags: [...prev.tags, tag],
+            };
+        });
+
+        setTagInput("");
+    };
 
     const removeTag = (name: string) => {
 
@@ -202,7 +212,7 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
                     </div>
 
                     <div className="mt-3 flex flex-wrap gap-2">
-                        {formData.tags.length > 0 && (formData.tags.slice(1).map((tag, index) => (
+                        {formData.tags.length > 0 && (formData.tags.map((tag, index) => (
                             <button key={index} className="bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm mt-1" onClick={() => removeTag(tag)}>
                                 {tag.toLowerCase()} <span className="ml-1 text-gray-500 cursor-pointer" onClick={(e) => {
                                     e.stopPropagation();
