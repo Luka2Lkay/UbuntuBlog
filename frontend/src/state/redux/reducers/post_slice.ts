@@ -1,9 +1,12 @@
 import { type Post } from "@/interfaces/Post";
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchPostsThunk } from "@/state/redux/thunks/post_thunk";
+import {
+  fetchPostsThunk,
+  fetchPostThunk,
+} from "@/state/redux/thunks/post_thunk";
 
 interface PostState {
-  currentPost: Post | null;
+  currentPost: Post;
   posts: Post[];
   error: string | null;
   loading: boolean;
@@ -12,7 +15,6 @@ interface PostState {
 const initialState: PostState = {
   currentPost: {
     _id: "",
-    site: null,
     title: "",
     slug: "",
     excerpt: "",
@@ -20,12 +22,22 @@ const initialState: PostState = {
     featuredImage: "",
     category: "",
     tags: [""],
+
     published: false,
+
     seo: {
       metaTitle: "",
       metaDescription: "",
       keywords: [""],
     },
+
+    author: "",
+    site: "",
+
+    publishedAt: "",
+
+    createdAt: "",
+    updatedAt: "",
   },
   posts: [],
   error: null,
@@ -64,7 +76,6 @@ const postSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchPostsThunk.fulfilled, (state, action) => {
-        state.posts = action.payload;
         state.error = null;
         state.loading = false;
         state.posts = action.payload;
@@ -74,6 +85,19 @@ const postSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchPostsThunk.rejected, (state, action) => {
+        state.error = action.payload as string;
+        state.loading = false;
+      })
+      .addCase(fetchPostThunk.fulfilled, (state, action) => {
+        state.error = null;
+        state.loading = false;
+        state.currentPost = action.payload;
+      })
+      .addCase(fetchPostThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchPostThunk.rejected, (state, action) => {
         state.error = action.payload as string;
         state.loading = false;
       });
@@ -86,5 +110,8 @@ export const selectCurrentPost = (state: { post: PostState }) =>
   state.post.currentPost;
 export const selectLoading = (state: { post: PostState }) => state.post.loading;
 export const selectError = (state: { post: PostState }) => state.post.error;
+
+export const { setCurrentPost, addPost, deletePost, setError, setLoading } =
+  postSlice.actions;
 
 export default postSlice.reducer;

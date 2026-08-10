@@ -58,9 +58,9 @@ export const fetchSiteThunk = createAsyncThunk<
         token,
       );
 
-      dispatch(setCurrentSite(response.data.site));
+      dispatch(setCurrentSite(response.data));
 
-      return response.data.site;
+      return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const { data } = error.response ?? {};
