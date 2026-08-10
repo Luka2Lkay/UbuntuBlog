@@ -33,10 +33,7 @@ function Posts() {
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
       {posts.map((post) => (
-        <>
-          <PostCard key={post._id} post={post} />
-        </>
-
+        <PostCard key={post._id} post={post} />
       ))}
     </div>
   )
