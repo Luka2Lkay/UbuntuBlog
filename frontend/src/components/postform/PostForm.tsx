@@ -2,14 +2,18 @@ import { useMemo, useState } from "react";
 import slugify from "slugify";
 import { useSiteContext } from "@/state/context/site/useSiteContext";
 import axios from "axios"
-import Tiptap from "../tiptap/Tiptap";
+import Tiptap from "@/components/tiptap/Tiptap";
 import { type Post } from "@/interfaces/Post";
+// import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks";
+// import { selectCurrentSite } from "@/state/redux/reducers/site_slice";
+// import { useParams } from "react-router-dom";
+// import { usePostContext } from "@/state/context/post/usePostContext";
 
-export type PostFormData = Omit<Post, "_id">;
+export type NewPost = Omit<Post, "_id" | "slug" | "site">;
 
 interface Props {
-    initialData?: Partial<PostFormData>;
-    onSubmit: (data: PostFormData) => void;
+    initialData?: Post | null;
+    onSubmit: (data: Post) => void;
     loading: boolean;
 }
 
@@ -21,17 +25,15 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
     const [tagInput, setTagInput] = useState("");
     const [keywordInput, setKeywordInput] = useState("");
 
-    const [formData, setFormData] = useState<PostFormData>({
+    const [formData, setFormData] = useState<NewPost>({
         title: initialData?.title || "",
-        slug: initialData?.slug || "",
         excerpt: initialData?.excerpt || "",
         content: initialData?.content || "",
         featuredImage: initialData?.featuredImage || "",
         category: initialData?.category || "",
-        tags: initialData?.tags || [""],
+        tags: initialData?.tags || [],
         author: initialData?.author || "",
         published: initialData?.published || false,
-        site: initialData?.site || "",
         seo: {
             metaTitle: initialData?.seo?.metaTitle || "",
             metaDescription: initialData?.seo?.metaDescription || "",
@@ -40,9 +42,9 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
         publishedAt: initialData?.publishedAt || ""
     })
 
-    useMemo(() => {
+    const slug = useMemo(() => {
 
-        if (!formData.title) return
+        if (!formData.title) return "";
 
         return slugify(formData.title, {
             lower: true,
@@ -112,7 +114,6 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
             tags: [...prev.tags, tagInput.trim()]
         }))
 
-        setTagInput("");
     }
 
     const removeTag = (name: string) => {
@@ -154,7 +155,14 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        onSubmit(formData);
+        const site = selectedSite?._id as string;
+        const payload = { ...formData, slug, site }
+
+        if (payload.published) {
+            payload.publishedAt = new Date().toISOString()
+        }
+
+        onSubmit(payload);
     }
 
     return (
@@ -173,7 +181,7 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
 
                 <div>
                     <label className="block text-left text-sm font-medium mb-2">Slug</label>
-                    <input type="text" name="slug" value={formData.slug} onChange={handleChange} className="w-full border rounded-lg px-4 py-3 bg-gray-300" />
+                    <input type="text" name="slug" value={slug || ""} onChange={handleChange} className="w-full border rounded-lg px-4 py-3 bg-gray-300" readOnly />
                 </div>
 
                 <div>

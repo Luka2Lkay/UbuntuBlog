@@ -1,5 +1,3 @@
-import { type Site } from "./Site";
-
 export interface Post {
   _id?: string;
 

@@ -23,7 +23,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="posts" element={<Posts />} />
-          <Route path="posts/create" element={<CreatePost />} />
+          <Route path="posts/create/:siteId" element={<CreatePost />} />
           <Route path="posts/:postId" element={<PostDetails />} />
           <Route path="posts/:postId/edit" element={<EditPost />} />
           <Route path="sites/create" element={<CreateSite />} />

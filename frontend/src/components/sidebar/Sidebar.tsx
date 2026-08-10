@@ -73,7 +73,14 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
 
                             return (
                                 <li key={item.to}>
-                                    <NavLink to={item.to === "/posts" ? `${item.to}?site=${selectedSite?.slug}` : item.to} end={item.end} className={({ isActive }) => navClass(isActive)} onClick={onClose}>
+                                    <NavLink
+                                        to={
+                                            item.to === "/posts"
+                                                ? `${item.to}?site=${selectedSite?.slug}`
+                                                : item.to === "/posts/create"
+                                                    ? `${item.to}/${selectedSite?._id}`
+                                                    : item.to
+                                        } end={item.end} className={({ isActive }) => navClass(isActive)} onClick={onClose}>
                                         <Icon size={18} />
                                         {!collapsed && (<span>{item.label}</span>)}
                                     </NavLink>

@@ -46,7 +46,7 @@ export const fetchPostThunk = createAsyncThunk<
   { rejectValue: string }
 >(
   "posts/fetchSite",
-  async ({ postId, token }, {dispatch, rejectWithValue}) => {
+  async ({ postId, token }, { dispatch, rejectWithValue }) => {
     if (!token) {
       throw new Error(errorMessages.noToken);
     }
@@ -57,8 +57,7 @@ export const fetchPostThunk = createAsyncThunk<
         token,
       );
 
-      console.log("response", response.data);
-     dispatch(setCurrentPost(response.data));
+      dispatch(setCurrentPost(response.data));
 
       return response.data;
     } catch (error) {

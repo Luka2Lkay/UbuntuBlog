@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { type Post } from "@/interfaces/Post"
-import { useParams, useNavigate, Navigate } from "react-router-dom"
+import { useParams, Navigate } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks"
 import { fetchPostThunk } from "@/state/redux/thunks/post_thunk"
 import { selectCurrentPost, selectLoading } from "@/state/redux/reducers/post_slice"
@@ -8,7 +8,6 @@ import PostForm from "@/components/postform/PostForm"
 import { useAuth } from "@clerk/react"
 
 function EditPost() {
-  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { postId } = useParams()
   const { getToken } = useAuth()
@@ -40,7 +39,7 @@ function EditPost() {
 
 
     try {
-      console.log(postData)
+      console.log("post data: ", postData)
     } catch (error) {
       console.error("Failed to update", error)
     }

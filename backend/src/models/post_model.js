@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator").default;
-const User = require("@/models/user_model");
 
 const postSchema = new mongoose.Schema(
   {
