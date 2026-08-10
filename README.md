@@ -135,6 +135,8 @@ Each client website fetches only its own content using the API.
 |   |   |   |   └──CreateSite.tsx
 |   |   |   ├──dashboard/
 |   |   |   |   └──Dashboard.tsx
+|   |   |   ├──edit_post/
+|   |   |   |   └──EditPost.tsx
 |   |   |   ├──edit_site/
 |   |   |   |   └──EditSite.tsx
 |   |   |   ├──home/
