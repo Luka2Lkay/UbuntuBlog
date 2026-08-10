@@ -4,11 +4,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { errorMessages } from "@/helpers/messages_helper";
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_LOCAL_BASE_URL; // change to live
+const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL; // change to live
 
 type NewPost = Omit<Post, "_id">;
 
-export const fetchPostThunk = createAsyncThunk<
+export const fetchPostsThunk = createAsyncThunk<
   Post[],
   string | null,
   { rejectValue: string }

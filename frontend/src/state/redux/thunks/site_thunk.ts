@@ -17,7 +17,7 @@ type NewSite = Omit<Site, "_id">;
 
 export const fetchSitesThunk = createAsyncThunk<
   Site[],
-  string | null,
+  string | null ,
   { rejectValue: string }
 >("sites/fetchSites", async (token, { rejectWithValue }) => {
   try {
