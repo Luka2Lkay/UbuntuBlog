@@ -43,9 +43,9 @@ function PostCard({ post }: Props) {
           <div className="mt-4 flex items-center gap-2">
             <Tag size={15} className="shrink-0 text-gray-400" />
 
-            <div className="flex min-w-0 flex wrap gap-1.5">
+            <div className="flex min-w-0 flex-wrap gap-1.5">
               {post.tags?.slice(0, 3).map((tag) => (
-                <span key={tag} className="rounded-md bg-gray-100 px-2 py-1 text-sm text-gray-600">#{tag}</span>
+                <span key={tag} className="rounded-md bg-gray-100 px-2 py-1 text-sm text-gray-600 ">#{tag}</span>
               ))}
 
               {post.tags?.length > 3 && (
