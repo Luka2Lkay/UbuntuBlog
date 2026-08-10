@@ -102,7 +102,7 @@ const getSite = async (req, res) => {
   try {
     const site = await Site.findById(siteId);
 
-    res.status(200).json({ site });
+    res.status(200).json(site );
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
