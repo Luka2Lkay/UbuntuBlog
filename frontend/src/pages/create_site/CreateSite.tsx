@@ -37,8 +37,6 @@ function CreateSite() {
             if (error && typeof error === 'object' && "message" in error && typeof error.message === "string") {
                 dispatch(setError("Failed to create site"))
             }
-
-            throw new Error("Failed to create the site");
         }
     }
 
