@@ -9,7 +9,7 @@ import { setCurrentPost } from "@/state/redux/reducers/post_slice";
 import { errorMessages } from "@/helpers/messages_helper";
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL;
 
 type NewPost = Omit<Post, "_id">;
 
