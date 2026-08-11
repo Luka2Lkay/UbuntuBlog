@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams, useNavigate, Link } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks";
 import { useAuth } from "@clerk/react";
-import { fetchPostThunk } from "@/state/redux/thunks/post_thunk";
+import { fetchPostThunk, deletePostThunk } from "@/state/redux/thunks/post_thunk";
 import { selectCurrentPost } from "@/state/redux/reducers/post_slice";
 import { FileText, Search } from "lucide-react";
 import capitalize from "capitalize";
@@ -46,9 +46,16 @@ function PostDetails() {
         })()
     }, [dispatch, getToken, isLoaded, isSignedIn, navigate, postId])
 
-
     const handleDelete = async () => {
-        alert("Deleted!")
+
+        try {
+            const token = await getToken({ template: "backend" })
+            await dispatch(deletePostThunk({ postId, token })).unwrap()
+
+            navigate("/posts")
+        } catch (error) {
+            console.error("Error deleting the post: ", error)
+        }
     }
 
     return (
@@ -114,7 +121,7 @@ function PostDetails() {
                 </div>
             </section>
 
-            <ConfirmationModal isOpen={open} title={`Delete post`} message="his action can not be undone" confirmText="Delete" onConfirm={handleDelete} onCancel={() => setOpen(false)} cancelText="Cancel" danger={true} />
+            <ConfirmationModal isOpen={open} title={`Delete This Post`} message="This action cannot be undone" confirmText="Delete" onConfirm={handleDelete} onCancel={() => setOpen(false)} cancelText="Cancel" danger={true} />
         </div>
     )
 }

@@ -3,9 +3,14 @@ import {
   fetchWithAuth,
   createWithAuth,
   fetchOneWithAuth,
+  deleteWithAuth,
 } from "@/services/api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setCurrentPost } from "@/state/redux/reducers/post_slice";
+import {
+  setCurrentPost,
+  deletePost,
+  addPost,
+} from "@/state/redux/reducers/post_slice";
 import { errorMessages } from "@/helpers/messages_helper";
 import axios from "axios";
 
@@ -83,10 +88,11 @@ export const createPostThunk = createAsyncThunk<
   Post,
   { data: NewPost; token: string | null },
   { rejectValue: string }
->("posts/postSite", async ({ data, token }, { rejectWithValue }) => {
+>("posts/postSite", async ({ data, token }, { dispatch, rejectWithValue }) => {
   try {
     const response = await createWithAuth(`${BASE_URL}/api/posts`, data, token);
 
+    dispatch(addPost(response.data));
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -105,3 +111,36 @@ export const createPostThunk = createAsyncThunk<
     return rejectWithValue(errorMessages.apiError("create", "post"));
   }
 });
+
+export const deletePostThunk = createAsyncThunk<
+  string,
+  { postId: string | undefined; token: string | null },
+  { rejectValue: string }
+>(
+  "posts/deletePost",
+  async ({ postId, token }, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await deleteWithAuth(
+        `${BASE_URL}/api/posts/${postId}`,
+        token,
+      );
+      dispatch(deletePost(postId));
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const { data } = error.response ?? {};
+        const message =
+          data?.message ??
+          data?.errors[0].msg ??
+          errorMessages.apiError("delete", "post");
+
+        console.error(message);
+        rejectWithValue(message);
+      } else {
+        console.error(`${errorMessages.apiError("delete", "post")}: `, error);
+      }
+
+      return rejectWithValue(errorMessages.apiError("delete", "post"));
+    }
+  },
+);

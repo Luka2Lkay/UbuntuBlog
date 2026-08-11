@@ -25,8 +25,6 @@ function CreatePost() {
 
             const createdPost = await dispatch(createPostThunk({ data, token })).unwrap()
 
-            console.log("Created!!!")
-
             navigate(`/posts/${createdPost._id}`);
 
         } catch (error: unknown) {

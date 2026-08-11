@@ -5,6 +5,7 @@ import { selectPosts } from "@/state/redux/reducers/post_slice";
 import PostCard from "@/components/post_card/PostCard"
 import { fetchPostsThunk } from "@/state/redux/thunks/post_thunk";
 
+
 function Posts() {
   const dispatch = useAppDispatch();
 
