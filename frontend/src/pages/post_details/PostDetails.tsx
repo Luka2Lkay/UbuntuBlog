@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useParams, useNavigate, Link } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks";
 import { useAuth } from "@clerk/react";
@@ -6,9 +6,12 @@ import { fetchPostThunk } from "@/state/redux/thunks/post_thunk";
 import { selectCurrentPost } from "@/state/redux/reducers/post_slice";
 import { FileText, Search } from "lucide-react";
 import capitalize from "capitalize";
+import ConfirmationModal from "@/components/confirmation_modal/ConfirmationModal";
 
 function PostDetails() {
     const navigate = useNavigate();
+
+    const [open, setOpen] = useState(false)
 
     const { postId } = useParams();
 
@@ -35,7 +38,7 @@ function PostDetails() {
                 const token = await getToken({ template: "backend" })
 
                 if (!token) return
-     
+
                 await dispatch(fetchPostThunk({ postId, token })).unwrap
             } catch (error) {
                 console.error("Error loading post details: ", error)
@@ -61,7 +64,7 @@ function PostDetails() {
                             Edit
                         </Link>
 
-                        <button type="button" onClick={handleDelete} className="rounded-lg w-full border border-red-200 px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50">
+                        <button type="button" onClick={() => setOpen(true)} className="rounded-lg w-full border border-red-200 px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50">
                             Delete
                         </button>
                     </div>
@@ -111,6 +114,7 @@ function PostDetails() {
                 </div>
             </section>
 
+            <ConfirmationModal isOpen={open} title={`Delete post`} message="his action can not be undone" confirmText="Delete" onConfirm={handleDelete} onCancel={() => setOpen(false)} cancelText="Cancel" danger={true} />
         </div>
     )
 }

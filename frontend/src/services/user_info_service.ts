@@ -6,7 +6,6 @@ export const userInfoService = async (token: string | null) => {
   try {
     const response = await fetchWithAuth(`${BASE_URL}/api/user`, token);
 
-    console.log("res", response.data.user);
     return response.data.user;
   } catch (error) {
     console.error("Error fetching user info: ", error);

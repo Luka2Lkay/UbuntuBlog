@@ -23,15 +23,11 @@ function CreatePost() {
 
             const token = await getToken({ template: "backend" })
 
-
-            console.log(data)
-
-
-            await dispatch(createPostThunk({ data, token })).unwrap()
+            const createdPost = await dispatch(createPostThunk({ data, token })).unwrap()
 
             console.log("Created!!!")
 
-            navigate("/posts");
+            navigate(`/posts/${createdPost._id}`);
 
         } catch (error: unknown) {
             console.error("Error creating post:", error);

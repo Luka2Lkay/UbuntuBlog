@@ -63,7 +63,7 @@ function SiteCard({ name, domain, niche, deleteCurrentSite, showDeleteButton }: 
                         )}
                     </div>
                 </div>
-
+                
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
                     <a target="_blank" href={`https://${domain}`} rel="noopener noreferrer" className="w-full sm:w-auto rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-center hover:bg-gray-100">
                         Visit Website
