@@ -283,7 +283,7 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
                         </div>
 
                         {
-                            formData.seo.keywords.length > 0 && (formData.seo.keywords.slice(1).map((keyword, index) => (
+                            formData.seo.keywords.length > 0 && (formData.seo.keywords.map((keyword, index) => (
                                 <button type="button" key={index} className="bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm mt-1" onClick={() => removeKeyword(keyword)}>
                                     {keyword.toLowerCase()} <span className="ml-1 text-gray-500 cursor-pointer hover:text-red-500" onClick={(e) => {
                                         e.stopPropagation();

@@ -5,8 +5,7 @@ import { createSiteThunk } from "@/state/redux/thunks/site_thunk";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks";
 import { type Site } from "@/interfaces/Site";
 import { useSiteContext } from "@/state/context/site/useSiteContext";
-import { selectLoading, setError } from "@/state/redux/reducers/site_slice";
-import { selectError } from "@/state/redux/reducers/site_slice";
+import { selectLoading, setError, selectError } from "@/state/redux/reducers/site_slice";
 
 type NewSite = Omit<Site, "_id">
 

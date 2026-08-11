@@ -12,7 +12,7 @@ import capitalize from "capitalize";
 const navigation = [
     { 'label': "Dashboard", "to": "/dashboard", "icon": LayoutDashboard, end: true },
     { "label": "Posts", "to": "/posts", "icon": FileText, end: true },
-    { "label": "New Posts", "to": "/posts/create", "icon": PlusSquare }
+    { "label": "New Post", "to": "/posts/create", "icon": PlusSquare }
 ]
 
 type SidebarProps = {

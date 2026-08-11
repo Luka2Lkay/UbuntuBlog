@@ -1,33 +1,44 @@
 import { useNavigate } from "react-router-dom"
-// import { useSiteContext } from "../../state/context/useSiteContext"
-import { useAppSelector } from "@/hooks/redux_hooks";
+import { useAppSelector, useAppDispatch } from "@/hooks/redux_hooks";
 import PostForm from "@/components/postform/PostForm"
 import { type Post } from "@/interfaces/Post";
 import { selectLoading } from "@/state/redux/reducers/post_slice";
-import { selectError } from "@/state/redux/reducers/site_slice";
+import { selectError, setError } from "@/state/redux/reducers/site_slice";
+import { createPostThunk } from "@/state/redux/thunks/post_thunk";
+import { useAuth } from "@clerk/react";
 
 type PostPayload = Omit<Post, "_id">;
 
 function CreatePost() {
-    // const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const loading = useAppSelector(selectLoading);
     const error = useAppSelector(selectError);
 
+    const { getToken } = useAuth();
+
     const handleCreatePost = async (data: PostPayload) => {
         try {
 
-            // setLoading(true);
+            const token = await getToken({ template: "backend" })
+
+
             console.log(data)
-            // Make API call to create post using axios
+
+
+            await dispatch(createPostThunk({ data, token })).unwrap()
+
+            console.log("Created!!!")
 
             navigate("/posts");
 
-        } catch (error) {
+        } catch (error: unknown) {
             console.error("Error creating post:", error);
-        } finally {
-            // setLoading(false);
+
+            if (error && typeof error === 'object' && 'message' in error && typeof error.message === "string") {
+                dispatch(setError("Failed to create post"))
+            }
         }
     }
     return (
