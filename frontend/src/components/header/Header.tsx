@@ -6,14 +6,12 @@ import { LogOut, Menu } from "lucide-react"
 import { useAppSelector } from "@/hooks/redux_hooks"
 import { selectSites } from "@/state/redux/reducers/site_slice"
 import { useEffect, useState } from "react"
-import { fetchWithAuth } from "@/services/api"
+import { userInfoService } from "@/services/user_info_service"
 import capitalize from "capitalize"
 
 type HeaderProps = {
     onToggleSidebar: () => void;
 }
-
-const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL
 
 function Header({ onToggleSidebar }: HeaderProps) {
     const { selectedSite, setSelectedSite } = useSiteContext();
@@ -32,8 +30,8 @@ function Header({ onToggleSidebar }: HeaderProps) {
                     const token = await getToken({ template: "backend" });
                     console.log("token: ", token
                     )
-                    const response = await fetchWithAuth(`${BASE_URL}/api/user`, token);
-                    setUsername(`${response.data.user.firstName} ${response.data.user.lastName}`);
+                    const response = await userInfoService(token)
+                    setUsername(`${response.firstName} ${response.lastName}`);
                 } catch (error) {
                     console.error("Error loading user response:", error);
                 }
