@@ -31,8 +31,8 @@ const postSchema = new mongoose.Schema(
       keywords: { type: [String], trim: true },
     },
     author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
+      index: true,
       required: true,
     },
     site: { type: mongoose.Schema.Types.ObjectId, ref: "Site", required: true },

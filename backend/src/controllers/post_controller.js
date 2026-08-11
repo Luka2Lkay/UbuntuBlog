@@ -70,7 +70,7 @@ const createPost = async (req, res) => {
         keywords:
           seo?.keywords?.map((keyword) => keyword.trim().toLowerCase()) || [],
       },
-      author: user,
+      author: user.clerkId,
       site,
       publishedAt: published ? new Date() : null,
     });
@@ -117,7 +117,7 @@ const getPosts = async (req, res) => {
       return res.status(404).json({ message: errorMessages.notFound("User") });
     }
 
-    const filter = { author: user._id };
+    const filter = { author: user.clerkId };
 
     if (site) {
       const siteDocument = await Site.findOne({ slug: site });
