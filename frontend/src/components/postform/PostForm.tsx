@@ -1,15 +1,17 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import slugify from "slugify";
 import { useSiteContext } from "@/state/context/site/useSiteContext";
 import axios from "axios"
 import Tiptap from "@/components/tiptap/Tiptap";
 import { type Post } from "@/interfaces/Post";
+import { userInfoService } from "@/services/user_info_service";
+import { useAuth } from "@clerk/react";
 // import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks";
 // import { selectCurrentSite } from "@/state/redux/reducers/site_slice";
 // import { useParams } from "react-router-dom";
 // import { usePostContext } from "@/state/context/post/usePostContext";
 
-export type NewPost = Omit<Post, "_id" | "slug" | "site">;
+export type NewPost = Omit<Post, "_id" | "slug" | "site" | "author">;
 
 interface Props {
     initialData?: Post | null;
@@ -24,6 +26,9 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
 
     const [tagInput, setTagInput] = useState("");
     const [keywordInput, setKeywordInput] = useState("");
+    const [userId, setUserId] = useState("")
+
+    const { getToken } = useAuth();
 
     const [formData, setFormData] = useState<NewPost>({
         title: initialData?.title || "",
@@ -32,15 +37,28 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
         featuredImage: initialData?.featuredImage || "",
         category: initialData?.category || "",
         tags: initialData?.tags || [],
-        author: initialData?.author || "",
         published: initialData?.published || false,
         seo: {
             metaTitle: initialData?.seo?.metaTitle || "",
             metaDescription: initialData?.seo?.metaDescription || "",
-            keywords: initialData?.seo?.keywords || [""]
+            keywords: initialData?.seo?.keywords || []
         },
         publishedAt: initialData?.publishedAt || ""
     })
+
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const token = await getToken({ template: "backend" })
+                const response = await userInfoService(token);
+                setUserId(response.id)
+            } catch (error) {
+                console.error("Error loading user response: ", error)
+            }
+
+        })()
+    }, [getToken])
 
     const slug = useMemo(() => {
 
@@ -136,15 +154,24 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
 
     const addKeyword = () => {
 
-        if (!keywordInput.trim()) return;
+        const keyword = keywordInput.trim();
 
-        setFormData(prev => ({
-            ...prev,
-            seo: {
-                ...prev.seo,
-                keywords: [...prev.seo.keywords, keywordInput.toLowerCase().trim()]
+        if (!keyword) return;
+
+        setFormData(prev => {
+
+            const keywordExists = prev.seo.keywords.some((existingKeyword) => existingKeyword.toLocaleLowerCase() === keywordInput.toLocaleLowerCase())
+
+            if (keywordExists) return prev;
+
+            return {
+                ...prev,
+                seo: {
+                    ...prev.seo,
+                    keywords: [...prev.seo.keywords, keywordInput.toLowerCase().trim()]
+                }
             }
-        }))
+        })
 
         setKeywordInput("");
     }
@@ -166,7 +193,8 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
         e.preventDefault();
 
         const site = selectedSite?._id as string;
-        const payload = { ...formData, slug, site }
+        const author = userId
+        const payload = { ...formData, slug, site, author }
 
         if (payload.published) {
             payload.publishedAt = new Date().toISOString()

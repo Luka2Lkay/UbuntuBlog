@@ -32,9 +32,11 @@ function Posts() {
   }, [posts.length, dispatch, getToken])
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-      {posts.map((post) => (
+      {posts.length > 0 ? (posts.map((post) => (
         <PostCard key={post._id} post={post} />
-      ))}
+      ))) : (
+        <p className="text-2xl w-full font-semibold text-gray-800">You have no posts yet.</p>
+      )}
     </div>
   )
 }

@@ -4,9 +4,9 @@ import { useAuth } from "@clerk/react";
 import { fetchSiteThunk, deleteSiteThunk } from "@/state/redux/thunks/site_thunk";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux_hooks";
 import { selectCurrentSite, selectLoading } from "@/state/redux/reducers/site_slice";
-import { useSiteContext } from "../../state/context/site/useSiteContext";
-import SiteCard from "../../components/site_card/SiteCard";
-import ConfirmationModal from "../../components/confirmation_modal/ConfirmationModal";
+import { useSiteContext } from "@/state/context/site/useSiteContext";
+import SiteCard from "@/components/site_card/SiteCard";
+import ConfirmationModal from "@/components/confirmation_modal/ConfirmationModal";
 import capitalize from "capitalize";
 
 function SiteDetails() {
@@ -26,6 +26,8 @@ function SiteDetails() {
       navigate("/sign-in");
       return;
     }
+
+    console.log("siteId", siteId)
 
     if (!siteId) return;
 

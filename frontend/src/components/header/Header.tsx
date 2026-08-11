@@ -31,6 +31,7 @@ function Header({ onToggleSidebar }: HeaderProps) {
                     console.log("token: ", token
                     )
                     const response = await userInfoService(token)
+
                     setUsername(`${response.firstName} ${response.lastName}`);
                 } catch (error) {
                     console.error("Error loading user response:", error);

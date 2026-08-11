@@ -8,5 +8,7 @@ export const userInfoService = async (token: string | null) => {
 
     console.log("res", response.data.user);
     return response.data.user;
-  } catch (error) {}
+  } catch (error) {
+    console.error("Error fetching user info: ", error);
+  }
 };

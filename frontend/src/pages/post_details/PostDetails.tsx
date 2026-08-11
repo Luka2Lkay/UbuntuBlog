@@ -29,12 +29,13 @@ function PostDetails() {
 
         if (!postId) return
 
+
         (async () => {
             try {
                 const token = await getToken({ template: "backend" })
 
                 if (!token) return
-
+     
                 await dispatch(fetchPostThunk({ postId, token })).unwrap
             } catch (error) {
                 console.error("Error loading post details: ", error)
