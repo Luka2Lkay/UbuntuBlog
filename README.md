@@ -154,7 +154,8 @@ Each client website fetches only its own content using the API.
 |   |   |   └──site_details/
 |   |   |      └──SiteDetails.tsx
 |   |   ├──services/
-|   |   |   └──api.ts
+|   |   |   ├──api.ts
+|   |   |   └──user_info_service.ts
 |   |   ├──state/
 |   |   |   ├──context/
 |   |   |   |   ├──post/
