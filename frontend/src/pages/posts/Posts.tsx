@@ -43,16 +43,17 @@ function Posts() {
   }
 
   return (
-    <div className="w-full">
-      {posts.length > 0 ? (posts.map((post) => (
-        <div key={post._id} className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-          <PostCard post={post} />
-        </div>
+    <>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+        {posts.length > 0 && (posts.map((post) => (
+          <PostCard key={post._id} post={post} />
 
-      ))) : (
+        )))}
+      </div>
+      {posts.length === 0 && (
         <p className="text-2xl font-semibold text-gray-800">You have no posts for {capitalize.words(selectedSite?.name || "")} yet.</p>
       )}
-    </div>
+    </>
   )
 }
 
