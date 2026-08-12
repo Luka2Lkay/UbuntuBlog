@@ -21,18 +21,13 @@ const clerkWebhook = async (req, res) => {
     const eventType = event.type;
     const data = event.data;
 
-    console.log("data", data)
-
-    // Helper function to generate user name with fallback
     const generateName = () => {
       const fullName = `${data.first_name || ""} ${data.last_name || ""}`.trim();
       if (fullName) return fullName;
       
-      // Fallback to email if available
       const email = data.email_addresses?.[0]?.email_address;
       if (email) return email;
       
-      // Final fallback to clerkId
       return data.id;
     };
 
