@@ -10,7 +10,6 @@ import {
   setCurrentPost,
   deletePost,
   addPost,
-  clearPosts,
 } from "@/state/redux/reducers/post_slice";
 import { errorMessages } from "@/helpers/messages_helper";
 import axios from "axios";
