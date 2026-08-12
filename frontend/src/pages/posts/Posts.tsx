@@ -1,42 +1,56 @@
 import { useEffect } from "react"
 import { useAuth } from "@clerk/react"
 import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks";
-import { selectPosts } from "@/state/redux/reducers/post_slice";
+import { selectPosts, selectLoading } from "@/state/redux/reducers/post_slice";
 import PostCard from "@/components/post_card/PostCard"
 import { fetchPostsThunk } from "@/state/redux/thunks/post_thunk";
-
+import { useSiteContext } from "@/state/context/site/useSiteContext";
+import capitalize from "capitalize";
 
 function Posts() {
   const dispatch = useAppDispatch();
 
   const { getToken } = useAuth();
 
+  const { selectedSite } = useSiteContext()
+  const loading = useAppSelector(selectLoading)
   const posts = useAppSelector(selectPosts)
 
   useEffect(() => {
-
-    if (posts.length > 0) return;
+    if (!selectedSite) return;
 
     (async () => {
       try {
         const token = await getToken({ template: "backend" })
 
         if (!token) return
-        await dispatch(fetchPostsThunk(token)).unwrap()
 
+        await dispatch(fetchPostsThunk({ slug: selectedSite.slug, token })).unwrap()
 
       } catch (error) {
         console.error("error", error)
       }
 
     })()
-  }, [posts.length, dispatch, getToken])
+  }, [dispatch, getToken, selectedSite])
+
+  if (loading) {
+    return (<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      {[...Array(3).map((_, index) => (
+        <div key={index} className="h-48 bg-gray-200 animate-pulse rounded-lg" />
+      ))]}
+    </div>)
+  }
+
   return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+    <div className="w-full">
       {posts.length > 0 ? (posts.map((post) => (
-        <PostCard key={post._id} post={post} />
+        <div key={post._id} className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          <PostCard post={post} />
+        </div>
+
       ))) : (
-        <p className="text-2xl w-full font-semibold text-gray-800">You have no posts yet.</p>
+        <p className="text-2xl font-semibold text-gray-800">You have no posts for {capitalize.words(selectedSite?.name || "")} yet.</p>
       )}
     </div>
   )

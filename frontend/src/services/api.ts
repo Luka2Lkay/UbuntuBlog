@@ -3,12 +3,17 @@ import { type Site } from "@/interfaces/Site";
 import { type Post } from "@/interfaces/Post";
 import { errorMessages } from "@/helpers/messages_helper";
 
-export const fetchWithAuth = async (url: string, token: string | null) => {
+export const fetchWithAuth = async (
+  url: string,
+  token: string | null,
+  site?: string,
+) => {
   if (!token) {
     throw new Error(errorMessages.noToken);
   }
 
   const response = await axios.get(url, {
+    ...(site && { params: { site } }),
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",

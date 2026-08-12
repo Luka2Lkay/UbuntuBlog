@@ -10,21 +10,22 @@ import {
   setCurrentPost,
   deletePost,
   addPost,
+  clearPosts,
 } from "@/state/redux/reducers/post_slice";
 import { errorMessages } from "@/helpers/messages_helper";
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL;
 
 type NewPost = Omit<Post, "_id">;
 
 export const fetchPostsThunk = createAsyncThunk<
   Post[],
-  string | null,
+  { slug: string | undefined; token: string | null },
   { rejectValue: string }
->("posts/fetchPosts", async (token, { rejectWithValue }) => {
+>("posts/fetchPosts", async ({ slug, token }, { rejectWithValue }) => {
   try {
-    const response = await fetchWithAuth(`${BASE_URL}/api/posts`, token);
+    const response = await fetchWithAuth(`${BASE_URL}/api/posts`, token, slug);
 
     return response.data;
   } catch (error) {
@@ -62,7 +63,7 @@ export const fetchPostThunk = createAsyncThunk<
         token,
       );
 
-      dispatch(setCurrentPost(response.data));
+      await dispatch(setCurrentPost(response.data));
 
       return response.data;
     } catch (error) {

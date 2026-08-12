@@ -62,6 +62,9 @@ const postSlice = createSlice({
         state.posts[index] = newPost;
       }
     },
+    clearPosts(state) {
+      state.posts = [];
+    },
     deletePost(state, action) {
       const postId = action.payload;
       state.posts = state.posts.filter((post) => post._id !== postId);
@@ -83,10 +86,12 @@ const postSlice = createSlice({
       .addCase(fetchPostsThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.posts = [];
       })
       .addCase(fetchPostsThunk.rejected, (state, action) => {
         state.error = action.payload as string;
         state.loading = false;
+        state.posts = [];
       })
       .addCase(fetchPostThunk.fulfilled, (state, action) => {
         state.error = null;
@@ -111,7 +116,13 @@ export const selectCurrentPost = (state: { post: PostState }) =>
 export const selectLoading = (state: { post: PostState }) => state.post.loading;
 export const selectError = (state: { post: PostState }) => state.post.error;
 
-export const { setCurrentPost, addPost, deletePost, setError, setLoading } =
-  postSlice.actions;
+export const {
+  setCurrentPost,
+  addPost,
+  deletePost,
+  setError,
+  setLoading,
+  clearPosts,
+} = postSlice.actions;
 
 export default postSlice.reducer;
