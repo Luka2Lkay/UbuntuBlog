@@ -31,7 +31,6 @@ const createPost = async (req, res) => {
       seo,
     } = req.body;
 
-    console.log("title: ", title, "content: ", content, "site: ", site);
     if (!title || !content || !site) {
       return res
         .status(400)
