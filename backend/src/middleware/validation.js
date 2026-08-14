@@ -44,11 +44,6 @@ const validatePostCreation = [
   body("site")
     .isMongoId()
     .withMessage("Site ID must be a valid MongoDB ObjectId"),
-  body("publishedAt")
-    .optional()
-    .isISO8601()
-    .toDate()
-    .withMessage("PublishedAt must be a valid date"),
   body("featuredImage")
     .optional()
     .isString()
