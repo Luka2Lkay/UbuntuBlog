@@ -43,6 +43,7 @@ function SiteDetails() {
 
   useEffect(() => {
     if (currentSite) {
+      console.log("siteId", currentSite._id)
       setSelectedSite(currentSite);
     }
   }, [currentSite, setSelectedSite]);

@@ -29,12 +29,14 @@ export const createWithAuth = async (
   url: string,
   data: NewSite | NewPost,
   token: string | null,
+  site?: string,
 ) => {
   if (!token) {
     throw new Error(errorMessages.noToken);
   }
 
   const response = await axios.post(url, data, {
+    ...(site && { params: { site } }),
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",

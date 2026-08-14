@@ -78,7 +78,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                                             item.to === "/posts"
                                                 ? `${item.to}?site=${selectedSite?.slug}`
                                                 : item.to === "/posts/create"
-                                                    ? `${item.to}/${selectedSite?._id}`
+                                                    ? `${item.to}/${selectedSite?.slug}`
                                                     : item.to
                                         } end={item.end} className={({ isActive }) => navClass(isActive)} onClick={onClose}>
                                         <Icon size={18} />

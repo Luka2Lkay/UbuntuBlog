@@ -5,6 +5,7 @@ import { type Post } from "@/interfaces/Post";
 import { selectLoading } from "@/state/redux/reducers/post_slice";
 import { selectError, setError } from "@/state/redux/reducers/site_slice";
 import { createPostThunk } from "@/state/redux/thunks/post_thunk";
+import { useSiteContext } from "@/state/context/site/useSiteContext";
 import { useAuth } from "@clerk/react";
 
 type PostPayload = Omit<Post, "_id">;
@@ -12,6 +13,8 @@ type PostPayload = Omit<Post, "_id">;
 function CreatePost() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+
+    const { selectedSite } = useSiteContext()
 
     const loading = useAppSelector(selectLoading);
     const error = useAppSelector(selectError);
@@ -23,7 +26,11 @@ function CreatePost() {
 
             const token = await getToken({ template: "backend" })
 
-            const createdPost = await dispatch(createPostThunk({ data, token })).unwrap()
+            if (!token) return
+
+            if (!selectedSite) return
+
+            const createdPost = await dispatch(createPostThunk({ data, token, slug: selectedSite.slug })).unwrap()
 
             navigate(`/posts/${createdPost._id}`);
 
