@@ -20,7 +20,7 @@ export interface Post {
   author: string;
   site: string;
 
-  publishedAt: string | null;
+  publishedAt?: string | null;
 
   createdAt?: string;
   updatedAt?: string;

@@ -6,10 +6,6 @@ import Tiptap from "@/components/tiptap/Tiptap";
 import { type Post } from "@/interfaces/Post";
 import { userInfoService } from "@/services/user_info_service";
 import { useAuth } from "@clerk/react";
-// import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks";
-// import { selectCurrentSite } from "@/state/redux/reducers/site_slice";
-// import { useParams } from "react-router-dom";
-// import { usePostContext } from "@/state/context/post/usePostContext";
 
 export type NewPost = Omit<Post, "_id" | "slug" | "site" | "author">;
 
@@ -43,7 +39,6 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
             metaDescription: initialData?.seo?.metaDescription || "",
             keywords: initialData?.seo?.keywords || []
         },
-        publishedAt: initialData?.publishedAt || ""
     })
 
 
@@ -195,10 +190,6 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
         const site = selectedSite?._id as string;
         const author = userId
         const payload = { ...formData, slug, site, author }
-
-        if (payload.published) {
-            payload.publishedAt = new Date().toISOString()
-        }
 
         onSubmit(payload);
     }
