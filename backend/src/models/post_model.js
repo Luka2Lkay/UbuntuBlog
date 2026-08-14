@@ -17,14 +17,13 @@ const postSchema = new mongoose.Schema(
       maxLength: 300,
       lowercase: true,
       required: true,
-      unique: true,
     },
     excerpt: { type: String, maxLength: 500, default: "" },
     content: { type: String, required: true },
     featuredImage: { type: String, default: "" },
     category: { type: String, trim: true, maxLength: 100, default: "" },
     tags: { type: [String], trim: true, lowercase: true, default: [] },
-    published: { type: Boolean },
+    published: { type: Boolean, default: false },
     seo: {
       metaTitle: { type: String, trim: true, default: "" },
       metaDescription: { type: String, default: "" },
@@ -51,7 +50,6 @@ postSchema.index({
   tags: "text",
 });
 postSchema.index({ published: 1, publishedAt: -1 });
-postSchema.index({ "author.clerkId": 1 });
 
 postSchema.pre("save", function () {
   if (this.published && !this.publishedAt) {

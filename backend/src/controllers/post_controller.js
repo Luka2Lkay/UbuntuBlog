@@ -9,6 +9,7 @@ const { errorMessages } = require("@/helpers/message_helpers");
 const createPost = async (req, res) => {
   const errors = validationResult(req);
   const { userId } = getAuth(req);
+  const { site } = req.query;
 
   if (!errors.isEmpty()) {
     return res.status(400).json({ message: errors.array() });
@@ -28,9 +29,9 @@ const createPost = async (req, res) => {
       tags,
       published,
       seo,
-      site,
     } = req.body;
 
+    console.log("title: ", title, "content: ", content, "site: ", site);
     if (!title || !content || !site) {
       return res
         .status(400)
@@ -43,7 +44,16 @@ const createPost = async (req, res) => {
       strict: true,
     });
 
-    const existingPost = await Post.findOne({ slug: postSlug });
+    const siteDocument = await Site.findOne({ slug: site });
+
+    if (!siteDocument) {
+      return res.status(404).json({ message: errorMessages.notFound("Site") });
+    }
+
+    const existingPost = await Post.findOne({
+      slug: postSlug,
+      site: siteDocument._id,
+    });
 
     if (existingPost) {
       return res.status(409).json({ message: errorMessages.exists("Slug") });
@@ -71,12 +81,15 @@ const createPost = async (req, res) => {
           seo?.keywords?.map((keyword) => keyword.trim().toLowerCase()) || [],
       },
       author: user.clerkId,
-      site,
+      site: siteDocument._id,
       publishedAt: published ? new Date() : null,
     });
 
     return res.status(201).json(post);
   } catch (error) {
+    if (error.code === "11000") {
+      return res.status(409).json({ message: errorMessages.exists("Slug") });
+    }
     res.status(500).json({ message: error.message });
   }
 };
