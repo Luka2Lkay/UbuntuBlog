@@ -1,22 +1,6 @@
-const cloudinary = require("@/config/cloudinary_config");
 const { getAuth } = require("@clerk/express");
 const { errorMessages } = require("@/helpers/message_helpers");
-
-const uploadToCloudinary = (buffer) =>
-  new Promise((resolve, reject) => {
-    const stream = cloudinary.uploader.upload_stream(
-      { folder: "ubuntublog", resource_type: "image" },
-      (error, result) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(result);
-        }
-      },
-    );
-
-    stream.end(buffer);
-  });
+const { uploadToCloudinary } = require("@/helpers/cloudinary");
 
 const uploadImage = async (req, res) => {
   const { userId } = getAuth(req);

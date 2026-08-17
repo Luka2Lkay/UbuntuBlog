@@ -5,6 +5,7 @@ const { validationResult } = require("express-validator");
 const { getAuth } = require("@clerk/express");
 const slugify = require("slugify");
 const { errorMessages } = require("@/helpers/message_helpers");
+const { uploadToCloudinary } = require("@/helpers/cloudinary");
 
 const createPost = async (req, res) => {
   const errors = validationResult(req);
@@ -20,16 +21,8 @@ const createPost = async (req, res) => {
   }
 
   try {
-    const {
-      title,
-      excerpt,
-      content,
-      featuredImage,
-      category,
-      tags,
-      published,
-      seo,
-    } = req.body;
+    const { title, excerpt, content, category, tags, published, seo } =
+      req.body;
 
     if (!title || !content || !site) {
       return res
@@ -64,6 +57,14 @@ const createPost = async (req, res) => {
       return res.status(404).json({ message: errorMessages.notFound("User") });
     }
 
+    const cloudinaryImage = req.file
+      ? await uploadToCloudinary(req.file.buffer, siteDocument.slug)
+      : null;
+
+    const featuredImage = cloudinaryImage
+      ? { url: cloudinaryImage.secure_url, publicId: cloudinaryImage.public_id }
+      : null;
+
     const post = await Post.create({
       title,
       slug: postSlug,
@@ -72,7 +73,7 @@ const createPost = async (req, res) => {
       featuredImage,
       category,
       tags: tags?.map((tag) => tag.trim().toLowerCase()) || [],
-      published: Boolean(published),
+      published,
       seo: {
         metaTitle: seo?.metaTitle || "",
         metaDescription: seo?.metaDescription || "",

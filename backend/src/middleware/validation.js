@@ -41,13 +41,6 @@ const validatePostCreation = [
     .optional()
     .isBoolean()
     .withMessage("Published must be a boolean"),
-  body("site")
-    .isMongoId()
-    .withMessage("Site ID must be a valid MongoDB ObjectId"),
-  body("featuredImage")
-    .optional()
-    .isString()
-    .withMessage("Featured image must be a string"),
 ];
 
 const validateSiteCreation = [
