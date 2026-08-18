@@ -1,6 +1,6 @@
 import { fetchWithAuth } from "@/services/api";
 
-const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL;
+const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL;
 
 export const userInfoService = async (token: string | null) => {
   try {
