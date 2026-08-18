@@ -1,4 +1,4 @@
-import { type Post } from "@/interfaces/Post";
+import { type PostFormData, type Post } from "@/interfaces/Post";
 import {
   fetchWithAuth,
   createWithAuth,
@@ -17,7 +17,7 @@ import axios from "axios";
 const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL;
 
 export const fetchPostsThunk = createAsyncThunk<
-  Post[],
+  PostFormData[],
   { slug: string | undefined; token: string | null },
   { rejectValue: string }
 >("posts/fetchPosts", async ({ slug, token }, { rejectWithValue }) => {
@@ -83,7 +83,7 @@ export const fetchPostThunk = createAsyncThunk<
 );
 
 export const createPostThunk = createAsyncThunk<
-  Post,
+  PostFormData,
   { data: FormData; token: string | null; slug: string },
   { rejectValue: string }
 >(

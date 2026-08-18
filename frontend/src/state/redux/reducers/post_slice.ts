@@ -1,4 +1,4 @@
-import { type Post } from "@/interfaces/Post";
+import { type PostFormData, type Post } from "@/interfaces/Post";
 import { createSlice } from "@reduxjs/toolkit";
 import {
   fetchPostsThunk,
@@ -7,7 +7,7 @@ import {
 
 interface PostState {
   currentPost: Post;
-  posts: Post[];
+  posts: PostFormData[];
   error: string | null;
   loading: boolean;
 }
@@ -19,7 +19,7 @@ const initialState: PostState = {
     slug: "",
     excerpt: "",
     content: "",
-    featuredImage: "",
+    featuredImage: null,
     category: "",
     tags: [""],
 
@@ -30,14 +30,6 @@ const initialState: PostState = {
       metaDescription: "",
       keywords: [""],
     },
-
-    author: "",
-    site: "",
-
-    publishedAt: "",
-
-    createdAt: "",
-    updatedAt: "",
   },
   posts: [],
   error: null,

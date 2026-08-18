@@ -1,5 +1,4 @@
 import { useEffect } from "react"
-import { type Post } from "@/interfaces/Post"
 import { useParams, Navigate } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks"
 import { fetchPostThunk } from "@/state/redux/thunks/post_thunk"
@@ -31,7 +30,7 @@ function EditPost() {
 
   }, [getToken, dispatch, postId])
 
-  const handleEdit = (postData: Post) => {
+  const handleEdit = (postData: FormData) => {
 
     if (!postId) {
       throw new Error("No post id found!")
