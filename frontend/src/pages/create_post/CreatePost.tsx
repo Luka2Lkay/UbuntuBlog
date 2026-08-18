@@ -1,14 +1,11 @@
 import { useNavigate } from "react-router-dom"
 import { useAppSelector, useAppDispatch } from "@/hooks/redux_hooks";
 import PostForm from "@/components/postform/PostForm"
-import { type Post } from "@/interfaces/Post";
 import { selectLoading } from "@/state/redux/reducers/post_slice";
 import { selectError, setError } from "@/state/redux/reducers/site_slice";
 import { createPostThunk } from "@/state/redux/thunks/post_thunk";
 import { useSiteContext } from "@/state/context/site/useSiteContext";
 import { useAuth } from "@clerk/react";
-
-type PostPayload = Omit<Post, "_id">;
 
 function CreatePost() {
     const dispatch = useAppDispatch();
@@ -21,7 +18,7 @@ function CreatePost() {
 
     const { getToken } = useAuth();
 
-    const handleCreatePost = async (data: PostPayload) => {
+    const handleCreatePost = async (data: FormData) => {
         try {
 
             const token = await getToken({ template: "backend" })

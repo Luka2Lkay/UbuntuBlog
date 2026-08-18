@@ -16,22 +16,22 @@ type HeaderProps = {
 function Header({ onToggleSidebar }: HeaderProps) {
     const { selectedSite, setSelectedSite } = useSiteContext();
     const navigate = useNavigate();
-    const { signOut } = useAuth();
-    const { getToken } = useAuth();
+    const { getToken, isLoaded, isSignedIn, userId, signOut } = useAuth();
     const sites = useAppSelector(selectSites);
 
     const [username, setUsername] = useState("")
 
     useEffect(() => {
+        if (!isLoaded || !isSignedIn || !userId) return;
+
         if (sites.length > 0 && !selectedSite) {
             setSelectedSite(sites[0]);
             const loadUserData = async () => {
                 try {
                     const token = await getToken({ template: "backend" });
-                    console.log("token: ", token
-                    )
-                    const response = await userInfoService(token)
+                    console.log("token: ", token)
 
+                    const response = await userInfoService(token)
                     setUsername(`${response.firstName} ${response.lastName}`);
                 } catch (error) {
                     console.error("Error loading user response:", error);
@@ -40,7 +40,7 @@ function Header({ onToggleSidebar }: HeaderProps) {
             loadUserData();
         }
 
-    }, [sites, selectedSite, setSelectedSite, getToken])
+    }, [sites, selectedSite, setSelectedSite, getToken, isLoaded, isSignedIn, userId])
 
     const logout = () => {
         signOut();

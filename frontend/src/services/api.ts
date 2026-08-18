@@ -1,6 +1,5 @@
 import axios from "axios";
 import { type Site } from "@/interfaces/Site";
-import { type Post } from "@/interfaces/Post";
 import { errorMessages } from "@/helpers/messages_helper";
 
 export const fetchWithAuth = async (
@@ -23,11 +22,10 @@ export const fetchWithAuth = async (
 };
 
 type NewSite = Omit<Site, "_id">;
-type NewPost = Omit<Post, "_id">;
 
 export const createWithAuth = async (
   url: string,
-  data: NewSite | NewPost,
+  data: NewSite | FormData,
   token: string | null,
   site?: string,
 ) => {
@@ -39,7 +37,6 @@ export const createWithAuth = async (
     ...(site && { params: { site } }),
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
     },
   });
 
@@ -54,7 +51,6 @@ export const deleteWithAuth = async (url: string, token: string | null) => {
   const response = await axios.delete(url, {
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
     },
   });
 
@@ -73,7 +69,6 @@ export const updateWithAuth = async (
   const response = await axios.patch(url, data, {
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
     },
   });
 

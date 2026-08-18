@@ -39,7 +39,7 @@ function PostDetails() {
 
                 if (!token) return
 
-                await dispatch(fetchPostThunk({ postId, token })).unwrap
+                await dispatch(fetchPostThunk({ postId, token })).unwrap()
             } catch (error) {
                 console.error("Error loading post details: ", error)
             }

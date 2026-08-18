@@ -19,18 +19,13 @@ function Dashboard() {
     const loading = useAppSelector(selectLoading);
 
     useEffect(() => {
-
-        if (!isLoaded || !userId) return;
-
-        if (!isSignedIn) {
-            navigate("/sign-in");
-            return;
-        }
+        if (!isLoaded || !userId || !isSignedIn || sites.length > 0) return;
 
         const loadSites = async () => {
-
             try {
                 const token = await getToken({ template: "backend" });
+
+                if (!token) return;
                 const response = await dispatch(fetchSitesThunk(token)).unwrap();
 
                 return response;
@@ -41,17 +36,18 @@ function Dashboard() {
 
         loadSites();
 
-    }, [isLoaded, isSignedIn, navigate, userId, getToken, dispatch]);
+    }, [isLoaded, isSignedIn, navigate, userId, getToken, dispatch, sites.length]);
 
     useEffect(() => {
+        if (loading) return;
 
-        if (!loading) {
-            if (sites.length === 0) {
-                navigate("/sites/create")
-            }
+
+        if (sites.length === 0) {
+            navigate("/sites/create")
         }
 
-    }, [sites, loading, navigate])
+
+    }, [sites.length, loading, navigate])
 
     if (loading) {
 

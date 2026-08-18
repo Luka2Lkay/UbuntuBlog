@@ -26,12 +26,13 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
 
     const navigate = useNavigate();
 
-    const { getToken } = useAuth();
+    const { getToken, isLoaded, isSignedIn, userId } = useAuth();
     const dispatch = useAppDispatch();
     const sites = useAppSelector(selectSites);
 
     useEffect(() => {
-        if (sites.length) return;
+      
+        if (!isLoaded || !isSignedIn || !userId || sites.length > 0) return;
 
         const fetchSites = async () => {
             try {
@@ -45,7 +46,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
         };
         fetchSites();
 
-    }, [dispatch, getToken, sites.length])
+    }, [dispatch, getToken, sites.length, isLoaded, isSignedIn, userId])
 
     const navigateToSite = (site: Site) => {
         setSelectedSite(site);

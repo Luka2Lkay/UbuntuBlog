@@ -1,36 +1,28 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState} from "react";
 import slugify from "slugify";
 import { useSiteContext } from "@/state/context/site/useSiteContext";
-import axios from "axios"
 import Tiptap from "@/components/tiptap/Tiptap";
 import { type Post } from "@/interfaces/Post";
-import { userInfoService } from "@/services/user_info_service";
-import { useAuth } from "@clerk/react";
 
 export type NewPost = Omit<Post, "_id" | "slug" | "site" | "author">;
 
 interface Props {
     initialData?: Post | null;
-    onSubmit: (data: Post) => void;
+    onSubmit: (data: FormData) => void;
     loading: boolean;
 }
-
-const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000"
 
 function PostForm({ initialData, onSubmit, loading = false }: Props) {
     const { selectedSite } = useSiteContext();
 
     const [tagInput, setTagInput] = useState("");
     const [keywordInput, setKeywordInput] = useState("");
-    const [userId, setUserId] = useState("")
-
-    const { getToken } = useAuth();
 
     const [formData, setFormData] = useState<NewPost>({
         title: initialData?.title || "",
         excerpt: initialData?.excerpt || "",
         content: initialData?.content || "",
-        featuredImage: initialData?.featuredImage || "",
+        featuredImage: initialData?.featuredImage || null,
         category: initialData?.category || "",
         tags: initialData?.tags || [],
         published: initialData?.published || false,
@@ -40,20 +32,6 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
             keywords: initialData?.seo?.keywords || []
         },
     })
-
-
-    useEffect(() => {
-        (async () => {
-            try {
-                const token = await getToken({ template: "backend" })
-                const response = await userInfoService(token);
-                setUserId(response.id)
-            } catch (error) {
-                console.error("Error loading user response: ", error)
-            }
-
-        })()
-    }, [getToken])
 
     const slug = useMemo(() => {
 
@@ -93,31 +71,6 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
         ))
     }
 
-    const handleFeaturedImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-
-        const file = e.target.files?.[0];
-
-        if (!file) return;
-
-        try {
-            const formData = new FormData();
-
-            formData.append("image", file);
-
-            const response = await axios.post(`${BASE_URL}`, formData);
-
-            const imageUrl = response.data.url;
-
-            setFormData(prev => ({
-                ...prev,
-                featuredImage: imageUrl
-            }))
-
-        } catch (error) {
-            console.error("Failed to upload featured image", error)
-        }
-    }
-
     const addTag = () => {
         const tag = tagInput.trim();
 
@@ -155,7 +108,7 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
 
         setFormData(prev => {
 
-            const keywordExists = prev.seo.keywords.some((existingKeyword) => existingKeyword.toLocaleLowerCase() === keywordInput.toLocaleLowerCase())
+            const keywordExists = prev.seo.keywords.some((existingKeyword) => existingKeyword.toLowerCase() === keywordInput.toLowerCase())
 
             if (keywordExists) return prev;
 
@@ -187,9 +140,23 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const site = selectedSite?._id as string;
-        const author = userId
-        const payload = { ...formData, slug, site, author }
+        const payload = new FormData()
+
+        payload.append("title", formData.title)
+        payload.append("excerpt", formData.excerpt)
+        payload.append("content", formData.content)
+        payload.append("category", formData.category)
+        payload.append("tags", JSON.stringify(formData.tags))
+        payload.append("seo", JSON.stringify(formData.seo))
+        payload.append("published", String(formData.published))
+
+        if (formData.featuredImage instanceof File) {
+            payload.append("image", formData.featuredImage)
+        }
+
+        for (const [key, value] of payload.entries()) {
+            console.log(key, value)
+        }
 
         onSubmit(payload);
     }
@@ -235,7 +202,6 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
                             <button key={index} className="bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm mt-1" onClick={() => removeTag(tag)}>
                                 {tag.toLowerCase()} <span className="ml-1 text-gray-500 cursor-pointer" onClick={(e) => {
                                     e.stopPropagation();
-                                    removeTag(tag);
                                 }}>&times;</span>
                             </button>
                         )))}
@@ -244,8 +210,19 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
 
                 <div>
                     <label className="block text-left text-sm font-medium mb-2">Featured Image</label>
-                    <input type="file" accept="image/*" onChange={handleFeaturedImageUpload} className="w-full cursor-pointer" />
-                    {formData.featuredImage && (<img src={formData.featuredImage} alt="Featured" className="mt-4 w-full max-h-60 object-cover rounded-lg" />)}
+                    <input type="file" accept="image/*" onChange={(e) => {
+                        const file = e.target.files?.[0]
+
+                        if (!file) return;
+
+                        setFormData((prev) => (
+                            {
+                                ...prev,
+                                featuredImage: file
+                            }
+
+                        ))
+                    }} className="w-full cursor-pointer" />
                 </div>
 
                 <div>

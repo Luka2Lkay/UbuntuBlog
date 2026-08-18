@@ -1,10 +1,10 @@
-import type { Post } from "@/interfaces/Post"
+import type { PostFormData } from "@/interfaces/Post"
 import { Eye, Tag } from "lucide-react"
 import capitalize from "capitalize"
 import { Link } from "react-router-dom"
 
 interface Props {
-  post: Post
+  post: PostFormData
 }
 
 function PostCard({ post }: Props) {
@@ -12,7 +12,9 @@ function PostCard({ post }: Props) {
     <article className="group w-full overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition hover:shadow-md">
       <div className="relative aspect-video w-full overflow-hidden bg-gray-100">
         {post.featuredImage ? (
-          <img src={post.featuredImage} alt={post.title} className="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
+
+
+          <img src={post.featuredImage?.url} alt={post.title} className="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
         ) : (
           <div className="flex h-full items-center justify-center text-sm text-gray-400">No Featured Image</div>
         )}

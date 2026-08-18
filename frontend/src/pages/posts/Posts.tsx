@@ -10,14 +10,14 @@ import capitalize from "capitalize";
 function Posts() {
   const dispatch = useAppDispatch();
 
-  const { getToken } = useAuth();
+  const { getToken, isLoaded, isSignedIn, userId } = useAuth();
 
   const { selectedSite } = useSiteContext()
   const loading = useAppSelector(selectLoading)
   const posts = useAppSelector(selectPosts)
 
   useEffect(() => {
-    if (!selectedSite) return;
+    if (!isLoaded || !isSignedIn || !userId || !selectedSite) return;
 
     (async () => {
       try {
@@ -32,7 +32,7 @@ function Posts() {
       }
 
     })()
-  }, [dispatch, getToken, selectedSite])
+  }, [dispatch, getToken, selectedSite, isLoaded, isSignedIn, userId])
 
   if (loading) {
     return (<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">

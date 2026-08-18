@@ -5,7 +5,27 @@ export interface Post {
   slug: string;
   excerpt: string;
   content: string;
-  featuredImage: string;
+  featuredImage: File | null;
+  category: string;
+  tags: string[];
+
+  published: boolean;
+
+  seo: {
+    metaTitle: string;
+    metaDescription: string;
+    keywords: string[];
+  };
+}
+
+export interface PostFormData {
+  _id?: string;
+
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  featuredImage: { url: string; publicId: string } | null;
   category: string;
   tags: string[];
 

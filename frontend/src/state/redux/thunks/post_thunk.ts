@@ -14,9 +14,7 @@ import {
 import { errorMessages } from "@/helpers/messages_helper";
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL;
-
-type NewPost = Omit<Post, "_id">;
+const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL;
 
 export const fetchPostsThunk = createAsyncThunk<
   Post[],
@@ -86,7 +84,7 @@ export const fetchPostThunk = createAsyncThunk<
 
 export const createPostThunk = createAsyncThunk<
   Post,
-  { data: NewPost; token: string | null; slug: string },
+  { data: FormData; token: string | null; slug: string },
   { rejectValue: string }
 >(
   "posts/postSite",

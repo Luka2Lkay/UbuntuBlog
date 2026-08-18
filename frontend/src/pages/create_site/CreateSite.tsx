@@ -26,7 +26,6 @@ function CreateSite() {
             const dispatchResult = await dispatch(createSiteThunk({ siteData: data, token })).unwrap();
             const createdSite = dispatchResult as Site;
 
-            console.log("created site: ", createdSite)
             setSelectedSite(createdSite);
             navigate(`/sites/${createdSite._id}`);
 
