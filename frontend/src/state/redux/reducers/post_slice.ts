@@ -16,7 +16,6 @@ const initialState: PostState = {
   currentPost: {
     _id: "",
     title: "",
-    slug: "",
     excerpt: "",
     content: "",
     featuredImage: null,
