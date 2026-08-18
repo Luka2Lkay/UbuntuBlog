@@ -78,14 +78,19 @@ Each client website fetches only its own content using the API.
 ├──backend/
 |   ├──src/
 |   |   ├──config/
+|   |   |   ├──cloudinary_config.js
 |   |   |   └──db_config.js
 |   |   ├──controllers/
 |   |   |   ├──post_controller.js
 |   |   |   ├──site_controller.js
+|   |   |   ├──upload_controller.js
 |   |   |   └──webhook_controller.js
 |   |   ├──helpers/
-|   |   |   └──message_helpers.js
+|   |   |   ├──cloudinary.js
+|   |   |   ├──message_helpers.js
+|   |   |   └──multer.js
 |   |   ├──middleware/
+|   |   |   ├──parse_post_formdata.js
 |   |   |   └──validation.js
 |   |   ├──models/
 |   |   |   ├──post_model.js
@@ -93,7 +98,8 @@ Each client website fetches only its own content using the API.
 |   |   |   └──user_model.js
 |   |   └──routes/
 |   |      ├──post_routes.js
-|   |      └──site_routes.js
+|   |      ├──site_routes.js
+|   |      └──upload_routes.js
 |   ├──.env.example
 |   ├──.gitignore
 |   ├──eslint.config.mjs
