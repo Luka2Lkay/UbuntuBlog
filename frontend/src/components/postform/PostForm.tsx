@@ -4,8 +4,6 @@ import { useSiteContext } from "@/state/context/site/useSiteContext";
 import Tiptap from "@/components/tiptap/Tiptap";
 import { type Post } from "@/interfaces/Post";
 
-export type NewPost = Omit<Post, "_id" | "slug" | "site" | "author">;
-
 interface Props {
     initialData?: Post | null;
     onSubmit: (data: FormData) => void;
@@ -18,7 +16,7 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
     const [tagInput, setTagInput] = useState("");
     const [keywordInput, setKeywordInput] = useState("");
 
-    const [formData, setFormData] = useState<NewPost>({
+    const [formData, setFormData] = useState<Post>({
         title: initialData?.title || "",
         excerpt: initialData?.excerpt || "",
         content: initialData?.content || "",
