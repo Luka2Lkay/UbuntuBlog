@@ -3,7 +3,6 @@ import slugify from "slugify";
 import { useSiteContext } from "@/state/context/site/useSiteContext";
 import Tiptap from "@/components/tiptap/Tiptap";
 import { type Post } from "@/interfaces/Post";
-import { type PostFormData } from "@/interfaces/Post";
 
 export type NewPost = Omit<Post, "_id" | "slug" | "site" | "author">;
 
