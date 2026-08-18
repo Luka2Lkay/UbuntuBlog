@@ -6,7 +6,7 @@ export interface Post {
   featuredImage: File | null;
   category: string;
   tags: string[];
-
+  slug?: string;
   published: boolean;
 
   seo: {
