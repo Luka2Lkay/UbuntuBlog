@@ -142,7 +142,7 @@ const getPosts = async (req, res) => {
       filter.site = siteDocument._id;
     }
 
-    const posts = await Post.find(filter);
+    const posts = await Post.find(filter).sort({ createdAt: -1 });
 
     res.status(200).json(posts);
   } catch (error) {
