@@ -3,6 +3,7 @@ import {
   fetchWithAuth,
   createWithAuth,
   fetchOneWithAuth,
+  updateWithAuth,
   deleteWithAuth,
 } from "@/services/api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
@@ -14,7 +15,7 @@ import {
 import { errorMessages } from "@/helpers/messages_helper";
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL;
 
 export const fetchPostsThunk = createAsyncThunk<
   PostFormData[],
@@ -114,6 +115,39 @@ export const createPostThunk = createAsyncThunk<
       }
 
       return rejectWithValue(errorMessages.apiError("create", "post"));
+    }
+  },
+);
+
+export const editPostThunk = createAsyncThunk<
+  PostFormData,
+  { postData: PostFormData; token: string | null; postId: string },
+  { rejectValue: string }
+>(
+  "posts/editPost",
+  async ({ postData, token, postId }, { rejectWithValue }) => {
+    try {
+      const response = await updateWithAuth(
+        `{BASE_URL}/api/posts/${postId}`,
+        postData,
+        token,
+      );
+
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const { data } = error?.response ?? {};
+        const message =
+          data?.message ||
+          data?.errors[0].msg ||
+          errorMessages.apiError("edit", "post");
+        console.error(message);
+        rejectWithValue(message);
+      } else {
+        console.error(`${errorMessages.apiError("edit", "post")}: `, error);
+      }
+
+      return rejectWithValue(errorMessages.apiError("edit", "post"));
     }
   },
 );

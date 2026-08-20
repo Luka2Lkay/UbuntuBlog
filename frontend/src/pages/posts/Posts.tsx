@@ -35,24 +35,30 @@ function Posts() {
   }, [dispatch, getToken, selectedSite, isLoaded, isSignedIn, userId])
 
   if (loading) {
-    return (<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-      {[...Array(3).map((_, index) => (
-        <div key={index} className="h-48 bg-gray-200 animate-pulse rounded-lg" />
-      ))]}
-    </div>)
+    return (
+      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+        {[...Array(3)].map((_, index) => (
+          <div key={index} className="h-92 bg-gray-200 animate-pulse rounded-lg" />
+        ))}
+      </div>
+    )
+  }
+
+  if (posts.length === 0) {
+    return selectedSite?.name ? (
+      <p className="text-2xl font-semibold text-gray-800">You have no posts for {capitalize.words(selectedSite.name)} yet.</p>
+    ) : null
   }
 
   return (
     <>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-        {posts.length > 0 && (posts.map((post) => (
+        {posts.length > 0 && posts.map((post) => (
           <PostCard key={post._id} post={post} />
+        ))}
 
-        )))}
       </div>
-      {posts.length === 0 && (
-        <p className="text-2xl font-semibold text-gray-800">You have no posts for {capitalize.words(selectedSite?.name || "")} yet.</p>
-      )}
+
     </>
   )
 }

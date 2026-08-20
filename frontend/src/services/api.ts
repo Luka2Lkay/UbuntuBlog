@@ -1,5 +1,6 @@
 import axios from "axios";
 import { type Site } from "@/interfaces/Site";
+import { type PostFormData } from "@/interfaces/Post";
 import { errorMessages } from "@/helpers/messages_helper";
 
 export const fetchWithAuth = async (
@@ -59,7 +60,7 @@ export const deleteWithAuth = async (url: string, token: string | null) => {
 
 export const updateWithAuth = async (
   url: string,
-  data: Site,
+  data: Site | PostFormData,
   token: string | null,
 ) => {
   if (!token) {
