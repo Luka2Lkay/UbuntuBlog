@@ -17,7 +17,9 @@ function Posts() {
   const posts = useAppSelector(selectPosts)
 
   useEffect(() => {
+
     if (!isLoaded || !isSignedIn || !userId || !selectedSite) return;
+    if (!selectedSite?._id) return
 
     (async () => {
       try {

@@ -11,7 +11,7 @@ type Props = {
     onChange: (value: string) => void;
 }
 
-const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
+const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL
 
 function Tiptap({ content, onChange }: Props) {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -21,7 +21,7 @@ function Tiptap({ content, onChange }: Props) {
         content,
         editorProps: {
             attributes: {
-                class: "min-h-[300px] focus:outline-none prose max-w-none p-4"
+                class: "min-h-[300px] focus:outline-none prose max-w-none p-4 text-left"
             }
         },
         onUpdate: ({ editor }) => {
