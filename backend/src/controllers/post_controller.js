@@ -150,6 +150,72 @@ const getPosts = async (req, res) => {
   }
 };
 
+const editPost = async (req, res) => {
+  const errors = validationResult(req);
+  const { userId } = getAuth(req);
+  const { postId } = req.params;
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: errors.array() });
+  }
+
+  if (!userId) {
+    return res.status(401).json({ message: errorMessages.notAuthorized });
+  }
+
+  if (!postId) {
+    return res.status(404).json({ message: errorMessages.missingId("Post") });
+  }
+
+  try {
+    const post = await Post.findOne({ _id: postId, author: userId });
+
+    if (!post) {
+      return res.status(404).json({ message: errorMessages.notFound("Post") });
+    }
+
+    const { title, excerpt, content, category, tags, published, seo } =
+      req.body;
+
+    post.title = title;
+    post.slug = slugify(title, { lower: true, trim: true, strict: true });
+    post.excerpt = excerpt || content.replace(/<[^>]+>/g, "").substring(0, 200);
+    post.content = content;
+    post.category = category;
+    post.tags = tags?.map((tag) => tag.trim().toLowerCase()) || [];
+    post.published = published;
+    post.seo = {
+      metaTitle: seo?.metaTitle || "",
+      metaDescription: seo?.metaDescription || "",
+      keywords:
+        seo?.keywords?.map((keyword) => keyword.trim().toLowerCase()) || [],
+    };
+
+    if (published && !post.publishedAt) {
+      post.publishedAt = new Date();
+    } else if (!published) {
+      post.publishedAt = null;
+    }
+
+    if (req.file) {
+      const cloudinaryImage = await uploadToCloudinary(req.file.buffer);
+      post.featuredImage = {
+        url: cloudinaryImage.secure_url,
+        publicId: cloudinaryImage.public_id,
+      };
+    }
+
+    await post.save();
+
+    return res.status(200).json(post);
+  } catch (error) {
+    if (error.code === "11000") {
+      return res.status(409).json({ message: errorMessages.exists("Slug") });
+    }
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 const deletePost = async (req, res) => {
   const { userId } = getAuth(req);
   const { postId } = req.params;
@@ -171,4 +237,4 @@ const deletePost = async (req, res) => {
   }
 };
 
-module.exports = { createPost, getPost, getPosts, deletePost };
+module.exports = { createPost, getPost, getPosts, editPost, deletePost };
