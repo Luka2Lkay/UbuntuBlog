@@ -1,11 +1,12 @@
 import { useAuth } from "@clerk/react"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useSiteContext } from "@/state/context/site/useSiteContext"
 import { fetchSitesThunk } from "@/state/redux/thunks/site_thunk"
 import { selectSites, selectLoading } from "@/state/redux/reducers/site_slice"
 import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks"
 import StatisticsCard from "@/components/statistics_card/StatisticsCard"
+import { selectPosts } from "@/state/redux/reducers/post_slice"
 import SiteCard from "@/components/site_card/SiteCard"
 import { Link } from "react-router-dom"
 
@@ -17,6 +18,10 @@ function Dashboard() {
     const dispatch = useAppDispatch();
     const sites = useAppSelector(selectSites);
     const loading = useAppSelector(selectLoading);
+    const posts = useAppSelector(selectPosts);
+
+    const [publishedPosts, setPublishedPosts] = useState(0);
+    const [drafts, setDrafts] = useState(0)
 
     useEffect(() => {
         if (!isLoaded || !userId || !isSignedIn || sites.length > 0) return;
@@ -38,6 +43,8 @@ function Dashboard() {
 
     }, [isLoaded, isSignedIn, navigate, userId, getToken, dispatch, sites.length]);
 
+
+
     useEffect(() => {
         if (loading) return;
 
@@ -46,8 +53,17 @@ function Dashboard() {
             navigate("/sites/create")
         }
 
+        const published = posts.filter(post => post.published === true);
+        const drafts = posts.filter(post => post.published === false)
 
-    }, [sites.length, loading, navigate])
+        setPublishedPosts(published.length)
+        setDrafts(drafts.length)
+    }, [sites.length, loading, navigate, setPublishedPosts, setDrafts])
+
+
+
+
+
 
     if (loading) {
 
@@ -76,9 +92,9 @@ function Dashboard() {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                    <StatisticsCard title="Total Posts" value={5} />
-                    <StatisticsCard title="Published" value={2} />
-                    <StatisticsCard title="Drafts" value={3} />
+                    <StatisticsCard title="Total Posts" value={posts?.length} />
+                    <StatisticsCard title="Published" value={publishedPosts} />
+                    <StatisticsCard title="Drafts" value={drafts} />
                 </div>
 
                 <div className="flex flex-col sm:flex-row sm:items-center gap-3">
