@@ -98,14 +98,25 @@ const postSlice = createSlice({
         state.error = action.payload as string;
         state.loading = false;
       })
-      .addCase(updatePostThunk.fulfilled, (state) => {
-        ((state.error = null), (state.loading = false));
+      .addCase(updatePostThunk.fulfilled, (state, action) => {
+        state.error = null;
+        state.loading = false;
+        const updatedPost = action.payload;
+        const index = state.posts.findIndex(
+          (post) => post._id === updatedPost._id,
+        );
+
+        if (index !== 1) {
+          state.posts[index] = updatedPost;
+        } else {
+          state.posts.unshift(updatedPost);
+        }
       })
       .addCase(updatePostThunk.rejected, (state, action) => {
         state.error = action.payload as string;
         state.loading = false;
       })
-      .addCase(updatePostThunk.pending, (state, action) => {
+      .addCase(updatePostThunk.pending, (state) => {
         state.error = null;
         state.loading = true;
       });

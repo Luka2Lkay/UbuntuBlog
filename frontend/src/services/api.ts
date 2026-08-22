@@ -60,7 +60,7 @@ export const deleteWithAuth = async (url: string, token: string | null) => {
 
 export const updateWithAuth = async (
   url: string,
-  data: Site | PostFormData,
+  data: Site | PostFormData | FormData,
   token: string | null,
 ) => {
   if (!token) {

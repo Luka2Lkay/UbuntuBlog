@@ -1,13 +1,14 @@
 import { useEffect } from "react"
-import { useParams, Navigate } from "react-router-dom"
+import { useParams, Navigate, useNavigate } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks"
-import { fetchPostThunk } from "@/state/redux/thunks/post_thunk"
+import { fetchPostThunk, updatePostThunk } from "@/state/redux/thunks/post_thunk"
 import { selectCurrentPost, selectLoading } from "@/state/redux/reducers/post_slice"
 import PostForm from "@/components/postform/PostForm"
 import { useAuth } from "@clerk/react"
 
 function EditPost() {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const { postId } = useParams()
   const { getToken } = useAuth()
 
@@ -30,7 +31,7 @@ function EditPost() {
 
   }, [getToken, dispatch, postId])
 
-  const handleEdit = (postData: FormData) => {
+  const handleEdit = async (postData: FormData) => {
 
     if (!postId) {
       throw new Error("No post id found!")
@@ -38,7 +39,9 @@ function EditPost() {
 
 
     try {
-      console.log("post data: ", postData)
+      const token = await getToken({ template: "backend" })
+      await dispatch(updatePostThunk({ postData, token, postId }))
+      navigate(`/posts/${postId}`)
     } catch (error) {
       console.error("Failed to update", error)
     }

@@ -121,7 +121,7 @@ export const createPostThunk = createAsyncThunk<
 
 export const updatePostThunk = createAsyncThunk<
   PostFormData,
-  { postData: PostFormData; token: string | null; postId: string },
+  { postData: FormData; token: string | null; postId: string },
   { rejectValue: string }
 >(
   "posts/editPost",

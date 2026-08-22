@@ -18,7 +18,6 @@ export interface Post {
 
 export interface PostFormData {
   _id?: string;
-
   title: string;
   slug: string;
   excerpt: string;

@@ -1,5 +1,5 @@
 import { useAuth } from "@clerk/react"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo } from "react"
 import { useNavigate } from "react-router-dom"
 import { useSiteContext } from "@/state/context/site/useSiteContext"
 import { fetchSitesThunk } from "@/state/redux/thunks/site_thunk"
@@ -19,9 +19,6 @@ function Dashboard() {
     const sites = useAppSelector(selectSites);
     const loading = useAppSelector(selectLoading);
     const posts = useAppSelector(selectPosts);
-
-    const [publishedPosts, setPublishedPosts] = useState(0);
-    const [drafts, setDrafts] = useState(0)
 
     useEffect(() => {
         if (!isLoaded || !userId || !isSignedIn || sites.length > 0) return;
@@ -53,17 +50,14 @@ function Dashboard() {
             navigate("/sites/create")
         }
 
-        const published = posts.filter(post => post.published === true);
-        const drafts = posts.filter(post => post.published === false)
+    }, [sites.length, loading, navigate])
 
-        setPublishedPosts(published.length)
-        setDrafts(drafts.length)
-    }, [sites.length, loading, navigate, setPublishedPosts, setDrafts])
-
-
-
-
-
+    const publishedCount = useMemo(() => {
+        return posts.filter(post => post.published === true).length;
+    }, [posts])
+    const draftsCount = useMemo(() => {
+        return posts.filter(post => post.published === false).length
+    }, [posts])
 
     if (loading) {
 
@@ -93,8 +87,8 @@ function Dashboard() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                     <StatisticsCard title="Total Posts" value={posts?.length} />
-                    <StatisticsCard title="Published" value={publishedPosts} />
-                    <StatisticsCard title="Drafts" value={drafts} />
+                    <StatisticsCard title="Published" value={publishedCount} />
+                    <StatisticsCard title="Drafts" value={draftsCount} />
                 </div>
 
                 <div className="flex flex-col sm:flex-row sm:items-center gap-3">
