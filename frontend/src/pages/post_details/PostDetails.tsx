@@ -20,8 +20,6 @@ function PostDetails() {
     const { getToken, isLoaded, isSignedIn } = useAuth()
     const dispatch = useAppDispatch();
 
-
-
     useEffect(() => {
         if (!isLoaded) return;
 
@@ -31,7 +29,6 @@ function PostDetails() {
         };
 
         if (!postId) return
-
 
         (async () => {
             try {

@@ -128,7 +128,7 @@ export const updatePostThunk = createAsyncThunk<
   async ({ postData, token, postId }, { rejectWithValue }) => {
     try {
       const response = await updateWithAuth(
-        `{BASE_URL}/api/posts/${postId}`,
+        `${BASE_URL}/api/posts/${postId}`,
         postData,
         token,
       );
