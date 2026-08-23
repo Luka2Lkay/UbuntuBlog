@@ -92,7 +92,7 @@ function Dashboard() {
                 </div>
 
                 <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-                    <Link to="/create-post" className="w-full sm:w-auto px-4 py-2 bg-gray-900 text-white rounded-md text-sm text-center hover:bg-black">
+                    <Link to={`/posts/create/${selectedSite?.slug}`} className="w-full sm:w-auto px-4 py-2 bg-gray-900 text-white rounded-md text-sm text-center hover:bg-black">
                         + New Post
                     </Link>
 
