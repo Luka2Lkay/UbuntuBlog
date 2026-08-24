@@ -15,7 +15,7 @@ export const uploadImage = async (image: FormData, token: string | null) => {
       },
     });
 
-    return response;
+    return response.data;
   } catch (error) {
     console.error("Failed to upload", error);
   }

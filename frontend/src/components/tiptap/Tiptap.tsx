@@ -49,7 +49,7 @@ function Tiptap({ content, onChange }: Props) {
 
             const response = await uploadImage(formData, token)
 
-            const imageUrl = response.data.url;
+            const imageUrl = response?.url;
 
             editor?.chain().focus().setImage({ src: imageUrl }).run();
 
