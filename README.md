@@ -161,6 +161,7 @@ Each client website fetches only its own content using the API.
 |   |   |      └──SiteDetails.tsx
 |   |   ├──services/
 |   |   |   ├──api.ts
+|   |   |   ├──image_upload_service.ts
 |   |   |   └──user_info_service.ts
 |   |   ├──state/
 |   |   |   ├──context/
