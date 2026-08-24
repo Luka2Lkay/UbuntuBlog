@@ -4,17 +4,18 @@ import Image from "@tiptap/extension-image"
 import Placeholder from "@tiptap/extension-placeholder"
 import TextAlign from "@tiptap/extension-text-align"
 import { useRef } from "react";
-import axios from "axios";
+import { uploadImage } from "@/services/image_upload_service";
+import { useAuth } from "@clerk/react";
 
 type Props = {
     content: string;
     onChange: (value: string) => void;
 }
 
-const BASE_URL = import.meta.env.VITE_BASE_LOCAL_URL
-
 function Tiptap({ content, onChange }: Props) {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+    const { getToken } = useAuth();
 
     const editor = useEditor({
         extensions: [StarterKit, Image, Placeholder.configure({ placeholder: "Write your blog content..." }), TextAlign.configure({ types: ["paragraph", "heading"] })],
@@ -42,7 +43,11 @@ function Tiptap({ content, onChange }: Props) {
             const formData = new FormData();
             formData.append("image", file);
 
-            const response = await axios.post(`${BASE_URL}/api/upload`, formData);
+            const token = await getToken({ template: "backend" })
+
+            if (!token) return
+
+            const response = await uploadImage(formData, token)
 
             const imageUrl = response.data.url;
 
