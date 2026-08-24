@@ -11,6 +11,7 @@ const { db } = require("@/config/db_config");
 
 const { siteRoutes } = require("@/routes/site_routes");
 const { postRoutes } = require("@/routes/post_routes");
+const { uploadRoutes } = require("@/routes/upload_routes");
 const { clerkWebhook } = require("@/controllers/webhook_controller");
 
 const ORIGIN = process.env.LIVE_URL;
@@ -76,6 +77,7 @@ app.get("/", (req, res) => {
 
 siteRoutes(app);
 postRoutes(app);
+uploadRoutes(app);
 
 app.listen(port, () => {
   console.log(`Server is running on port http://localhost:${port}`);

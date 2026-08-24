@@ -15,7 +15,6 @@ const uploadImage = async (req, res) => {
 
   try {
     const result = await uploadToCloudinary(req.file.buffer);
-
     return res.status(200).json({ url: result.secure_url });
   } catch (error) {
     return res.status(500).json({ message: error.message });
