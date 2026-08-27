@@ -184,7 +184,7 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
 
                 <div>
                     <label className="block text-left text-sm font-medium mb-2">Excerpt</label>
-                    <textarea name="excerpt" value={formData.excerpt} onChange={handleChange} placeholder="Short blog summary..." className="w-full border rounded-lg px-4 py-3" rows={4} maxLength={500} required />
+                    <textarea name="excerpt" value={formData.excerpt} onChange={handleChange} placeholder="Short blog summary..." className="w-full border rounded-lg px-4 py-3" rows={4} maxLength={500} />
                 </div>
 
                 <div>
