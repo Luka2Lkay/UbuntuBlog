@@ -3,6 +3,7 @@ import { useEffect, useMemo } from "react"
 import { useNavigate } from "react-router-dom"
 import { useSiteContext } from "@/state/context/site/useSiteContext"
 import { fetchSitesThunk } from "@/state/redux/thunks/site_thunk"
+import { fetchPostsThunk } from "@/state/redux/thunks/post_thunk"
 import { selectSites, selectLoading } from "@/state/redux/reducers/site_slice"
 import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks"
 import StatisticsCard from "@/components/statistics_card/StatisticsCard"
@@ -21,15 +22,19 @@ function Dashboard() {
     const posts = useAppSelector(selectPosts);
 
     useEffect(() => {
-        if (!isLoaded || !userId || !isSignedIn || sites.length > 0) return;
+        if (!isLoaded || !userId || !isSignedIn || !selectedSite) return;
+        if (!selectedSite?._id) return
 
         const loadSites = async () => {
+
+
+            console.log("site", selectedSite)
             try {
                 const token = await getToken({ template: "backend" });
 
                 if (!token) return;
                 const response = await dispatch(fetchSitesThunk(token)).unwrap();
-
+                await dispatch(fetchPostsThunk({ slug: selectedSite?.slug, token })).unwrap()
                 return response;
             } catch (error) {
                 console.error("Error loading user data:", error);
@@ -38,7 +43,7 @@ function Dashboard() {
 
         loadSites();
 
-    }, [isLoaded, isSignedIn, navigate, userId, getToken, dispatch, sites.length]);
+    }, [isLoaded, isSignedIn, navigate, userId, getToken, dispatch, sites.length, selectedSite?._id, selectedSite]);
 
 
 
