@@ -21,6 +21,8 @@ const postSchema = new mongoose.Schema(
     excerpt: { type: String, maxLength: 500, default: "" },
     content: { type: String, required: true },
     featured: { type: Boolean, default: false },
+    readTime: { type: String },
+    wordCount: { type: String },
     featuredImage: {
       url: { type: String, default: "" },
       publicId: { type: String, default: "" },

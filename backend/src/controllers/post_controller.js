@@ -78,6 +78,13 @@ const createPost = async (req, res) => {
       ALLOWED_TAGS: [],
       ALLOWED_ATTR: [],
     });
+
+    const words = cleanText.split(/\s/g);
+    const wordCount = words.length;
+    const time = Math.ceil(wordCount / 200);
+
+    const readTime = `${time} min read`;
+
     const post = await Post.create({
       title,
       slug: postSlug,
@@ -88,6 +95,8 @@ const createPost = async (req, res) => {
       tags: tags?.map((tag) => tag.trim().toLowerCase()) || [],
       published,
       featured,
+      wordCount,
+      readTime,
       seo: {
         metaTitle: seo?.metaTitle || "",
         metaDescription: seo?.metaDescription || "",
@@ -204,11 +213,19 @@ const editPost = async (req, res) => {
       ALLOWED_ATTR: [],
     });
 
+    const words = cleanText.split(/\s/g);
+    const wordCount = words.length;
+    const time = Math.ceil(wordCount / 200);
+
+    const readTime = `${time} min read`;
+
     post.title = title;
     post.slug = slugify(title, { lower: true, trim: true, strict: true });
     post.excerpt = excerpt || cleanText.substring(0, 200);
     post.content = content;
     post.featured = featured;
+    post.wordCount = wordCount;
+    post.readTime = readTime;
     post.category = category;
     post.tags = tags?.map((tag) => tag.trim().toLowerCase()) || [];
     post.published = published;
