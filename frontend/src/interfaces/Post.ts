@@ -24,6 +24,8 @@ export interface PostFormData {
   excerpt: string;
   content: string;
   featured: boolean;
+  readTime: string;
+  wordCount: string;
   featuredImage: { url: string; publicId: string } | null;
   category: string;
   tags: string[];

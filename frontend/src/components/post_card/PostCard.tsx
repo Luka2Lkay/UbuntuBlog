@@ -20,7 +20,7 @@ function PostCard({ post }: Props) {
         )}
 
         <div className="absolute right-3 top-3">
-          <span className={`rounded-full px-2.5 py-1 text-xs font-medium backdrop-blur-sm ${post.published ? "bg-green-100/90 text-green-700" : "bg-gray-100/90 text-gray-700"}`}>
+          <span className={`flex justify-between rounded-full px-2.5 py-1 text-xs font-medium backdrop-blur-sm ${post.published ? "bg-green-100/90 text-green-700" : "bg-gray-100/90 text-gray-700"}`}>
             {post.published ? "Published" : "Draft"}
           </span>
 
@@ -61,8 +61,11 @@ function PostCard({ post }: Props) {
               )}
             </div>
           </div>
-
         )}
+
+        <div className="mt-4">
+          <span className="text-sm text-gray-600 tracking-widest">{post.readTime}</span>
+        </div>
 
         <div className="mt-5 border-t border-gray-100 pt-4">
           <Link to={`/posts/${post._id}`} className="flex w-full items-center justify-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-gray-800">

@@ -158,8 +158,6 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
             console.log(key, value)
         }
 
-        console.log("payload", payload)
-
         onSubmit(payload);
     }
 
