@@ -100,7 +100,6 @@ Each client website fetches only its own content using the API.
 |   |      ├──post_routes.js
 |   |      ├──site_routes.js
 |   |      └──upload_routes.js
-|   ├──.env
 |   ├──.env.example
 |   ├──.gitignore
 |   ├──eslint.config.mjs
@@ -108,22 +107,24 @@ Each client website fetches only its own content using the API.
 |   ├──package.json
 |   └──server.js
 ├──frontend/
+|   ├──public/
+|   |   └──UbuntuBlog.png
 |   ├──src/
 |   |   ├──components/
 |   |   |   ├──confirmation_modal/
 |   |   |   |   └──ConfirmationModal.tsx
 |   |   |   ├──header/
 |   |   |   |   └──Header.tsx
-|   |   |   ├──postform/
-|   |   |   |   └──PostForm.tsx
 |   |   |   ├──post_card/
 |   |   |   |   └──PostCard.tsx
+|   |   |   ├──postform/
+|   |   |   |   └──PostForm.tsx
 |   |   |   ├──sidebar/
 |   |   |   |   └──Sidebar.tsx
-|   |   |   ├──siteform/
-|   |   |   |   └──SiteForm.tsx
 |   |   |   ├──site_card/
 |   |   |   |   └──SiteCard.tsx
+|   |   |   ├──siteform/
+|   |   |   |   └──SiteForm.tsx
 |   |   |   ├──statistics_card/
 |   |   |   |   └──StatisticsCard.tsx
 |   |   |   └──tiptap/
@@ -135,6 +136,8 @@ Each client website fetches only its own content using the API.
 |   |   ├──interfaces/
 |   |   |   ├──Post.ts
 |   |   |   └──Site.ts
+|   |   ├──lib/
+|   |   |   └──constants.ts
 |   |   ├──pages/
 |   |   |   ├──create_post/
 |   |   |   |   └──CreatePost.tsx
@@ -150,10 +153,10 @@ Each client website fetches only its own content using the API.
 |   |   |   |   └──Home.tsx
 |   |   |   ├──layout/
 |   |   |   |   └──Layout.tsx
-|   |   |   ├──posts/
-|   |   |   |   └──Posts.tsx
 |   |   |   ├──post_details/
 |   |   |   |   └──PostDetails.tsx
+|   |   |   ├──posts/
+|   |   |   |   └──Posts.tsx
 |   |   |   ├──signin/
 |   |   |   |   └──SigninPage.tsx
 |   |   |   ├──signup/
@@ -186,7 +189,6 @@ Each client website fetches only its own content using the API.
 |   |   ├──App.tsx
 |   |   ├──index.css
 |   |   └──main.tsx
-|   ├──.env
 |   ├──.env.example
 |   ├──.gitignore
 |   ├──eslint.config.js
