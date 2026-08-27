@@ -12,6 +12,10 @@ const parsePostFormData = (req, res, next) => {
       req.body.published = req.body.published === "true";
     }
 
+    if (req.body.featured !== undefined) {
+      req.body.featured = req.body.featured === "true";
+    }
+
     next();
   } catch (error) {
     console.error(error);

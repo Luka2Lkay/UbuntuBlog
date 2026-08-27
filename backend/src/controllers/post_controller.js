@@ -6,6 +6,7 @@ const { getAuth } = require("@clerk/express");
 const slugify = require("slugify");
 const { errorMessages } = require("@/helpers/message_helpers");
 const { uploadToCloudinary } = require("@/helpers/cloudinary");
+const DOMpurify = require("isomorphic-dompurify");
 
 const createPost = async (req, res) => {
   const errors = validationResult(req);
@@ -21,8 +22,16 @@ const createPost = async (req, res) => {
   }
 
   try {
-    const { title, excerpt, content, category, tags, published, seo } =
-      req.body;
+    const {
+      title,
+      excerpt,
+      content,
+      category,
+      tags,
+      published,
+      seo,
+      featured,
+    } = req.body;
 
     if (!title || !content || !site) {
       return res
@@ -65,15 +74,20 @@ const createPost = async (req, res) => {
       ? { url: cloudinaryImage.secure_url, publicId: cloudinaryImage.public_id }
       : null;
 
+    const cleanText = DOMpurify.sanitize(content, {
+      ALLOWED_TAGS: [],
+      ALLOWED_ATTR: [],
+    });
     const post = await Post.create({
       title,
       slug: postSlug,
-      excerpt: excerpt || content.replace(/<[^>]+>/g, "").substring(0, 200),
+      excerpt: excerpt || cleanText.substring(0, 200),
       content,
       featuredImage,
       category,
       tags: tags?.map((tag) => tag.trim().toLowerCase()) || [],
       published,
+      featured,
       seo: {
         metaTitle: seo?.metaTitle || "",
         metaDescription: seo?.metaDescription || "",
@@ -174,13 +188,27 @@ const editPost = async (req, res) => {
       return res.status(404).json({ message: errorMessages.notFound("Post") });
     }
 
-    const { title, excerpt, content, category, tags, published, seo } =
-      req.body;
+    const {
+      title,
+      excerpt,
+      content,
+      category,
+      tags,
+      published,
+      seo,
+      featured,
+    } = req.body;
+
+    const cleanText = DOMpurify.sanitize(content, {
+      ALLOWED_TAGS: [],
+      ALLOWED_ATTR: [],
+    });
 
     post.title = title;
     post.slug = slugify(title, { lower: true, trim: true, strict: true });
-    post.excerpt = excerpt || content.replace(/<[^>]+>/g, "").substring(0, 200);
+    post.excerpt = excerpt || cleanText.substring(0, 200);
     post.content = content;
+    post.featured = featured;
     post.category = category;
     post.tags = tags?.map((tag) => tag.trim().toLowerCase()) || [];
     post.published = published;

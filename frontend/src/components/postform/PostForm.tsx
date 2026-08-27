@@ -1,4 +1,4 @@
-import { useMemo, useState} from "react";
+import { useMemo, useState } from "react";
 import slugify from "slugify";
 import { useSiteContext } from "@/state/context/site/useSiteContext";
 import Tiptap from "@/components/tiptap/Tiptap";
@@ -20,6 +20,7 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
         title: initialData?.title || "",
         excerpt: initialData?.excerpt || "",
         content: initialData?.content || "",
+        featured: initialData?.featured || false,
         featuredImage: initialData?.featuredImage || null,
         category: initialData?.category || "",
         tags: initialData?.tags || [],
@@ -143,6 +144,7 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
         payload.append("title", formData.title)
         payload.append("excerpt", formData.excerpt)
         payload.append("content", formData.content)
+        payload.append("featured", String(formData.featured))
         payload.append("category", formData.category)
         payload.append("tags", JSON.stringify(formData.tags))
         payload.append("seo", JSON.stringify(formData.seo))
@@ -155,6 +157,8 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
         for (const [key, value] of payload.entries()) {
             console.log(key, value)
         }
+
+        console.log("payload", payload)
 
         onSubmit(payload);
     }
@@ -180,7 +184,7 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
 
                 <div>
                     <label className="block text-left text-sm font-medium mb-2">Excerpt</label>
-                    <textarea name="excerpt" value={formData.excerpt} onChange={handleChange} placeholder="Short blog summary..." className="w-full border rounded-lg px-4 py-3" rows={4} maxLength={500} required />
+                    <textarea name="excerpt" value={formData.excerpt} onChange={handleChange} placeholder="Short blog summary..." className="w-full border rounded-lg px-4 py-3" rows={4} maxLength={500} />
                 </div>
 
                 <div>
@@ -203,6 +207,13 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
                                 }}>&times;</span>
                             </button>
                         )))}
+                    </div>
+                </div>
+
+                <div>
+                    <div className="flex items-center gap-3">
+                        <input type="checkbox" name="featured" checked={formData.featured} onChange={handleChange} />
+                        <label className="text-sm">Featured</label>
                     </div>
                 </div>
 

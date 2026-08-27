@@ -26,9 +26,6 @@ function Dashboard() {
         if (!selectedSite?._id) return
 
         const loadSites = async () => {
-
-
-            console.log("site", selectedSite)
             try {
                 const token = await getToken({ template: "backend" });
 

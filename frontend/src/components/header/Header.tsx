@@ -29,7 +29,6 @@ function Header({ onToggleSidebar }: HeaderProps) {
             const loadUserData = async () => {
                 try {
                     const token = await getToken({ template: "backend" });
-                    console.log("token: ", token)
 
                     const response = await userInfoService(token)
                     setUsername(`${response.firstName} ${response.lastName}`);
