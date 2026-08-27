@@ -1,12 +1,10 @@
 import { SignIn } from "@clerk/react"
-
-const redirectUrl = import.meta.env.VITE_CLERK_SIGN_IN_FORCE_REDIRECT_URL || "/dashboard"
+import { redirectUrl } from "@/lib/constants"
 
 function SigninPage() {
-
   return (
     <div className="flex justify-center">
-      <SignIn path="/sign-in/:splat*" routing="path" forceRedirectUrl={redirectUrl} />
+      <SignIn path="/sign-in" routing="path" forceRedirectUrl={redirectUrl} />
     </div>
   )
 }

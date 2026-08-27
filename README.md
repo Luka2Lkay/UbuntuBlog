@@ -100,6 +100,7 @@ Each client website fetches only its own content using the API.
 |   |      ├──post_routes.js
 |   |      ├──site_routes.js
 |   |      └──upload_routes.js
+|   ├──.env
 |   ├──.env.example
 |   ├──.gitignore
 |   ├──eslint.config.mjs
@@ -113,16 +114,16 @@ Each client website fetches only its own content using the API.
 |   |   |   |   └──ConfirmationModal.tsx
 |   |   |   ├──header/
 |   |   |   |   └──Header.tsx
-|   |   |   ├──post_card/
-|   |   |   |   └──PostCard.tsx
 |   |   |   ├──postform/
 |   |   |   |   └──PostForm.tsx
+|   |   |   ├──post_card/
+|   |   |   |   └──PostCard.tsx
 |   |   |   ├──sidebar/
 |   |   |   |   └──Sidebar.tsx
-|   |   |   ├──site_card/
-|   |   |   |   └──SiteCard.tsx
 |   |   |   ├──siteform/
 |   |   |   |   └──SiteForm.tsx
+|   |   |   ├──site_card/
+|   |   |   |   └──SiteCard.tsx
 |   |   |   ├──statistics_card/
 |   |   |   |   └──StatisticsCard.tsx
 |   |   |   └──tiptap/
@@ -149,10 +150,10 @@ Each client website fetches only its own content using the API.
 |   |   |   |   └──Home.tsx
 |   |   |   ├──layout/
 |   |   |   |   └──Layout.tsx
-|   |   |   ├──post_details/
-|   |   |   |   └──PostDetails.tsx
 |   |   |   ├──posts/
 |   |   |   |   └──Posts.tsx
+|   |   |   ├──post_details/
+|   |   |   |   └──PostDetails.tsx
 |   |   |   ├──signin/
 |   |   |   |   └──SigninPage.tsx
 |   |   |   ├──signup/
@@ -185,6 +186,7 @@ Each client website fetches only its own content using the API.
 |   |   ├──App.tsx
 |   |   ├──index.css
 |   |   └──main.tsx
+|   ├──.env
 |   ├──.env.example
 |   ├──.gitignore
 |   ├──eslint.config.js
