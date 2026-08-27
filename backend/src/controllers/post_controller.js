@@ -21,8 +21,16 @@ const createPost = async (req, res) => {
   }
 
   try {
-    const { title, excerpt, content, category, tags, published, seo } =
-      req.body;
+    const {
+      title,
+      excerpt,
+      content,
+      category,
+      tags,
+      published,
+      seo,
+      featured,
+    } = req.body;
 
     if (!title || !content || !site) {
       return res
@@ -74,6 +82,7 @@ const createPost = async (req, res) => {
       category,
       tags: tags?.map((tag) => tag.trim().toLowerCase()) || [],
       published,
+      featured,
       seo: {
         metaTitle: seo?.metaTitle || "",
         metaDescription: seo?.metaDescription || "",
@@ -174,13 +183,22 @@ const editPost = async (req, res) => {
       return res.status(404).json({ message: errorMessages.notFound("Post") });
     }
 
-    const { title, excerpt, content, category, tags, published, seo } =
-      req.body;
+    const {
+      title,
+      excerpt,
+      content,
+      category,
+      tags,
+      published,
+      seo,
+      featured,
+    } = req.body;
 
     post.title = title;
     post.slug = slugify(title, { lower: true, trim: true, strict: true });
     post.excerpt = excerpt || content.replace(/<[^>]+>/g, "").substring(0, 200);
     post.content = content;
+    post.featured = featured;
     post.category = category;
     post.tags = tags?.map((tag) => tag.trim().toLowerCase()) || [];
     post.published = published;
