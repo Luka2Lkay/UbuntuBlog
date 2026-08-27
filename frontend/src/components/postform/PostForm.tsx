@@ -1,4 +1,4 @@
-import { useMemo, useState} from "react";
+import { useMemo, useState } from "react";
 import slugify from "slugify";
 import { useSiteContext } from "@/state/context/site/useSiteContext";
 import Tiptap from "@/components/tiptap/Tiptap";
@@ -20,6 +20,7 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
         title: initialData?.title || "",
         excerpt: initialData?.excerpt || "",
         content: initialData?.content || "",
+        featured: initialData?.featured || false,
         featuredImage: initialData?.featuredImage || null,
         category: initialData?.category || "",
         tags: initialData?.tags || [],
