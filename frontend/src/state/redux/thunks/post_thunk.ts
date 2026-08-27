@@ -14,8 +14,9 @@ import {
 } from "@/state/redux/reducers/post_slice";
 import { errorMessages } from "@/helpers/messages_helper";
 import axios from "axios";
+import {BASE_URL} from "@/lib/constants"
 
-const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL;
+
 
 export const fetchPostsThunk = createAsyncThunk<
   PostFormData[],

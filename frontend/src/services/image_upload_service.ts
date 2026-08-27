@@ -1,7 +1,6 @@
 import axios from "axios";
 import { errorMessages } from "@/helpers/messages_helper";
-
-const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL;
+import { BASE_URL } from "@/lib/constants";
 
 export const uploadImage = async (image: FormData, token: string | null) => {
   if (!token) {

@@ -1,7 +1,6 @@
 import { fetchWithAuth } from "@/services/api";
 import { errorMessages } from "@/helpers/messages_helper";
-
-const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL;
+import { BASE_URL } from "@/lib/constants";
 
 export const userInfoService = async (token: string | null) => {
   if (!token) {

@@ -10,8 +10,7 @@ import { type Site } from "@/interfaces/Site";
 import { deleteSite, setCurrentSite } from "@/state/redux/reducers/site_slice";
 import { errorMessages } from "@/helpers/messages_helper";
 import axios from "axios";
-
-const BASE_URL = import.meta.env.VITE_BASE_LIVE_URL;
+import { BASE_URL } from "@/lib/constants";
 
 type NewSite = Omit<Site, "_id">;
 
