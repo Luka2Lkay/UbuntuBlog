@@ -19,6 +19,7 @@ const initialState: PostState = {
     title: "",
     excerpt: "",
     content: "",
+    featured: false,
     featuredImage: null,
     category: "",
     tags: [""],

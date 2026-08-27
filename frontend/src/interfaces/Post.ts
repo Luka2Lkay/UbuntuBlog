@@ -3,6 +3,7 @@ export interface Post {
   title: string;
   excerpt: string;
   content: string;
+  featured: boolean;
   featuredImage: File | null;
   category: string;
   tags: string[];
@@ -22,6 +23,7 @@ export interface PostFormData {
   slug: string;
   excerpt: string;
   content: string;
+  featured: boolean;
   featuredImage: { url: string; publicId: string } | null;
   category: string;
   tags: string[];
