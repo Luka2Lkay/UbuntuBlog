@@ -33,7 +33,6 @@ function PostDetails() {
         (async () => {
             try {
                 const token = await getToken({ template: "backend" })
-
                 if (!token) return
 
                 await dispatch(fetchPostThunk({ postId, token })).unwrap()

@@ -23,6 +23,12 @@ function PostCard({ post }: Props) {
           <span className={`rounded-full px-2.5 py-1 text-xs font-medium backdrop-blur-sm ${post.published ? "bg-green-100/90 text-green-700" : "bg-gray-100/90 text-gray-700"}`}>
             {post.published ? "Published" : "Draft"}
           </span>
+
+          {post.published && post.featured &&
+
+            <span className="rounded-full px-2.5 py-1 text-xs font-medium backdrop-blur-sm bg-gray-900 text-white">
+              {"Featured"}
+            </span>}
         </div>
       </div>
 

@@ -144,6 +144,7 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
         payload.append("title", formData.title)
         payload.append("excerpt", formData.excerpt)
         payload.append("content", formData.content)
+        payload.append("featured", String(formData.featured))
         payload.append("category", formData.category)
         payload.append("tags", JSON.stringify(formData.tags))
         payload.append("seo", JSON.stringify(formData.seo))
@@ -156,6 +157,8 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
         for (const [key, value] of payload.entries()) {
             console.log(key, value)
         }
+
+        console.log("payload", payload)
 
         onSubmit(payload);
     }
@@ -204,6 +207,13 @@ function PostForm({ initialData, onSubmit, loading = false }: Props) {
                                 }}>&times;</span>
                             </button>
                         )))}
+                    </div>
+                </div>
+
+                <div>
+                    <div className="flex items-center gap-3">
+                        <input type="checkbox" name="featured" checked={formData.featured} onChange={handleChange} />
+                        <label className="text-sm">Featured</label>
                     </div>
                 </div>
 
