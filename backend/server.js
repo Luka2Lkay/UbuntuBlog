@@ -14,7 +14,7 @@ const { postRoutes } = require("@/routes/post_routes");
 const { uploadRoutes } = require("@/routes/upload_routes");
 const { clerkWebhook } = require("@/controllers/webhook_controller");
 
-const ORIGIN = process.env.LIVE_URL;
+const ORIGIN = process.env.LOCAL_URL;
 
 app.use(
   cors({
