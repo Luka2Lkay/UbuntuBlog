@@ -1,10 +1,11 @@
 import { useEffect } from "react"
-import { useParams, Navigate, useNavigate } from "react-router-dom"
+import { useParams, Navigate, useNavigate, Link } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@/hooks/redux_hooks"
 import { fetchPostThunk, updatePostThunk } from "@/state/redux/thunks/post_thunk"
 import { selectCurrentPost, selectLoading } from "@/state/redux/reducers/post_slice"
 import PostForm from "@/components/postform/PostForm"
 import { useAuth } from "@clerk/react"
+import { ArrowLeft } from "lucide-react"
 
 function EditPost() {
   const dispatch = useAppDispatch()
@@ -53,7 +54,12 @@ function EditPost() {
   }
 
   return (
-    <div className="max-w-4xl">
+    <div className="max-w-4px">
+      <div className="mb-4 flex">
+        <Link to={"/posts/post-details"} className="inline-flex">
+          <ArrowLeft size={28} className="text-gray-900 transition-colors duration-500 hover:text-red-500" />
+        </Link>
+      </div>
       <PostForm initialData={currentPost} loading={loading} onSubmit={handleEdit} />
     </div>
   )
