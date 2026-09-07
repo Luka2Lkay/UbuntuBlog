@@ -94,12 +94,15 @@ Each client website fetches only its own content using the API.
 |   |   |   └──validation.js
 |   |   ├──models/
 |   |   |   ├──post_model.js
+|   |   |   ├──site_member_model.js
 |   |   |   ├──site_model.js
 |   |   |   └──user_model.js
-|   |   └──routes/
-|   |      ├──post_routes.js
-|   |      ├──site_routes.js
-|   |      └──upload_routes.js
+|   |   ├──routes/
+|   |   |   ├──post_routes.js
+|   |   |   ├──site_routes.js
+|   |   |   └──upload_routes.js
+|   |   └──scripts/
+|   |      └──migrate_site_memberships.js
 |   ├──.env.example
 |   ├──.gitignore
 |   ├──eslint.config.mjs

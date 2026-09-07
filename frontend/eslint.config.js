@@ -48,4 +48,11 @@ export default defineConfig([
       ],
     },
   },
+
+  {
+    files: ["src/main.tsx"],
+    rules: {
+      "react-refresh/only-export-components": "off",
+    },
+  },
 ]);

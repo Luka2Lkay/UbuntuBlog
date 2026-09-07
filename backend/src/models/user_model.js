@@ -11,7 +11,6 @@ const userSchema = new mongoose.Schema(
     name: { type: String, trim: true, required: true },
     email: { type: String, trim: true, lowercase: true, default: "" },
     imageUrl: { type: String, default: "" },
-    role: { type: String, enum: ["admin", "author"], default: "author" },
     active: { type: Boolean, default: true },
   },
   { timestamps: true },
