@@ -109,6 +109,22 @@ const getSite = async (req, res) => {
   }
 
   try {
+    const user = await User.findOne({ clerkId: userId });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const membership = await SiteMember.findOne({
+      userId: user._id,
+      siteId,
+      active: true,
+    });
+
+    if (!membership) {
+      return res.status(401).json({ message: errorMessages.notAuthorized });
+    }
+
     const site = await Site.findById(siteId);
 
     res.status(200).json(site);
