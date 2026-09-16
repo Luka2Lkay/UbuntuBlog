@@ -2,6 +2,7 @@ const Site = require("../models/site_model");
 const { validationResult } = require("express-validator");
 const { getAuth } = require("@clerk/express");
 const { errorMessages } = require("@/helpers/message_helpers");
+const SiteMember = require("@/models/site_member_model");
 const User = require("@/models/user_model");
 
 const createSite = async (req, res) => {
@@ -54,6 +55,22 @@ const editSite = async (req, res) => {
   }
 
   try {
+    const user = await User.findOne({ clerkId: userId });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const membership = await SiteMember.findOne({
+      userId: user._id,
+      siteId,
+      active: true,
+    });
+
+    if (!membership) {
+      return res.status(401).json({ message: errorMessages.notAuthorized });
+    }
+
     const updateSite = await Site.findByIdAndUpdate(siteId, req.body, {
       returnDocument: "after",
     });
@@ -77,10 +94,18 @@ const getSites = async (req, res) => {
   try {
     const user = await User.findOne({ clerkId: userId });
 
-    const sites = (await Site.find()).filter(
-      (site) => site.userId === user.clerkId,
-    );
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
+    const memberships = await SiteMember.find({
+      userId: user._id,
+      active: true,
+    }).select("siteId");
+
+    const siteIds = memberships.map((membership) => membership.siteId);
+
+    const sites = await Site.find({ _id: { $in: siteIds } });
     res.status(200).json(sites);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -100,9 +125,25 @@ const getSite = async (req, res) => {
   }
 
   try {
+    const user = await User.findOne({ clerkId: userId });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const membership = await SiteMember.findOne({
+      userId: user._id,
+      siteId,
+      active: true,
+    });
+
+    if (!membership) {
+      return res.status(401).json({ message: errorMessages.notAuthorized });
+    }
+
     const site = await Site.findById(siteId);
 
-    res.status(200).json(site );
+    res.status(200).json(site);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -121,6 +162,22 @@ const deleteSite = async (req, res) => {
   }
 
   try {
+    const user = await User.findOne({ clerkId: userId });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const membership = await SiteMember.findOne({
+      userId: user._id,
+      siteId,
+      active: true,
+    });
+
+    if (!membership) {
+      return res.status(401).json({ message: errorMessages.notAuthorized });
+    }
+
     await Site.findByIdAndDelete(siteId);
 
     res.status(200).json({ message: "Site deleted successfully" });
