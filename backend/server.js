@@ -14,13 +14,11 @@ const { postRoutes } = require("@/routes/post_routes");
 const { uploadRoutes } = require("@/routes/upload_routes");
 const { clerkWebhook } = require("@/controllers/webhook_controller");
 
-const allowedOrigins = [process.env.LOCAL_URL, process.env.LIVE_URL].filter(
-  Boolean,
-);
+const ORIGIN = process.env.LIVE_URL;
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: ORIGIN,
     methods: ["GET", "PATCH", "POST", "DELETE"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
