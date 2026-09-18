@@ -31,7 +31,7 @@ function SiteDetails() {
 
     const loadSite = async () => {
       try {
-        const token = await getToken({ template: "backend" });
+        const token = await getToken();
         await dispatch(fetchSiteThunk({ siteId, token })).unwrap();
       } catch (error) {
         console.error("Error loading site details:", error);
