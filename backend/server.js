@@ -31,8 +31,6 @@ app.post(
   clerkWebhook,
 );
 
-console.log("publishable: ", process.env.CLERK_PUBLISHABLE_KEY);
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -72,15 +70,6 @@ app.get("/api/user", async (req, res) => {
       .status(500)
       .json({ message: "Failed to fetch user", error: error.message });
   }
-});
-
-app.get("/api/debug-auth", (req, res) => {
-  const auth = getAuth(req);
-  res.json({
-    hasAuthHeader: !!req.headers.authorization,
-    rawAuthHeader: req.headers.authorization,
-    authObject: auth,
-  });
 });
 
 app.get("/", (req, res) => {
