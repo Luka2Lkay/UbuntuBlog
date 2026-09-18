@@ -28,7 +28,7 @@ function Header({ onToggleSidebar }: HeaderProps) {
             setSelectedSite(sites[0]);
             const loadUserData = async () => {
                 try {
-                    const token = await getToken({ template: "backend" });
+                    const token = await getToken();
 
                     const response = await userInfoService(token)
                     setUsername(`${response.firstName} ${response.lastName}`);

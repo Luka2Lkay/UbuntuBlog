@@ -40,7 +40,7 @@ function EditPost() {
 
 
     try {
-      const token = await getToken({ template: "backend" })
+      const token = await getToken()
       await dispatch(updatePostThunk({ postData, token, postId }))
       navigate(`/posts/${postId}`)
     } catch (error) {

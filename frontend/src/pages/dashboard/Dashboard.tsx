@@ -27,7 +27,7 @@ function Dashboard() {
 
         const loadSites = async () => {
             try {
-                const token = await getToken({ template: "backend" });
+                const token = await getToken();
 
                 if (!token) return;
                 const response = await dispatch(fetchSitesThunk(token)).unwrap();

@@ -41,7 +41,7 @@ function EditSite() {
 
     try {
 
-      const token = await getToken({ template: "backend" });
+      const token = await getToken();
 
       await dispatch(updateSiteThunk({ siteData, siteId, token })).unwrap();
 

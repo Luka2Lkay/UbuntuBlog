@@ -22,7 +22,7 @@ function CreateSite() {
     const handleCreateSite = async (data: NewSite) => {
 
         try {
-            const token = await getToken({ template: "backend" });
+            const token = await getToken();
             const dispatchResult = await dispatch(createSiteThunk({ siteData: data, token })).unwrap();
             const createdSite = dispatchResult as Site;
 
