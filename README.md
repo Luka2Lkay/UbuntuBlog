@@ -76,8 +76,6 @@ Each client website fetches only its own content using the API.
 
 ```text
 ├──backend/
-|   ├──api/
-|   |   └──index.js
 |   ├──src/
 |   |   ├──config/
 |   |   |   ├──cloudinary_config.js
@@ -110,6 +108,7 @@ Each client website fetches only its own content using the API.
 |   ├──eslint.config.mjs
 |   ├──package-lock.json
 |   ├──package.json
+|   ├──server.js
 |   └──vercel.json
 ├──frontend/
 |   ├──public/
