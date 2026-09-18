@@ -1,5 +1,4 @@
 const User = require("@/models/user_model");
-const Post = require("@/models/post_model");
 const SiteMember = require("@/models/site_member_model");
 
 const getUserSiteMemberships = async (userId) => {
