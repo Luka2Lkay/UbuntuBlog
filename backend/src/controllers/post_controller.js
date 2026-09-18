@@ -1,6 +1,7 @@
 const Post = require("@/models/post_model");
 const User = require("@/models/user_model");
 const Site = require("@/models/site_model");
+const SiteMember = require("@/models/site_member_model");
 const { validationResult } = require("express-validator");
 const { getAuth } = require("@clerk/express");
 const slugify = require("slugify");
@@ -142,18 +143,40 @@ const getPosts = async (req, res) => {
   const { userId } = getAuth(req);
   const { site } = req.query;
 
-  if (!userId) {
-    return res.status(401).json({ message: errorMessages.notAuthorized });
-  }
-
   try {
+    if (!userId) {
+      if (!site) {
+        return res.status(400).json({ message: "Site slug is required" });
+      }
+
+      const siteDocument = await Site.findOne({ slug: site });
+
+      if (!siteDocument) {
+        return res.status(404).json({ message: "Site not found" });
+      }
+
+      const posts = await Post.find({
+        site: siteDocument._id,
+        published: true,
+      }).sort({ createdAt: -1 });
+
+      res.status(200).json(posts);
+    }
+
     const user = await User.findOne({ clerkId: userId });
 
     if (!user) {
       return res.status(404).json({ message: errorMessages.notFound("User") });
     }
 
-    const filter = { author: user.clerkId };
+    const memberships = await SiteMember.find({
+      userId: user._id,
+      active: true,
+    });
+
+    if (!memberships.length) {
+      return res.status(200).json([]);
+    }
 
     if (site) {
       const siteDocument = await Site.findOne({ slug: site });
@@ -162,12 +185,47 @@ const getPosts = async (req, res) => {
         return res.status(404).json({ message: "Site not found" });
       }
 
-      filter.site = siteDocument._id;
+      const membership = memberships.find(
+        (membership) =>
+          membership.siteId.toString() === siteDocument._id.toString(),
+      );
+
+      if (!membership) {
+        return res
+          .status(403)
+          .json({ message: "You don't have access to this site." });
+      }
+
+      if (membership.role === "admin") {
+        const posts = await Post.find({ site: siteDocument._id }).sort({
+          createdAt: -1,
+        });
+        res.status(200).json(posts);
+      }
+
+      const posts = await Post.find({
+        site: siteDocument._id,
+        author: user.clerkId,
+      });
+
+      res.status(200).json(posts);
     }
 
-    const posts = await Post.find(filter).sort({ createdAt: -1 });
+    const adminSiteIds = memberships
+      .filter((membership) => membership.role === "admin")
+      .map((membership) => membership.siteId);
+    const authorSiteIds = memberships
+      .filter((membership) => membership.role === "author")
+      .map((membership) => membership.siteId);
 
-    res.status(200).json(posts);
+    const posts = await Post.find({
+      $or: [
+        { site: { $in: adminSiteIds } },
+        { site: { $in: authorSiteIds }, author: user.clerkId },
+      ],
+    }).sort({ createdAt: -1 });
+
+    return res.status(200).json(posts);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
