@@ -1,7 +1,10 @@
 const Post = require("@/models/post_model");
 const User = require("@/models/user_model");
 const Site = require("@/models/site_model");
-const SiteMember = require("@/models/site_member_model");
+const {
+  getUserSiteMemberships,
+  buildPostFilter,
+} = require("@/helpers/helper_functions");
 const { validationResult } = require("express-validator");
 const { getAuth } = require("@clerk/express");
 const slugify = require("slugify");
@@ -160,19 +163,10 @@ const getPosts = async (req, res) => {
         published: true,
       }).sort({ createdAt: -1 });
 
-      res.status(200).json(posts);
+      return res.status(200).json(posts);
     }
 
-    const user = await User.findOne({ clerkId: userId });
-
-    if (!user) {
-      return res.status(404).json({ message: errorMessages.notFound("User") });
-    }
-
-    const memberships = await SiteMember.find({
-      userId: user._id,
-      active: true,
-    });
+    const { user, memberships } = await getUserSiteMemberships(userId);
 
     if (!memberships.length) {
       return res.status(200).json([]);
@@ -185,30 +179,15 @@ const getPosts = async (req, res) => {
         return res.status(404).json({ message: "Site not found" });
       }
 
-      const membership = memberships.find(
-        (membership) =>
-          membership.siteId.toString() === siteDocument._id.toString(),
-      );
-
-      if (!membership) {
-        return res
-          .status(403)
-          .json({ message: "You don't have access to this site." });
-      }
-
-      if (membership.role === "admin") {
-        const posts = await Post.find({ site: siteDocument._id }).sort({
-          createdAt: -1,
-        });
-        res.status(200).json(posts);
-      }
-
-      const posts = await Post.find({
-        site: siteDocument._id,
-        author: user.clerkId,
+      const filter = buildPostFilter({
+        user,
+        memberships,
+        siteId: siteDocument._id,
       });
 
-      res.status(200).json(posts);
+      const posts = await Post.find(filter).sort({ createdAt: -1 });
+
+      return res.status(200).json(posts);
     }
 
     const adminSiteIds = memberships
@@ -227,7 +206,7 @@ const getPosts = async (req, res) => {
 
     return res.status(200).json(posts);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
