@@ -49,7 +49,7 @@ function SiteDetails() {
 
   const handleDeleteSite = async () => {
     try {
-      const token = await getToken({ template: "backend" });
+      const token = await getToken();
       await dispatch(deleteSiteThunk({ siteId, token })).unwrap();
       setSelectedSite(null)
       navigate("/dashboard")
