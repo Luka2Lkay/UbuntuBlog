@@ -31,12 +31,12 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
     const sites = useAppSelector(selectSites);
 
     useEffect(() => {
-      
+
         if (!isLoaded || !isSignedIn || !userId || sites.length > 0) return;
 
         const fetchSites = async () => {
             try {
-                const token = await getToken({ template: "backend" });
+                const token = await getToken();
 
                 if (!token) return;
                 await dispatch(fetchSitesThunk(token)).unwrap();

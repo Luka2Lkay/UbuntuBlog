@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const Site = require("@/models/site_model");
 const User = require("@/models/user_model");
 const SiteMember = require("@/models/site_member_model");
-const { db } = require("../config/db_config");
+const { db } = require("/config/db_config");
 
 async function migrateSiteMemberships() {
   try {

@@ -108,8 +108,7 @@ Each client website fetches only its own content using the API.
 |   ├──eslint.config.mjs
 |   ├──package-lock.json
 |   ├──package.json
-|   ├──server.js
-|   └──vercel.json
+|   └──server.js
 ├──frontend/
 |   ├──public/
 |   |   └──UbuntuBlog.png
