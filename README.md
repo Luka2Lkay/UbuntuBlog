@@ -87,6 +87,7 @@ Each client website fetches only its own content using the API.
 |   |   |   └──webhook_controller.js
 |   |   ├──helpers/
 |   |   |   ├──cloudinary.js
+|   |   |   ├──helper_functions.js
 |   |   |   ├──message_helpers.js
 |   |   |   └──multer.js
 |   |   ├──middleware/
