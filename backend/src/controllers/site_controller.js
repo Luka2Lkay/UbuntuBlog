@@ -87,9 +87,9 @@ const editSite = async (req, res) => {
 const getSites = async (req, res) => {
   const { userId } = getAuth(req);
 
-  if (!userId) {
-    return res.status(401).json({ message: errorMessages.notAuthorized });
-  }
+  // if (!userId) {
+  //   return res.status(401).json({ message: errorMessages.notAuthorized });
+  // }
 
   try {
     const user = await User.findOne({ clerkId: userId });
