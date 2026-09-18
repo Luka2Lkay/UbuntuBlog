@@ -85,28 +85,14 @@ const editSite = async (req, res) => {
 };
 
 const getSites = async (req, res) => {
-  // const { userId } = getAuth(req);
+  const { userId } = getAuth(req);
 
-  const auth = getAuth(req);
-
-  console.log("AUTH DEBUG - GET /api/sites");
-  console.log("Authorization exists:", !!req.headers.authorization);
-  console.log("User ID:", auth.userId);
-  console.log("Session ID:", auth.sessionId);
-  console.log("Authenticated:", auth.isAuthenticated);
-
-  if (!auth.userId) {
-    return res.status(401).json({
-      message: errorMessages.notAuthorized,
-    });
+  if (!userId) {
+    return res.status(401).json({ message: errorMessages.notAuthorized });
   }
 
-  // if (!userId) {
-  //   return res.status(401).json({ message: errorMessages.notAuthorized });
-  // }
-
   try {
-    const user = await User.findOne({ clerkId: auth.userId });
+    const user = await User.findOne({ clerkId: userId });
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
