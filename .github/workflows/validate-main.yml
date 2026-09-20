@@ -19,4 +19,4 @@ jobs:
             exit 1
           fi
 
-          echo ":white_check_mark: Valid PR from develop"
+          echo ":white_check_mark: Valid PR from develop or dependabot"
