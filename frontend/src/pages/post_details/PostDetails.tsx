@@ -45,7 +45,7 @@ function PostDetails() {
     const handleDelete = async () => {
 
         try {
-            const token = await getToken({ template: "backend" })
+            const token = await getToken()
             await dispatch(deletePostThunk({ postId, token })).unwrap()
 
             navigate("/posts")
