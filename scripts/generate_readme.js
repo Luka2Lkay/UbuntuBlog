@@ -1,5 +1,3 @@
-import { execSync } from "child_process";
-import console from "console";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -91,15 +89,6 @@ const generateTree = (directory, prefix = "") => {
 };
 
 const version = frontend.version || backend.version || "0.0.0";
-
-const frontendDependencies = {
-  ...frontend.dependencies,
-  ...frontend.devDependencies,
-};
-const backendDependencies = {
-  ...backend.dependencies,
-  ...backend.devDependencies,
-};
 
 const tree = generateTree(ROOT_DIR);
 
