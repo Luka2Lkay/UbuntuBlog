@@ -40,7 +40,8 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
         const { name, value } = e.target;
 
         if (name === "domain") {
-            if (value && !/^w{3}?\.+/i.test(value)) {
+            if (value && !/^(www\.|https:\/\/)/i.test(value)
+            ) {
                 dispatch(setError("Domain must start with www."))
             } else {
                 dispatch(setError(null));
@@ -55,7 +56,7 @@ function SiteForm({ initialData, onSubmit, loading = false }: Props) {
 
 
     }
-  
+
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         const payload = { ...formData, slug }
