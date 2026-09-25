@@ -4,6 +4,7 @@ import {
   fetchPostsThunk,
   fetchPostThunk,
   updatePostThunk,
+  createPostThunk,
 } from "@/state/redux/thunks/post_thunk";
 
 interface PostState {
@@ -120,6 +121,19 @@ const postSlice = createSlice({
       .addCase(updatePostThunk.pending, (state) => {
         state.error = null;
         state.loading = true;
+      })
+      .addCase(createPostThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.posts.unshift(action.payload);
+      })
+      .addCase(createPostThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createPostThunk.rejected, (state, action) => {
+        state.error = action.payload as string;
+        state.loading = false;
       });
   },
 });
