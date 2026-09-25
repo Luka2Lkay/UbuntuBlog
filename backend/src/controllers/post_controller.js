@@ -122,12 +122,7 @@ const createPost = async (req, res) => {
 };
 
 const getPost = async (req, res) => {
-  const { userId } = getAuth(req);
   const { postId } = req.params;
-
-  if (!userId) {
-    return res.status(401).json({ message: errorMessages.notAuthorized });
-  }
 
   if (!postId) {
     return res.status(404).json({ message: errorMessages.missingId("Post") });
