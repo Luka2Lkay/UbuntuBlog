@@ -18,7 +18,6 @@ export const fetchWithAuth = async (
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-    withCredentials: true,
   });
   return response;
 };
