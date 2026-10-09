@@ -58,9 +58,7 @@ function Posts() {
         {posts.length > 0 && posts.map((post) => (
           <PostCard key={post._id} post={post} />
         ))}
-
       </div>
-
     </>
   )
 }

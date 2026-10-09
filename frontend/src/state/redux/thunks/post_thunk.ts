@@ -10,7 +10,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   setCurrentPost,
   deletePost,
-  addPost,
 } from "@/state/redux/reducers/post_slice";
 import { errorMessages } from "@/helpers/messages_helper";
 import axios from "axios";
@@ -90,7 +89,7 @@ export const createPostThunk = createAsyncThunk<
   { rejectValue: string }
 >(
   "posts/postSite",
-  async ({ data, token, slug }, { dispatch, rejectWithValue }) => {
+  async ({ data, token, slug }, { rejectWithValue }) => {
     try {
       const response = await createWithAuth(
         `${BASE_URL}/api/posts`,
@@ -99,7 +98,6 @@ export const createPostThunk = createAsyncThunk<
         slug,
       );
 
-      dispatch(addPost(response.data));
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
