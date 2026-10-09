@@ -69,7 +69,7 @@ function Header({ onToggleSidebar }: HeaderProps) {
                     Posts
                 </Link>
 
-                <Link to="/create-post" className="bg-black text-white px-2 py-1 md:px-4 md:py-2 rounded-md text-xs md:text-sm hover:bg-gray-800 transition">
+                <Link to={`/posts/create/${selectedSite?.slug}`} className="bg-black text-white px-2 py-1 md:px-4 md:py-2 rounded-md text-xs md:text-sm hover:bg-gray-800 transition">
                     <span className="text-lg">+</span> Post
                 </Link>
 
