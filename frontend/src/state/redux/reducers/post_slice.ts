@@ -45,17 +45,6 @@ const postSlice = createSlice({
     setCurrentPost(state, action) {
       state.currentPost = action.payload;
     },
-    addPost(state, action) {
-      const newPost = action.payload ?? null;
-
-      const index = state.posts.findIndex((post) => post._id === newPost._id);
-
-      if (index === -1) {
-        state.posts.unshift(newPost);
-      } else {
-        state.posts[index] = newPost;
-      }
-    },
     clearPosts(state) {
       state.posts = [];
     },
@@ -147,7 +136,6 @@ export const selectError = (state: { post: PostState }) => state.post.error;
 
 export const {
   setCurrentPost,
-  addPost,
   deletePost,
   setError,
   setLoading,
