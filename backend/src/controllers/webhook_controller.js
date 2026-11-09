@@ -1,12 +1,13 @@
 require("dotenv").config();
 const { Webhook } = require("svix");
-const User = require("@/models/user_model");
+// const User = require("@/models/user_model");
+const User = require("../models/user_model");
 
 const webhookSecret = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
 
 const clerkWebhook = async (req, res) => {
   try {
-    const payload = req.body.toString()
+    const payload = req.body.toString();
 
     const headers = {
       "svix-id": req.headers["svix-id"],
@@ -22,12 +23,13 @@ const clerkWebhook = async (req, res) => {
     const data = event.data;
 
     const generateName = () => {
-      const fullName = `${data.first_name || ""} ${data.last_name || ""}`.trim();
+      const fullName =
+        `${data.first_name || ""} ${data.last_name || ""}`.trim();
       if (fullName) return fullName;
-      
+
       const email = data.email_addresses?.[0]?.email_address;
       if (email) return email;
-      
+
       return data.id;
     };
 
@@ -36,7 +38,9 @@ const clerkWebhook = async (req, res) => {
 
     switch (eventType) {
       case "user.created":
-        console.log(`[WEBHOOK] Creating user: ${data.id}, name: ${name}, email: ${email}`);
+        console.log(
+          `[WEBHOOK] Creating user: ${data.id}, name: ${name}, email: ${email}`,
+        );
         await User.create({
           clerkId: data.id,
           email: email,
@@ -64,7 +68,9 @@ const clerkWebhook = async (req, res) => {
   } catch (error) {
     console.error("[WEBHOOK] ERROR:", error.message);
     console.error("[WEBHOOK] Full error:", error);
-    return res.status(500).json({ message: "Webhook error", error: error.message });
+    return res
+      .status(500)
+      .json({ message: "Webhook error", error: error.message });
   }
 };
 

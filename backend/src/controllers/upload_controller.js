@@ -1,6 +1,9 @@
 const { getAuth } = require("@clerk/express");
-const { errorMessages } = require("@/helpers/message_helpers");
-const { uploadToCloudinary } = require("@/helpers/cloudinary");
+// const { errorMessages } = require("@/helpers/message_helpers");
+// const { uploadToCloudinary } = require("@/helpers/cloudinary");
+
+const { errorMessages } = require("../helpers/message_helpers");
+const { uploadToCloudinary } = require("../helpers/cloudinary");
 
 const uploadImage = async (req, res) => {
   const { userId } = getAuth(req);

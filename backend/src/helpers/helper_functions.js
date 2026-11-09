@@ -1,5 +1,7 @@
-const User = require("@/models/user_model");
-const SiteMember = require("@/models/site_member_model");
+// const User = require("@/models/user_model");
+// const SiteMember = require("@/models/site_member_model");
+const User = require("../models/user_model");
+const SiteMember = require("../models/site_member_model");
 
 const getUserSiteMemberships = async (userId) => {
   const user = await User.findOne({ clerkId: userId });
