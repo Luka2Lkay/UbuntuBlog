@@ -17,7 +17,8 @@
   "overrides": {
     "mongoose-unique-validator": {
       "mongoose": "$mongoose"
-    }
+    },
+  "jsdom": "26.1.0"
   },
   "dependencies": {
     "@clerk/express": "^2.1.7",
