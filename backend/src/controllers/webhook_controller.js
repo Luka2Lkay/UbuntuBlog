@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { Webhook } = require("svix");
+// const { Webhook } = require("svix");
 // const User = require("@/models/user_model");
 const User = require("../models/user_model");
 
@@ -7,6 +7,7 @@ const webhookSecret = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
 
 const clerkWebhook = async (req, res) => {
   try {
+    const { Webhook } = await import("svix");
     const payload = req.body.toString();
 
     const headers = {
