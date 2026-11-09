@@ -7,9 +7,16 @@ const express = require("express");
 //   getSite,
 // } = require("@/controllers/site_controller");
 
-const { createSite, getSites, deleteSite, editSite, getSite } = require("../controllers/site_controller");
+const {
+  createSite,
+  getSites,
+  deleteSite,
+  editSite,
+  getSite,
+} = require("../controllers/site_controller");
 
-const { validateSiteCreation } = require("@/middleware/validation");
+// const { validateSiteCreation } = require("@/middleware/validation");
+const { validateSiteCreation } = require("../middleware/validation");
 
 const siteRoutes = (app) => {
   const router = express.Router();
