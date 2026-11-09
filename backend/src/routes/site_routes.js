@@ -1,11 +1,13 @@
 const express = require("express");
-const {
-  createSite,
-  getSites,
-  deleteSite,
-  editSite,
-  getSite,
-} = require("@/controllers/site_controller");
+// const {
+//   createSite,
+//   getSites,
+//   deleteSite,
+//   editSite,
+//   getSite,
+// } = require("@/controllers/site_controller");
+
+const { createSite, getSites, deleteSite, editSite, getSite } = require("../controllers/site_controller");
 
 const { validateSiteCreation } = require("@/middleware/validation");
 
