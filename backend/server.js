@@ -8,7 +8,7 @@ const cors = require("cors");
 const app = express();
 const port = 3000;
 // const { db } = require("@/config/db_config");
-const {db} = require("./src/config/db_config");
+const { db } = require("./src/config/db_config");
 
 // const { siteRoutes } = require("@/routes/site_routes");
 const { siteRoutes } = require("./src/routes/site_routes");
