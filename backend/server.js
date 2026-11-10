@@ -36,14 +36,26 @@ app.use(
   }),
 );
 
-mongoose
-  .connect(db.connectionString)
-  .then(() => {
+// mongoose
+//   .connect(db.connectionString)
+//   .then(() => {
+//     console.log("Connected to MongoDB");
+//   })
+//   .catch((err) => {
+//     console.error("Failed to connect to MongoDB", err);
+//   });
+
+const connectDB = async () => {
+  try {
+    await mongoose.connect(db.connectionString);
     console.log("Connected to MongoDB");
-  })
-  .catch((err) => {
-    console.error("Failed to connect to MongoDB", err);
-  });
+  } catch (error) {
+    console.error("Failed to connect to MongoDB:", error);
+    throw error;
+  }
+};
+
+connectDB();
 
 // process.on("SIGINT", async () => {
 //   await mongoose.disconnect();
