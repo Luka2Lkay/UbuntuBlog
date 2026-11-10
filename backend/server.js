@@ -45,11 +45,11 @@ mongoose
     console.error("Failed to connect to MongoDB", err);
   });
 
-process.on("SIGINT", async () => {
-  await mongoose.disconnect();
-  console.log("MongoDB connection closed due to app termination");
-  process.exit(0);
-});
+// process.on("SIGINT", async () => {
+//   await mongoose.disconnect();
+//   console.log("MongoDB connection closed due to app termination");
+//   process.exit(0);
+// });
 
 app.get("/api/user", async (req, res) => {
   const { userId } = getAuth(req);
