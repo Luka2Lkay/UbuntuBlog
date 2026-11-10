@@ -7,16 +7,11 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const port = 3000;
-// const { db } = require("@/config/db_config");
 const { db } = require("./src/config/db_config");
 
-// const { siteRoutes } = require("@/routes/site_routes");
 const { siteRoutes } = require("./src/routes/site_routes");
-// const { postRoutes } = require("@/routes/post_routes");
 const { postRoutes } = require("./src/routes/post_routes");
-// const { uploadRoutes } = require("@/routes/upload_routes");
 const { uploadRoutes } = require("./src/routes/upload_routes");
-// const { clerkWebhook } = require("@/controllers/webhook_controller");
 const { clerkWebhook } = require("./src/controllers/webhook_controller");
 
 app.use(cors());
@@ -36,15 +31,6 @@ app.use(
   }),
 );
 
-// mongoose
-//   .connect(db.connectionString)
-//   .then(() => {
-//     console.log("Connected to MongoDB");
-//   })
-//   .catch((err) => {
-//     console.error("Failed to connect to MongoDB", err);
-//   });
-
 const connectDB = async () => {
   try {
     await mongoose.connect(db.connectionString);
@@ -56,12 +42,6 @@ const connectDB = async () => {
 };
 
 connectDB();
-
-// process.on("SIGINT", async () => {
-//   await mongoose.disconnect();
-//   console.log("MongoDB connection closed due to app termination");
-//   process.exit(0);
-// });
 
 app.get("/api/user", async (req, res) => {
   const { userId } = getAuth(req);
