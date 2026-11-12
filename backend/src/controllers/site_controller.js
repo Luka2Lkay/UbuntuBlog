@@ -1,11 +1,8 @@
 const Site = require("../models/site_model");
 const { validationResult } = require("express-validator");
 const { getAuth } = require("@clerk/express");
-// const { errorMessages } = require("@/helpers/message_helpers");
 const {errorMessages} = require("../helpers/message_helpers");
-// const SiteMember = require("@/models/site_member_model");
 const SiteMember = require("../models/site_member_model");
-// const User = require("@/models/user_model");
 const User = require("../models/user_model");
 
 const createSite = async (req, res) => {
