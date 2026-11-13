@@ -1,6 +1,4 @@
 const { getAuth } = require("@clerk/express");
-const { errorMessages } = require("@/helpers/message_helpers");
-const { uploadToCloudinary } = require("@/helpers/cloudinary");
 
 const { errorMessages } = require("../helpers/message_helpers");
 const { uploadToCloudinary } = require("../helpers/cloudinary");
