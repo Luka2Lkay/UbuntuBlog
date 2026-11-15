@@ -1,11 +1,4 @@
 const express = require("express");
-// const {
-//   createPost,
-//   getPosts,
-//   getPost,
-//   editPost,
-//   deletePost,
-// } = require("@/controllers/post_controller");
 const {
   createPost,
   getPosts,
