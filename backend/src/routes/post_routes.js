@@ -6,11 +6,8 @@ const {
   editPost,
   deletePost,
 } = require("../controllers/post_controller");
-// const { validatePostCreation } = require("@/middleware/validation");
-// const { uploadSingleImage } = require("@/helpers/multer");
 const { validatePostCreation } = require("../middleware/validation");
 const { uploadSingleImage } = require("../helpers/multer");
-// const { parsePostFormData } = require("@/middleware/parse_post_formdata");
 const { parsePostFormData } = require("../middleware/parse_post_formdata");
 const postRoutes = (app) => {
   const router = express.Router();
