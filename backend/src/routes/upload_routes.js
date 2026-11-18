@@ -1,6 +1,4 @@
 const express = require("express");
-// const { uploadImage } = require("@/controllers/upload_controller");
-// const { uploadSingleImage } = require("@/helpers/multer");
 const { uploadImage } = require("../controllers/upload_controller");
 const { uploadSingleImage } = require("../helpers/multer");
 
