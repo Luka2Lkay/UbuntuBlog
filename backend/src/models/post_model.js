@@ -46,7 +46,7 @@ const postSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-postSchema.plugin(uniqueValidator);
+postSchema.plugin(uniqueValidator.default);
 
 postSchema.index({ slug: 1, site: 1 }, { unique: true });
 postSchema.index({

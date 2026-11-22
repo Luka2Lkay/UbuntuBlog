@@ -33,6 +33,6 @@ const siteSchema = new mongoose.Schema(
 siteSchema.index({ userId: 1, name: 1 }, { unique: true });
 siteSchema.index({ userId: 1, domain: 1 }, { unique: true });
 
-siteSchema.plugin(uniqueValidator);
+siteSchema.plugin(uniqueValidator.default);
 
 module.exports = mongoose.model("Site", siteSchema);
