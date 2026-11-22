@@ -15,9 +15,6 @@
     "lint": "eslint"
   },
   "overrides": {
-    "mongoose-unique-validator": {
-      "mongoose": "$mongoose"
-    },
     "jsdom": "26.1.0"
   },
   "dependencies": {
@@ -31,7 +28,6 @@
     "isomorphic-dompurify": "^4.1.0",
     "module-alias": "^2.3.4",
     "mongoose": "^9.6.2",
-    "mongoose-unique-validator": "^6.1.1",
     "multer": "^2.2.0",
     "nodemon": "^3.1.14",
     "slugify": "^1.6.9",

@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const uniqueValidator = require("mongoose-unique-validator");
 
 const siteSchema = new mongoose.Schema(
   {
@@ -23,6 +22,7 @@ const siteSchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
       required: true,
+      unique: true,
     },
     niche: { type: String, trim: true, maxLength: 100, default: "" },
     userId: { type: String, required: true, index: true },
@@ -32,7 +32,5 @@ const siteSchema = new mongoose.Schema(
 
 siteSchema.index({ userId: 1, name: 1 }, { unique: true });
 siteSchema.index({ userId: 1, domain: 1 }, { unique: true });
-
-siteSchema.plugin(uniqueValidator.default);
 
 module.exports = mongoose.model("Site", siteSchema);

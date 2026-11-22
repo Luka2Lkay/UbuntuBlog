@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const uniqueValidator = require("mongoose-unique-validator");
 
 const postSchema = new mongoose.Schema(
   {
@@ -45,8 +44,6 @@ const postSchema = new mongoose.Schema(
   },
   { timestamps: true },
 );
-
-postSchema.plugin(uniqueValidator.default);
 
 postSchema.index({ slug: 1, site: 1 }, { unique: true });
 postSchema.index({
